@@ -30,7 +30,7 @@ except ImportError:
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 DISPATCH_TOKEN = os.environ.get("DISPATCH_TOKEN", "")
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 SYMBOLS = {
     "gold": "GC=F",
