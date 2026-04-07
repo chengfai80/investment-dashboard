@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investment Intelligence Dashboard — 6 April 2026</title>
+<title>Investment Intelligence Dashboard &mdash; 7 April 2026</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -44,99 +44,32 @@ body{background:#050a14;overflow-x:hidden}
 .stat-value{font-family:'Space Grotesk',sans-serif;font-variant-numeric:tabular-nums}
 .chart-container{width:100%;height:400px;border-radius:12px;overflow:hidden}
 @media(max-width:768px){.chart-container{height:300px}.rec-table{font-size:.75rem}.rec-table th,.rec-table td{padding:8px 10px}}
-
-/* ── Refresh Button ── */
-.refresh-btn{position:fixed;top:16px;right:16px;z-index:9998;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.08));border:1px solid rgba(245,158,11,.25);color:#fbbf24;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(10px)}
-.refresh-btn:hover{background:linear-gradient(135deg,rgba(245,158,11,.25),rgba(245,158,11,.15));box-shadow:0 0 20px rgba(245,158,11,.15);transform:scale(1.05)}
-.refresh-btn svg{width:20px;height:20px;transition:transform .3s}
-.refresh-btn.spinning svg{animation:spin-refresh 1s linear infinite}
-@keyframes spin-refresh{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-
-/* ── Refresh Modal ── */
-.refresh-modal-overlay{position:fixed;inset:0;z-index:10001;background:rgba(5,10,20,.8);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
-.refresh-modal-overlay.active{opacity:1;pointer-events:auto}
-.refresh-modal{background:linear-gradient(135deg,rgba(30,41,59,.95),rgba(15,23,42,.98));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:2rem;max-width:420px;width:90%;transform:translateY(20px) scale(.95);transition:transform .3s;box-shadow:0 0 60px rgba(245,158,11,.08)}
-.refresh-modal-overlay.active .refresh-modal{transform:translateY(0) scale(1)}
-
-/* ── Chat Widget ── */
-.chat-fab{position:fixed;bottom:24px;right:24px;z-index:9998;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:#050a14;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,158,11,.3);transition:all .3s}
-.chat-fab:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(245,158,11,.4)}
-.chat-fab svg{width:26px;height:26px}
-.chat-panel{position:fixed;bottom:24px;right:24px;z-index:9998;width:400px;height:500px;border-radius:16px;background:linear-gradient(180deg,#0a1128 0%,#050a14 100%);border:1px solid rgba(245,158,11,.2);box-shadow:0 8px 60px rgba(0,0,0,.5),0 0 40px rgba(245,158,11,.06);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(20px) scale(.95);transition:all .3s}
-.chat-panel.open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
-.chat-header{padding:14px 16px;border-bottom:1px solid rgba(245,158,11,.12);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:rgba(245,158,11,.2) transparent}
-.chat-messages::-webkit-scrollbar{width:4px}
-.chat-messages::-webkit-scrollbar-thumb{background:rgba(245,158,11,.2);border-radius:4px}
-.chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:.8rem;line-height:1.5;animation:msg-in .3s ease-out}
-.chat-msg.bot{align-self:flex-start;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.12);color:#e2e8f0;border-bottom-left-radius:4px}
-.chat-msg.user{align-self:flex-end;background:linear-gradient(135deg,#f59e0b,#d97706);color:#050a14;font-weight:500;border-bottom-right-radius:4px}
-@keyframes msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px;border-top:1px solid rgba(245,158,11,.08);flex-shrink:0}
-.chat-quick-btn{padding:5px 12px;border-radius:20px;border:1px solid rgba(245,158,11,.2);background:rgba(245,158,11,.06);color:#fbbf24;font-size:.7rem;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
-.chat-quick-btn:hover{background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.4)}
-.chat-input-area{display:flex;gap:8px;padding:10px 16px;border-top:1px solid rgba(245,158,11,.12);flex-shrink:0}
-.chat-input{flex:1;background:rgba(30,41,59,.6);border:1px solid rgba(245,158,11,.15);border-radius:10px;padding:8px 12px;color:#e2e8f0;font-size:.8rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
-.chat-input:focus{border-color:rgba(245,158,11,.4)}
-.chat-input::placeholder{color:rgba(148,163,184,.4)}
-.chat-send{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:#050a14;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
-.chat-send:hover{transform:scale(1.05)}
-.chat-footer-note{padding:6px 16px 10px;text-align:center;font-size:.6rem;color:rgba(148,163,184,.4);font-family:'Inter',sans-serif;flex-shrink:0}
-@media(max-width:480px){
-  .chat-panel{bottom:0;right:0;width:100%;height:100%;border-radius:0}
-  .chat-fab{bottom:16px;right:16px}
-  .refresh-btn{top:12px;right:12px;width:38px;height:38px}
-}
+.refresh-btn{position:fixed;bottom:24px;right:24px;z-index:9998;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:50%;width:48px;height:48px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,158,11,.3);transition:transform .2s}
+.refresh-btn:hover{transform:scale(1.1)}
+.chat-widget{position:fixed;bottom:24px;left:24px;z-index:9998}
+.chat-btn{background:linear-gradient(135deg,rgba(30,41,59,.9),rgba(15,23,42,.95));border:1px solid rgba(245,158,11,.2);color:#fbbf24;border-radius:50%;width:48px;height:48px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.chat-btn:hover{transform:scale(1.1)}
 </style>
 </head>
 <body class="bg-vault-900 text-gray-200 font-body">
 <div class="noise"></div>
 <div class="progress-bar" id="progressBar"></div>
 
-<!-- ═══════════════ REFRESH BUTTON ═══════════════ -->
-<button class="refresh-btn" id="refreshBtn" title="Refresh dashboard data">
-  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-</button>
-<div class="refresh-modal-overlay" id="refreshModal">
-  <div class="refresh-modal">
-    <div class="text-center">
-      <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gold-500/10 border border-gold-500/20 mb-4">
-        <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-      </div>
-      <h3 class="font-display text-lg font-bold text-white mb-2">How to Refresh Data</h3>
-      <p class="text-sm text-gray-400 leading-relaxed mb-4">This dashboard is automatically updated every Monday at 8:00 AM MYT via GitHub Actions. You can also trigger an update manually anytime.</p>
-      <div class="inline-block px-4 py-2 rounded-lg bg-gold-500/8 border border-gold-500/15 mb-4">
-        <p class="text-xs text-gold-400 font-mono">No tokens required — fully server-side</p>
-      </div>
-      <div class="mb-4">
-        <p class="text-[10px] text-gray-500 font-mono uppercase tracking-wider mb-1">Last Updated</p>
-        <p class="text-sm text-gold-300 font-mono" id="lastUpdatedTime">6 April 2026</p>
-      </div>
-      <div class="text-left bg-white/[.03] rounded-lg p-3 mb-5 border border-white/5">
-        <p class="text-[10px] text-gray-400 leading-relaxed mb-1"><span class="text-gold-400 font-semibold">Auto-refresh:</span> Every Monday at 8:00 AM MYT via GitHub Actions.</p>
-        <p class="text-[10px] text-gray-400 leading-relaxed"><span class="text-gold-400 font-semibold">Manual refresh:</span> Go to your repo → Actions tab → "Refresh Investment Dashboard" → Run workflow.</p>
-      </div>
-      <button class="px-6 py-2 rounded-lg bg-gold-500/15 border border-gold-500/25 text-gold-300 text-sm font-medium cursor-pointer transition-all hover:bg-gold-500/25" id="refreshModalClose">Got it</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- HERO -->
 <header class="relative min-h-[60vh] flex flex-col justify-center overflow-hidden">
   <div class="hero-mesh"></div>
   <div class="ticker-strip py-2 relative z-10">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 text-xs font-mono tracking-wide">
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE 6 APR 2026</span>
-      <span>Gold <span class="text-gold-400 font-semibold">$4,644.30</span>/oz</span>
-      <span>Bitcoin <span class="text-btc font-semibold">$69,189</span></span>
-      <span>WTI Oil <span class="text-bear font-semibold">$110+</span>/bbl</span>
-      <span>FBM KLCI <span class="text-gold-300 font-semibold">1,680–1,740</span></span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE 7 APR 2026</span>
+      <span>Gold <span class="text-gold-400 font-semibold">$4,667.20</span>/oz</span>
+      <span>Bitcoin <span class="text-btc font-semibold">$67,895</span></span>
+      <span>FBM KLCI <span class="text-gold-300 font-semibold">1,680&ndash;1,740</span></span>
     </div>
   </div>
   <div class="relative z-10 max-w-7xl mx-auto px-4 py-16 text-center">
     <p class="text-gold-500 font-mono text-sm tracking-[.2em] mb-4 uppercase">Weekly Market Brief</p>
     <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6">Investment Intelligence<br><span class="text-gold-400">Dashboard</span></h1>
-    <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Comprehensive analysis of local & international markets, stock recommendations, and commodity outlook — powered by real-time data.</p>
+    <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Comprehensive analysis of local &amp; international markets, stock recommendations, and commodity outlook &mdash; powered by real-time data.</p>
     <div class="mt-8 flex flex-wrap justify-center gap-3 text-xs font-mono">
       <span class="px-3 py-1.5 rounded-full border border-gold-500/20 text-gold-300">Bursa Malaysia</span>
       <span class="px-3 py-1.5 rounded-full border border-gold-500/20 text-gold-300">Wall Street</span>
@@ -146,26 +79,26 @@ body{background:#050a14;overflow-x:hidden}
   </div>
 </header>
 
-<!-- ═══════════════ STAT CARDS ═══════════════ -->
+<!-- STAT CARDS -->
 <section class="max-w-7xl mx-auto px-4 py-12">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="statCards">
     <div class="card p-5 glow-gold anim-card">
       <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">Gold (XAU/USD)</p>
-      <p class="stat-value text-3xl font-bold text-gold-300" data-target="4644">$0</p>
+      <p class="stat-value text-3xl font-bold text-gold-300" data-target="4667">$0</p>
       <p class="text-xs text-bear mt-2 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg> -15% from Jan high $5,500</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-btc font-mono uppercase tracking-wider mb-1">Bitcoin (BTC/USD)</p>
-      <p class="stat-value text-3xl font-bold text-btc" data-target="69189">$0</p>
+      <p class="stat-value text-3xl font-bold text-btc" data-target="67895">$0</p>
       <p class="text-xs text-bull mt-2 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg> Recovering from $60K Feb low</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">FBM KLCI</p>
       <p class="stat-value text-3xl font-bold text-white">1,710</p>
-      <p class="text-xs text-gold-300 mt-2">Range 1,680–1,740 | Cautious</p>
+      <p class="text-xs text-gold-300 mt-2">Range 1,680&ndash;1,740 | Cautious</p>
     </div>
     <div class="card p-5 anim-card">
-      <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">S&P 500</p>
+      <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">S&amp;P 500</p>
       <p class="stat-value text-3xl font-bold text-bull">+0.6%</p>
       <p class="text-xs text-gray-400 mt-2">Weekly gain amid ME tensions</p>
     </div>
@@ -174,7 +107,7 @@ body{background:#050a14;overflow-x:hidden}
 
 <div class="section-divider max-w-7xl mx-auto"></div>
 
-<!-- ═══════════════ LOCAL NEWS ═══════════════ -->
+<!-- LOCAL NEWS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-8">
     <span class="text-2xl">&#127470;&#127486;</span>
@@ -186,14 +119,14 @@ body{background:#050a14;overflow-x:hidden}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <div class="card-news anim-card">
       <span class="badge badge-bear mb-3">Cautious</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Bursa Malaysia to remain cautious this week, confined within 1,680–1,740 range due to Mideast conflict</h3>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Bursa Malaysia to remain cautious this week, confined within 1,680&ndash;1,740 range due to Mideast conflict</h3>
       <p class="text-xs text-gray-400">Trading expected to be range-bound as geopolitical uncertainty from the Middle East conflict continues to weigh on sentiment.</p>
       <p class="text-[10px] text-gold-600 mt-3 font-mono">The Star &middot; 5 Apr 2026</p>
     </div>
     <div class="card-news anim-card">
       <span class="badge badge-neutral mb-3">Mixed</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Bursa ends week mixed on global energy jitters — FBM KLCI in narrow range</h3>
-      <p class="text-xs text-gray-400">The benchmark index traded in a tight range during the week of Mar 30–Apr 3 as oil price volatility affected regional markets.</p>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Bursa ends week mixed on global energy jitters &mdash; FBM KLCI in narrow range</h3>
+      <p class="text-xs text-gray-400">The benchmark index traded in a tight range during the week of Mar 30&ndash;Apr 3 as oil price volatility affected regional markets.</p>
       <p class="text-[10px] text-gold-600 mt-3 font-mono">Business Today &middot; 5 Apr 2026</p>
     </div>
     <div class="card-news anim-card">
@@ -219,7 +152,7 @@ body{background:#050a14;overflow-x:hidden}
 
 <div class="section-divider max-w-7xl mx-auto"></div>
 
-<!-- ═══════════════ INTERNATIONAL NEWS ═══════════════ -->
+<!-- INTERNATIONAL NEWS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-8">
     <span class="text-2xl">&#127758;</span>
@@ -232,7 +165,7 @@ body{background:#050a14;overflow-x:hidden}
     <div class="card-news anim-card">
       <span class="badge badge-neutral mb-3">Watch</span>
       <h3 class="text-sm font-semibold text-white leading-snug mb-2">Wall St Week Ahead: Inflation in focus for markets jostled by Middle East war signals</h3>
-      <p class="text-xs text-gray-400">Fresh inflation data and early company earnings could start showing the Middle East war's economic impact.</p>
+      <p class="text-xs text-gray-400">Fresh inflation data and early company earnings could start showing the Middle East war&#39;s economic impact.</p>
       <p class="text-[10px] text-gold-600 mt-3 font-mono">Reuters &middot; 3 Apr 2026</p>
     </div>
     <div class="card-news anim-card">
@@ -249,7 +182,7 @@ body{background:#050a14;overflow-x:hidden}
     </div>
     <div class="card-news anim-card">
       <span class="badge badge-neutral mb-3">Headwinds</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">SpaceX, Anthropic &amp; OpenAI mega IPOs alone can't fix this stock market — 3 big headwinds</h3>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">SpaceX, Anthropic &amp; OpenAI mega IPOs alone can&#39;t fix this stock market &mdash; 3 big headwinds</h3>
       <p class="text-xs text-gray-400">Despite anticipated tech IPOs, the market faces three structural headwinds dragging equities lower.</p>
       <p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC &middot; 5 Apr 2026</p>
     </div>
@@ -270,13 +203,37 @@ body{background:#050a14;overflow-x:hidden}
 
 <div class="section-divider max-w-7xl mx-auto"></div>
 
-<!-- ═══════════════ LOCAL STOCK RECOMMENDATIONS ═══════════════ -->
+<!-- LIVE RSS NEWS FEED -->
+<section class="max-w-7xl mx-auto px-4 py-12 anim-section">
+  <div class="flex items-center gap-3 mb-8">
+    <span class="text-2xl">&#128225;</span>
+    <div>
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-white">Live News Feed</h2>
+      <p class="text-gold-500 text-sm font-mono">Reuters, CNBC, CoinTelegraph, CoinDesk</p>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Stocks fall as ceasefire hopes fade ahead of Trump&#x27;s Iran deadline: Live updates</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Trump warns Iran’s ‘whole civilization will die tonight’ unless deal struck</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">House Democrats call on federal regulator to crack down on offshore prediction market war bets</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Ether treasuries need liquid staking edge to beat ETFs, says Lido exec</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">South Korea orders crypto exchanges to verify holdings every 5 minutes</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">XRP price risks drop to $1.10 as supply in profit drops to 17-month lows</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">CoinDesk 20 performance update: index drops 2.4% as all constituents trade lower</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">&#x27;A whole civilization will die&#x27;: Crypto markets under pressure as Trump ups rhetoric towards Iran</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Bitcoin quantum threat is real and closer than it looks, says Nobel prize winning physicist</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto"></div>
+
+<!-- LOCAL STOCK RECOMMENDATIONS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
     <span class="text-2xl">&#128200;</span>
     <h2 class="font-display text-2xl md:text-3xl font-bold text-white">Local Stock Picks</h2>
   </div>
-  <p class="text-gold-500 text-sm font-mono mb-8">Bursa Malaysia — Analyst-Backed Recommendations for 2026</p>
+  <p class="text-gold-500 text-sm font-mono mb-8">Bursa Malaysia &mdash; Analyst-Backed Recommendations for 2026</p>
   <div class="table-container glow-gold">
     <table class="rec-table">
       <thead>
@@ -287,18 +244,18 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">Maybank</td>
           <td class="font-mono text-gold-300">1155.KL</td>
           <td>Banking</td>
-          <td class="font-mono">MYR 11.26</td>
-          <td class="font-mono text-gray-300">10.80–11.30</td>
+          <td class="font-mono">MYR 11.16</td>
+          <td class="font-mono text-gray-300">10.80&ndash;11.30</td>
           <td class="font-mono text-bull font-semibold">MYR 13.00</td>
           <td><span class="badge badge-bull">+15%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Malaysia's largest bank. Consistent 5–6% dividend yield. Top pick by CGS International &amp; RHB Research. Foreign shareholding near historic low — re-rating potential.</td>
+          <td class="text-xs max-w-xs whitespace-normal">Malaysia&#39;s largest bank. Consistent 5&ndash;6% dividend yield. Top pick by CGS International &amp; RHB Research. Foreign shareholding near historic low &mdash; re-rating potential.</td>
         </tr>
         <tr>
           <td class="font-semibold text-white">CIMB Group</td>
           <td class="font-mono text-gold-300">1295.KL</td>
           <td>Banking</td>
-          <td class="font-mono">MYR 4.66</td>
-          <td class="font-mono text-gray-300">4.50–4.70</td>
+          <td class="font-mono">MYR 4.60</td>
+          <td class="font-mono text-gray-300">4.50&ndash;4.70</td>
           <td class="font-mono text-bull font-semibold">MYR 5.50</td>
           <td><span class="badge badge-bull">+18%</span></td>
           <td class="text-xs max-w-xs whitespace-normal">Strong ASEAN franchise, improving ROE, ~5% dividend yield. Benefits from HKEX-Bursa MOU. The Edge top pick for 2026.</td>
@@ -307,8 +264,8 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">Tenaga Nasional</td>
           <td class="font-mono text-gold-300">5347.KL</td>
           <td>Utilities</td>
-          <td class="font-mono">MYR 14.04</td>
-          <td class="font-mono text-gray-300">13.50–14.10</td>
+          <td class="font-mono">MYR 14.00</td>
+          <td class="font-mono text-gray-300">13.50&ndash;14.10</td>
           <td class="font-mono text-bull font-semibold">MYR 16.00</td>
           <td><span class="badge badge-bull">+14%</span></td>
           <td class="text-xs max-w-xs whitespace-normal">Defensive play amid geopolitical uncertainty. Key beneficiary of data center demand &amp; NETR infrastructure. Stable earnings, ~4% yield.</td>
@@ -317,21 +274,21 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">IHH Healthcare</td>
           <td class="font-mono text-gold-300">5225.KL</td>
           <td>Healthcare</td>
-          <td class="font-mono">MYR 8.96</td>
-          <td class="font-mono text-gray-300">8.50–9.00</td>
+          <td class="font-mono">MYR 8.69</td>
+          <td class="font-mono text-gray-300">8.50&ndash;9.00</td>
           <td class="font-mono text-bull font-semibold">MYR 10.50</td>
           <td><span class="badge badge-bull">+17%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Asia's largest private healthcare group. Defensive growth with rising medical tourism. Analyst consensus target above MYR 10.</td>
+          <td class="text-xs max-w-xs whitespace-normal">Asia&#39;s largest private healthcare group. Defensive growth with rising medical tourism. Analyst consensus target above MYR 10.</td>
         </tr>
         <tr>
           <td class="font-semibold text-white">99 Speedmart</td>
-          <td class="font-mono text-gold-300">5765.KL</td>
+          <td class="font-mono text-gold-300">5326.KL</td>
           <td>Retail</td>
-          <td class="font-mono">MYR 2.10</td>
-          <td class="font-mono text-gray-300">1.95–2.10</td>
+          <td class="font-mono">MYR 3.32</td>
+          <td class="font-mono text-gray-300">1.95&ndash;2.10</td>
           <td class="font-mono text-bull font-semibold">MYR 2.50</td>
           <td><span class="badge badge-bull">+19%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Defensive growth with 2,800+ stores. Recession-resilient consumer staples. Rapid expansion. Featured in "13 Stock Picks for 2026".</td>
+          <td class="text-xs max-w-xs whitespace-normal">Defensive growth with 2,800+ stores. Recession-resilient consumer staples. Rapid expansion. Featured in &quot;13 Stock Picks for 2026&quot;.</td>
         </tr>
       </tbody>
     </table>
@@ -340,13 +297,13 @@ body{background:#050a14;overflow-x:hidden}
 
 <div class="section-divider max-w-7xl mx-auto"></div>
 
-<!-- ═══════════════ INTERNATIONAL STOCK RECOMMENDATIONS ═══════════════ -->
+<!-- INTERNATIONAL STOCK RECOMMENDATIONS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
     <span class="text-2xl">&#127759;</span>
     <h2 class="font-display text-2xl md:text-3xl font-bold text-white">International Stock Picks</h2>
   </div>
-  <p class="text-gold-500 text-sm font-mono mb-8">Global Markets — Top Analyst-Backed Opportunities for 2026</p>
+  <p class="text-gold-500 text-sm font-mono mb-8">Global Markets &mdash; Top Analyst-Backed Opportunities for 2026</p>
   <div class="table-container glow-gold">
     <table class="rec-table">
       <thead>
@@ -357,18 +314,18 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">ASML Holding</td>
           <td class="font-mono text-gold-300">ASML</td>
           <td>Semiconductors</td>
-          <td class="font-mono">$1,317.23</td>
-          <td class="font-mono text-gray-300">$1,250–1,320</td>
+          <td class="font-mono">$1,277.35</td>
+          <td class="font-mono text-gray-300">$1,250&ndash;1,320</td>
           <td class="font-mono text-bull font-semibold">$1,600</td>
           <td><span class="badge badge-bull">+21%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Monopoly on EUV lithography — irreplaceable for AI chips. Motley Fool's #1 international pick. Strong backlog through 2028.</td>
+          <td class="text-xs max-w-xs whitespace-normal">Monopoly on EUV lithography &mdash; irreplaceable for AI chips. Motley Fool&#39;s #1 international pick. Strong backlog through 2028.</td>
         </tr>
         <tr>
           <td class="font-semibold text-white">Alibaba</td>
           <td class="font-mono text-gold-300">BABA</td>
           <td>E-commerce / Cloud</td>
-          <td class="font-mono">$122.05</td>
-          <td class="font-mono text-gray-300">$115–125</td>
+          <td class="font-mono">$120.65</td>
+          <td class="font-mono text-gray-300">$115&ndash;125</td>
           <td class="font-mono text-bull font-semibold">$160</td>
           <td><span class="badge badge-bull">+31%</span></td>
           <td class="text-xs max-w-xs whitespace-normal">China recovery play with expanding cloud AI business. Significant discount to intrinsic value. Regulatory headwinds easing.</td>
@@ -377,18 +334,18 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">MercadoLibre</td>
           <td class="font-mono text-gold-300">MELI</td>
           <td>E-comm / Fintech</td>
-          <td class="font-mono">$1,715.52</td>
-          <td class="font-mono text-gray-300">$1,650–1,720</td>
+          <td class="font-mono">$1,700.08</td>
+          <td class="font-mono text-gray-300">$1,650&ndash;1,720</td>
           <td class="font-mono text-bull font-semibold">$2,200</td>
           <td><span class="badge badge-bull">+28%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">LatAm's Amazon + PayPal. Massive fintech growth via Mercado Pago. Top pick by Yahoo Finance &amp; Motley Fool.</td>
+          <td class="text-xs max-w-xs whitespace-normal">LatAm&#39;s Amazon + PayPal. Massive fintech growth via Mercado Pago. Top pick by Yahoo Finance &amp; Motley Fool.</td>
         </tr>
         <tr>
           <td class="font-semibold text-white">Apple</td>
           <td class="font-mono text-gold-300">AAPL</td>
           <td>Technology</td>
-          <td class="font-mono">$255.92</td>
-          <td class="font-mono text-gray-300">$245–258</td>
+          <td class="font-mono">$249.01</td>
+          <td class="font-mono text-gray-300">$245&ndash;258</td>
           <td class="font-mono text-bull font-semibold">$300</td>
           <td><span class="badge badge-bull">+17%</span></td>
           <td class="text-xs max-w-xs whitespace-normal">Record services revenue, AI integration across products. iPhone upgrade cycle catalyst. Defensive mega-cap in volatile market.</td>
@@ -400,13 +357,13 @@ body{background:#050a14;overflow-x:hidden}
 
 <div class="section-divider max-w-7xl mx-auto"></div>
 
-<!-- ═══════════════ GOLD SECTION ═══════════════ -->
+<!-- GOLD SECTION -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
     <span class="text-2xl">&#129351;</span>
     <h2 class="font-display text-2xl md:text-3xl font-bold text-gold-300">Gold Analysis</h2>
   </div>
-  <p class="text-gold-600 text-sm font-mono mb-8">XAU/USD — 6-Month Trend &amp; Outlook</p>
+  <p class="text-gold-600 text-sm font-mono mb-8">XAU/USD &mdash; 6-Month Trend &amp; Outlook</p>
   <div class="card p-4 glow-gold-strong mb-6">
     <div class="chart-container" id="goldChart"></div>
   </div>
@@ -415,7 +372,7 @@ body{background:#050a14;overflow-x:hidden}
       <h3 class="font-display text-lg font-semibold text-gold-400 mb-4">Gold Headlines</h3>
       <div class="space-y-3">
         <div class="card-news"><p class="text-sm text-white font-medium">Gold loses 15% from war highs as Operation Epic Fury safe haven trade unwinds</p><p class="text-[10px] text-gold-600 font-mono mt-1">Bitcoin.com &middot; 5 Apr</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium">Gold overtakes U.S. Treasuries as world's largest foreign reserve asset in 2026</p><p class="text-[10px] text-gold-600 font-mono mt-1">Economics &middot; 4 Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Gold overtakes U.S. Treasuries as world&#39;s largest foreign reserve asset in 2026</p><p class="text-[10px] text-gold-600 font-mono mt-1">Economics &middot; 4 Apr</p></div>
         <div class="card-news"><p class="text-sm text-white font-medium">Brazil cuts dollar holdings, adds 42 tons of gold as BRICS push grows</p><p class="text-[10px] text-gold-600 font-mono mt-1">WatcherGuru &middot; 3 Apr</p></div>
         <div class="card-news"><p class="text-sm text-white font-medium">Robert Kiyosaki recommends Bitcoin &amp; gold as 1974 shift comes full circle</p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; 5 Apr</p></div>
         <div class="card-news"><p class="text-sm text-white font-medium">Gold futures on Bursa Malaysia Derivatives expected to trade cautiously next week</p><p class="text-[10px] text-gold-600 font-mono mt-1">KLSEScreener &middot; 5 Apr</p></div>
@@ -425,9 +382,9 @@ body{background:#050a14;overflow-x:hidden}
       <h3 class="font-display text-lg font-semibold text-gold-400 mb-4">Gold Recommendation</h3>
       <div class="rec-box glow-gold-strong">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">$4,644/oz</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$4,400–4,650</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">$5,000–5,400</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">$4,667/oz</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$4,400&ndash;4,650</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">$5,000&ndash;5,400</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$4,100</p></div>
         </div>
         <div class="mb-3"><span class="badge badge-bull">BULLISH Long-Term</span></div>
@@ -439,13 +396,13 @@ body{background:#050a14;overflow-x:hidden}
 
 <div class="section-divider max-w-7xl mx-auto"></div>
 
-<!-- ═══════════════ BITCOIN SECTION ═══════════════ -->
+<!-- BITCOIN SECTION -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
     <span class="text-2xl">&#8383;</span>
     <h2 class="font-display text-2xl md:text-3xl font-bold text-btc">Bitcoin Analysis</h2>
   </div>
-  <p class="text-orange-400/60 text-sm font-mono mb-8">BTC/USD — 6-Month Trend, Technicals &amp; Outlook</p>
+  <p class="text-orange-400/60 text-sm font-mono mb-8">BTC/USD &mdash; 6-Month Trend, Technicals &amp; Outlook</p>
   <div class="card p-4 mb-6" style="border-color:rgba(247,147,26,.15)">
     <div class="chart-container" id="btcChart"></div>
   </div>
@@ -471,10 +428,10 @@ body{background:#050a14;overflow-x:hidden}
     <div>
       <h3 class="font-display text-lg font-semibold text-btc mb-4">Bitcoin Headlines</h3>
       <div class="space-y-3">
-        <div class="card-news"><p class="text-sm text-white font-medium">BTC at $66,500 on Liberation Day — new prediction targets $240K long-term</p><p class="text-[10px] text-gold-600 font-mono mt-1">FinanceMagnates &middot; 3 Apr</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin ETF outflows amid US–Iran tensions pressure price action</p><p class="text-[10px] text-gold-600 font-mono mt-1">Capital.com &middot; 3 Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">BTC at $66,500 on Liberation Day &mdash; new prediction targets $240K long-term</p><p class="text-[10px] text-gold-600 font-mono mt-1">FinanceMagnates &middot; 3 Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin ETF outflows amid US&ndash;Iran tensions pressure price action</p><p class="text-[10px] text-gold-600 font-mono mt-1">Capital.com &middot; 3 Apr</p></div>
         <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin enters April with fading ETF momentum, rising whale selling, bear flag</p><p class="text-[10px] text-gold-600 font-mono mt-1">BeInCrypto &middot; 31 Mar</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin ETFs "will be larger" than gold ETFs: Analyst</p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; 4 Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin ETFs &quot;will be larger&quot; than gold ETFs: Analyst</p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; 4 Apr</p></div>
         <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin tends to outperform gold &amp; stocks after global shocks</p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinDesk &middot; 4 Apr</p></div>
         <div class="card-news"><p class="text-sm text-white font-medium">Fidelity: Bitcoin winning back gold investors</p><p class="text-[10px] text-gold-600 font-mono mt-1">U.Today &middot; 3 Apr</p></div>
       </div>
@@ -483,16 +440,16 @@ body{background:#050a14;overflow-x:hidden}
       <h3 class="font-display text-lg font-semibold text-btc mb-4">Bitcoin Recommendation</h3>
       <div class="rec-box" style="border-color:rgba(247,147,26,.2)">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">$69,189</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$64,000–67,000</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">$72,000–74,000</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">$67,895</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$64,000&ndash;67,000</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">$72,000&ndash;74,000</p></div>
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$60,000</p></div>
         </div>
         <div class="mb-3 flex gap-2 flex-wrap">
           <span class="badge badge-neutral">Neutral-Bearish (Short-Term)</span>
           <span class="badge badge-bull">Cautiously Bullish (Medium-Term)</span>
         </div>
-        <p class="text-xs text-gray-300 leading-relaxed">BTC dropped 45% from Oct 2025 ATH of ~$125K, now consolidating in $66–70K range. RSI neutral but MACD in death cross. <span class="text-bear font-semibold">Headwinds:</span> ETF outflows, US–Iran war uncertainty, tariff fears. <span class="text-bull font-semibold">Tailwinds:</span> Historical outperformance after global shocks, growing institutional adoption, ETF infrastructure. Wait for confirmed breakout above $72K for bullish confirmation, or accumulate at $64K support zone. Medium-term target $85,000+ if macro conditions improve.</p>
+        <p class="text-xs text-gray-300 leading-relaxed">BTC dropped 45% from Oct 2025 ATH of ~$125K, now consolidating in $66&ndash;70K range. RSI neutral but MACD in death cross. <span class="text-bear font-semibold">Headwinds:</span> ETF outflows, US&ndash;Iran war uncertainty, tariff fears. <span class="text-bull font-semibold">Tailwinds:</span> Historical outperformance after global shocks, growing institutional adoption, ETF infrastructure. Wait for confirmed breakout above $72K for bullish confirmation, or accumulate at $64K support zone. Medium-term target $85,000+ if macro conditions improve.</p>
       </div>
     </div>
   </div>
@@ -500,242 +457,84 @@ body{background:#050a14;overflow-x:hidden}
 
 <div class="section-divider max-w-7xl mx-auto"></div>
 
-<!-- ═══════════════ DISCLAIMER ═══════════════ -->
+<!-- DISCLAIMER -->
 <section class="max-w-7xl mx-auto px-4 py-8">
   <div class="card p-5 text-center" style="border-color:rgba(239,68,68,.15)">
     <p class="text-xs text-gray-500 leading-relaxed max-w-3xl mx-auto">This report is for <span class="text-gray-400 font-semibold">informational purposes only</span> and does not constitute financial advice, investment recommendations, or an offer to buy or sell any securities. Past performance does not guarantee future results. All investments carry risk, including the potential loss of principal. Cryptocurrency markets are highly volatile. Always consult a licensed financial advisor before making investment decisions. Data may be delayed or subject to revision.</p>
   </div>
 </section>
 
-<!-- ═══════════════ CHAT WIDGET ═══════════════ -->
-<button class="chat-fab" id="chatFab" title="Chat with dashboard">
-  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-</button>
-<div class="chat-panel" id="chatPanel">
-  <div class="chat-header">
-    <div class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center">
-        <svg class="w-4 h-4 text-vault-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-      </div>
-      <div>
-        <p class="text-sm font-display font-semibold text-white leading-none">Market Assistant</p>
-        <p class="text-[10px] text-gold-500 font-mono">Dashboard FAQ</p>
-      </div>
-    </div>
-    <button class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer" id="chatClose">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot">Welcome! I can answer questions about this week's market data, stock picks, gold, and Bitcoin outlook. Try a quick question below or type your own.</div>
-  </div>
-  <div class="chat-quick-replies" id="chatQuickReplies">
-    <button class="chat-quick-btn" data-q="Gold outlook?">Gold outlook?</button>
-    <button class="chat-quick-btn" data-q="BTC support levels?">BTC support levels?</button>
-    <button class="chat-quick-btn" data-q="Top MY stocks?">Top MY stocks?</button>
-    <button class="chat-quick-btn" data-q="Best intl picks?">Best intl picks?</button>
-  </div>
-  <div class="chat-input-area">
-    <input class="chat-input" id="chatInput" placeholder="Ask about markets..." autocomplete="off">
-    <button class="chat-send" id="chatSend">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
-    </button>
-  </div>
-  <div class="chat-footer-note">For AI-powered responses, connect your MuleRun API key</div>
-</div>
-
-<!-- ═══════════════ FOOTER ═══════════════ -->
+<!-- FOOTER -->
 <footer class="border-t border-gold-500/10 mt-8">
   <div class="max-w-7xl mx-auto px-4 py-8 text-center">
     <p class="text-xs text-gray-600 font-mono">Powered by <span class="text-gold-500">MuleRun Super Agent</span></p>
-    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Finnhub, CoinGecko, Reuters, J.P. Morgan Research, Goldman Sachs &middot; Report generated 6 April 2026</p>
+    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Finnhub, CoinGecko, Reuters, J.P. Morgan Research, Goldman Sachs &middot; Generated 2026-04-07 14:10:21</p>
   </div>
 </footer>
 
-<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<!-- Refresh Button -->
+<button class="refresh-btn" onclick="location.reload()" title="Refresh dashboard">&#8635;</button>
+
+<!-- Chat Widget Placeholder -->
+<div class="chat-widget">
+  <button class="chat-btn" title="Chat assistant">&#128172;</button>
+</div>
+
+<!-- SCRIPTS -->
 <script>
-// ── Progress Bar ──
-window.addEventListener('scroll',()=>{const h=document.documentElement;const p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;document.getElementById('progressBar').style.width=p+'%'});
+// Progress Bar
+window.addEventListener('scroll',function(){var h=document.documentElement;var p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;document.getElementById('progressBar').style.width=p+'%'});
 
-// ── Number Counter ──
-function animateValue(el,start,end,dur){let st=null;const step=(ts)=>{if(!st)st=ts;const p=Math.min((ts-st)/dur,1);el.textContent='$'+Math.floor(p*(end-start)+start).toLocaleString();if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+// Number Counter
+function animateValue(el,start,end,dur){var st=null;var step=function(ts){if(!st)st=ts;var p=Math.min((ts-st)/dur,1);el.textContent='$'+Math.floor(p*(end-start)+start).toLocaleString();if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 
-// ── GSAP Animations ──
+// GSAP Animations
 gsap.registerPlugin(ScrollTrigger);
-gsap.utils.toArray('.anim-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'},opacity:0,y:40,duration:.6,delay:i*.07,ease:'power2.out'})});
-gsap.utils.toArray('.anim-section').forEach(el=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},opacity:0,y:30,duration:.8,ease:'power2.out'})});
+gsap.utils.toArray('.anim-card').forEach(function(el,i){gsap.from(el,{scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'},opacity:0,y:40,duration:.6,delay:i*.07,ease:'power2.out'})});
+gsap.utils.toArray('.anim-section').forEach(function(el){gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},opacity:0,y:30,duration:.8,ease:'power2.out'})});
 
 // Counter animation on stat cards
-document.querySelectorAll('[data-target]').forEach(el=>{const t=parseInt(el.dataset.target);ScrollTrigger.create({trigger:el,start:'top 90%',onEnter:()=>animateValue(el,0,t,1200)})});
+document.querySelectorAll('[data-target]').forEach(function(el){var t=parseInt(el.dataset.target);ScrollTrigger.create({trigger:el,start:'top 90%',onEnter:function(){animateValue(el,0,t,1200)}});});
 
-// ── Gold Chart ──
-const goldDates=['Oct 6','Oct 13','Oct 16','Oct 20','Oct 31','Nov 10','Nov 25','Nov 28','Dec 1','Dec 11','Dec 17','Dec 22','Dec 26','Dec 31','Jan 5','Jan 12','Jan 20','Jan 22','Jan 26','Jan 28','Jan 29','Jan 30','Feb 2','Feb 6','Feb 9','Feb 13','Feb 23','Feb 27','Mar 2','Mar 10','Mar 13','Mar 18','Mar 19','Mar 23','Mar 25','Mar 31','Apr 1','Apr 2','Apr 5'];
-const goldPrices=[3948,4108,4280,4336,3982,4112,4139,4218,4239,4286,4348,4445,4529,4326,4437,4604,4760,4909,5080,5302,5318,4714,4623,4951,5051,5022,5205,5231,5294,5230,5053,4890,4601,4404,4550,4648,4783,4652,4644];
+// Gold Chart
+var goldDates=["Oct 07", "Oct 10", "Oct 15", "Oct 20", "Oct 23", "Oct 28", "Oct 31", "Nov 05", "Nov 10", "Nov 13", "Nov 18", "Nov 21", "Nov 26", "Dec 02", "Dec 05", "Dec 10", "Dec 15", "Dec 18", "Dec 23", "Dec 29", "Jan 02", "Jan 07", "Jan 12", "Jan 15", "Jan 21", "Jan 26", "Jan 29", "Feb 03", "Feb 06", "Feb 11", "Feb 17", "Feb 20", "Feb 25", "Mar 02", "Mar 05", "Mar 10", "Mar 13", "Mar 18", "Mar 23", "Mar 26", "Mar 31", "Apr 06"];
+var goldPrices=[3976.6, 3975.9, 4176.9, 4336.4, 4125.5, 3966.2, 3982.2, 3980.3, 4111.8, 4186.9, 4061.3, 4076.7, 4165.2, 4186.6, 4212.9, 4196.4, 4306.7, 4339.5, 4482.8, 4325.1, 4314.4, 4449.3, 4604.3, 4616.3, 4831.8, 5079.7, 5318.4, 4903.7, 4951.2, 5071.6, 4882.9, 5059.3, 5206.4, 5294.4, 5065.3, 5229.7, 5052.5, 4889.9, 4404.1, 4375.5, 4647.6, 4656.8];
 
-const goldChart=echarts.init(document.getElementById('goldChart'),null,{renderer:'svg'});
+var goldChart=echarts.init(document.getElementById('goldChart'),null,{renderer:'svg'});
 goldChart.setOption({
-  tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(245,158,11,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fde68a'},formatter:p=>`<div style="font-family:Space Grotesk;font-weight:600;color:#fbbf24;margin-bottom:4px">${p[0].axisValue}</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$${p[0].value.toLocaleString()}/oz</div>`},
+  tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(245,158,11,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fde68a'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#fbbf24;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'/oz</div>'}},
   grid:{top:30,right:20,bottom:40,left:70,containLabel:false},
   xAxis:{type:'category',data:goldDates,axisLine:{lineStyle:{color:'rgba(245,158,11,.15)'}},axisLabel:{color:'rgba(251,191,36,.5)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
-  yAxis:{type:'value',min:3800,max:5500,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(245,158,11,.06)'}},axisLabel:{color:'rgba(251,191,36,.4)',fontFamily:'JetBrains Mono',fontSize:10,formatter:'${value}'}},
+  yAxis:{type:'value',min:3767,max:5584,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(245,158,11,.06)'}},axisLabel:{color:'rgba(251,191,36,.4)',fontFamily:'JetBrains Mono',fontSize:10,formatter:'${value}'}},
   series:[{
     type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f59e0b',width:2.5},
     areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,.35)'},{offset:.5,color:'rgba(245,158,11,.08)'},{offset:1,color:'rgba(245,158,11,0)'}])},
     data:goldPrices,
-    markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(245,158,11,.3)',type:'dashed'},data:[{yAxis:4644,label:{formatter:'Current $4,644',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}]},
-    markPoint:{symbol:'circle',symbolSize:8,itemStyle:{color:'#f59e0b'},data:[{name:'ATH',coord:['Jan 29',5318],label:{show:true,formatter:'$5,318',color:'#fff',fontSize:10,fontFamily:'JetBrains Mono',position:'top'}}]}
+    markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(245,158,11,.3)',type:'dashed'},data:[{yAxis:4667,label:{formatter:'Current $4,667',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}]}
   }]
 });
 
-// ── BTC Chart ──
-const btcDates=['Oct 6','Oct 10','Oct 17','Oct 20','Oct 27','Nov 4','Nov 10','Nov 14','Nov 17','Nov 20','Nov 21','Nov 26','Dec 1','Dec 3','Dec 9','Dec 15','Dec 22','Dec 31','Jan 5','Jan 13','Jan 20','Jan 29','Jan 31','Feb 4','Feb 5','Feb 6','Feb 10','Feb 17','Feb 23','Feb 25','Mar 2','Mar 4','Mar 9','Mar 13','Mar 16','Mar 19','Mar 23','Mar 26','Mar 27','Mar 31','Apr 2','Apr 4','Apr 6'];
-const btcPrices=[124753,113214,106468,110589,114119,101591,105997,94398,92094,86632,85091,90518,86322,93528,92692,86420,88490,87509,93883,95322,88311,84562,78621,73020,62702,70555,68794,67494,64617,67960,68776,72711,68402,70968,74861,69913,70915,68792,66338,68233,66889,67291,69189];
+// BTC Chart
+var btcDates=["Oct 07", "Oct 11", "Oct 15", "Oct 19", "Oct 23", "Oct 27", "Oct 31", "Nov 04", "Nov 08", "Nov 12", "Nov 16", "Nov 20", "Nov 24", "Nov 28", "Dec 02", "Dec 06", "Dec 10", "Dec 14", "Dec 18", "Dec 22", "Dec 26", "Dec 30", "Jan 03", "Jan 07", "Jan 11", "Jan 15", "Jan 19", "Jan 23", "Jan 27", "Jan 31", "Feb 04", "Feb 08", "Feb 12", "Feb 16", "Feb 20", "Feb 24", "Feb 28", "Mar 04", "Mar 08", "Mar 12", "Mar 16", "Mar 20", "Mar 24", "Mar 28", "Apr 01", "Apr 05"];
+var btcPrices=[121451.38, 110807.88, 110783.16, 108666.71, 110069.73, 114119.33, 109556.16, 101590.52, 102282.12, 101663.19, 94177.08, 86631.9, 88270.56, 90919.27, 91350.2, 89272.38, 92020.95, 88175.18, 85462.51, 88490.02, 87301.43, 88430.13, 90603.19, 91308.05, 90827.46, 95551.19, 92553.59, 89503.88, 89102.57, 78621.12, 73019.7, 70264.73, 66221.84, 68843.16, 68005.42, 64080.04, 66995.86, 72710.58, 65969.78, 70493.46, 74861.09, 70522.59, 70517.86, 66319.7, 68078.55, 68981.9];
 
-const btcChart=echarts.init(document.getElementById('btcChart'),null,{renderer:'svg'});
+var btcChart=echarts.init(document.getElementById('btcChart'),null,{renderer:'svg'});
 btcChart.setOption({
-  tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(247,147,26,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fed7aa'},formatter:p=>`<div style="font-family:Space Grotesk;font-weight:600;color:#f7931a;margin-bottom:4px">${p[0].axisValue}</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$${p[0].value.toLocaleString()}</div>`},
+  tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(247,147,26,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fed7aa'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#f7931a;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'</div>'}},
   grid:{top:30,right:20,bottom:40,left:80,containLabel:false},
   xAxis:{type:'category',data:btcDates,axisLine:{lineStyle:{color:'rgba(247,147,26,.15)'}},axisLabel:{color:'rgba(247,147,26,.4)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
-  yAxis:{type:'value',min:55000,max:130000,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(247,147,26,.06)'}},axisLabel:{color:'rgba(247,147,26,.35)',fontFamily:'JetBrains Mono',fontSize:10,formatter:v=>'$'+Math.round(v/1000)+'K'}},
+  yAxis:{type:'value',min:57672,max:127523,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(247,147,26,.06)'}},axisLabel:{color:'rgba(247,147,26,.35)',fontFamily:'JetBrains Mono',fontSize:10,formatter:function(v){return '$'+Math.round(v/1000)+'K'}}},
   series:[{
     type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f7931a',width:2.5},
     areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(247,147,26,.3)'},{offset:.5,color:'rgba(247,147,26,.06)'},{offset:1,color:'rgba(247,147,26,0)'}])},
     data:btcPrices,
-    markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(247,147,26,.3)',type:'dashed'},data:[{yAxis:69189,label:{formatter:'Current $69,189',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}]},
-    markPoint:{symbol:'circle',symbolSize:8,data:[
-      {name:'ATH',coord:['Oct 6',124753],itemStyle:{color:'#22c55e'},label:{show:true,formatter:'$124.8K',color:'#fff',fontSize:10,fontFamily:'JetBrains Mono',position:'top'}},
-      {name:'Low',coord:['Feb 5',62702],itemStyle:{color:'#ef4444'},label:{show:true,formatter:'$62.7K',color:'#fff',fontSize:10,fontFamily:'JetBrains Mono',position:'bottom'}}
-    ]}
+    markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(247,147,26,.3)',type:'dashed'},data:[{yAxis:67895,label:{formatter:'Current $67,895',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}]}
   }]
 });
 
-// ── Resize ──
-window.addEventListener('resize',()=>{goldChart.resize();btcChart.resize()});
-
-// ═══════════════ REFRESH BUTTON ═══════════════
-(function(){
-  const btn=document.getElementById('refreshBtn');
-  const modal=document.getElementById('refreshModal');
-  const closeBtn=document.getElementById('refreshModalClose');
-
-  btn.addEventListener('click',()=>{
-    btn.classList.add('spinning');
-    setTimeout(()=>{btn.classList.remove('spinning');modal.classList.add('active')},600);
-  });
-
-  closeBtn.addEventListener('click',()=>modal.classList.remove('active'));
-  modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('active')});
-})();
-
-// ═══════════════ CHAT WIDGET ═══════════════
-(function(){
-  const fab=document.getElementById('chatFab');
-  const panel=document.getElementById('chatPanel');
-  const closeBtn=document.getElementById('chatClose');
-  const msgs=document.getElementById('chatMessages');
-  const input=document.getElementById('chatInput');
-  const sendBtn=document.getElementById('chatSend');
-  const quickReplies=document.getElementById('chatQuickReplies');
-
-  // Knowledge base with 20+ Q&A pairs
-  const kb=[
-    {keys:['gold','xau','outlook','gold outlook','gold price'],
-     a:'Gold is currently at $4,644/oz, down ~15% from its January high of $5,500. The pullback is driven by unwinding of Middle East safe-haven trades. Analyst targets: J.P. Morgan $5,055, Goldman Sachs $5,400, UBS $6,200 by end of 2026. Buy zone: $4,400-$4,650. This is seen as a dip-buying opportunity for medium-to-long-term investors.'},
-    {keys:['gold buy','gold recommendation','should i buy gold','gold entry'],
-     a:'Gold recommendation is BULLISH long-term. Buy zone: $4,400-$4,650. Target: $5,000-$5,400. Stop loss: $4,100. Central bank buying remains strong at ~585 tonnes/quarter. Current pullback presents a dip-buying opportunity.'},
-    {keys:['gold news','gold headline'],
-     a:'Key gold headlines: (1) Gold lost 15% from war highs as Operation Epic Fury safe-haven trade unwinds, (2) Gold overtakes US Treasuries as world\'s largest foreign reserve asset in 2026, (3) Brazil cuts dollar holdings and adds 42 tons of gold as BRICS push grows.'},
-    {keys:['btc support','bitcoin support','support level'],
-     a:'Bitcoin support levels: $64,058 (major), $65,971, and $66,011. The $64K zone is the key accumulation area. Below $60K is the stop-loss level. BTC recently bounced from a low of $62,702 in February.'},
-    {keys:['btc resistance','bitcoin resistance'],
-     a:'Bitcoin resistance levels: $71,337, $72,667, and $74,885. A confirmed breakout above $72K would signal bullish confirmation. The 99-day MA at $76,372 is a further overhead barrier.'},
-    {keys:['bitcoin','btc','btc outlook','bitcoin price','btc price'],
-     a:'Bitcoin is at $69,189, down 45% from its Oct 2025 ATH of ~$125K. RSI is neutral at 51.91 but MACD shows a death cross. Short-term outlook is neutral-bearish, but medium-term is cautiously bullish. Buy zone: $64,000-$67,000. Short-term target: $72,000-$74,000. Medium-term target: $85,000+ if macro improves.'},
-    {keys:['btc recommendation','bitcoin buy','should i buy btc','bitcoin recommendation'],
-     a:'BTC recommendation: Neutral-Bearish short-term, Cautiously Bullish medium-term. Buy zone: $64K-$67K. Target: $72K-$74K short-term, $85K+ medium-term. Stop loss: $60K. Wait for confirmed breakout above $72K, or accumulate at $64K support. Headwinds: ETF outflows, US-Iran tensions. Tailwinds: institutional adoption, ETF infrastructure.'},
-    {keys:['malaysia','local','my stock','bursa','klci','top my','malaysian stock'],
-     a:'Top Malaysian stock picks for 2026: (1) Maybank (1155.KL) - MYR 11.26, target MYR 13.00 (+15%), top banking pick with 5-6% dividend yield. (2) CIMB (1295.KL) - MYR 4.66, target MYR 5.50 (+18%), strong ASEAN franchise. (3) Tenaga Nasional (5347.KL) - MYR 14.04, target MYR 16.00 (+14%), defensive play. (4) IHH Healthcare (5225.KL) - MYR 8.96, target MYR 10.50 (+17%). (5) 99 Speedmart (5765.KL) - MYR 2.10, target MYR 2.50 (+19%).'},
-    {keys:['maybank','1155'],
-     a:'Maybank (1155.KL) at MYR 11.26. Buy zone: MYR 10.80-11.30. Target: MYR 13.00 (+15% upside). Malaysia\'s largest bank with consistent 5-6% dividend yield. Top pick by CGS International & RHB Research. Foreign shareholding near historic low offers re-rating potential.'},
-    {keys:['cimb','1295'],
-     a:'CIMB Group (1295.KL) at MYR 4.66. Buy zone: MYR 4.50-4.70. Target: MYR 5.50 (+18% upside). Strong ASEAN franchise with improving ROE and ~5% dividend yield. Benefits from the HKEX-Bursa MOU. The Edge\'s top pick for 2026.'},
-    {keys:['tenaga','5347','utility'],
-     a:'Tenaga Nasional (5347.KL) at MYR 14.04. Buy zone: MYR 13.50-14.10. Target: MYR 16.00 (+14% upside). Defensive play amid geopolitical uncertainty. Key beneficiary of data center demand & NETR infrastructure. Stable earnings with ~4% yield.'},
-    {keys:['ihh','healthcare','5225'],
-     a:'IHH Healthcare (5225.KL) at MYR 8.96. Buy zone: MYR 8.50-9.00. Target: MYR 10.50 (+17% upside). Asia\'s largest private healthcare group. Defensive growth with rising medical tourism. Analyst consensus target above MYR 10.'},
-    {keys:['99 speedmart','speedmart','5765','retail'],
-     a:'99 Speedmart (5765.KL) at MYR 2.10. Buy zone: MYR 1.95-2.10. Target: MYR 2.50 (+19% upside). Defensive growth with 2,800+ stores. Recession-resilient consumer staples with rapid expansion.'},
-    {keys:['international','intl','global','best intl','international stock','global pick'],
-     a:'Top international stock picks: (1) ASML - $1,317, target $1,600 (+21%), monopoly on EUV lithography for AI chips. (2) Alibaba (BABA) - $122, target $160 (+31%), China recovery play. (3) MercadoLibre (MELI) - $1,715, target $2,200 (+28%), LatAm\'s Amazon+PayPal. (4) Apple (AAPL) - $255, target $300 (+17%), defensive mega-cap.'},
-    {keys:['asml','semiconductor','euv'],
-     a:'ASML Holding at $1,317.23. Buy zone: $1,250-$1,320. Target: $1,600 (+21% upside). Monopoly on EUV lithography, irreplaceable for AI chips. Motley Fool\'s #1 international pick with strong backlog through 2028.'},
-    {keys:['alibaba','baba','china'],
-     a:'Alibaba (BABA) at $122.05. Buy zone: $115-$125. Target: $160 (+31% upside). China recovery play with expanding cloud AI business. Significant discount to intrinsic value, and regulatory headwinds are easing.'},
-    {keys:['mercadolibre','meli','latam','latin america'],
-     a:'MercadoLibre (MELI) at $1,715.52. Buy zone: $1,650-$1,720. Target: $2,200 (+28% upside). LatAm\'s Amazon + PayPal with massive fintech growth via Mercado Pago. Top pick by Yahoo Finance & Motley Fool.'},
-    {keys:['apple','aapl'],
-     a:'Apple (AAPL) at $255.92. Buy zone: $245-$258. Target: $300 (+17% upside). Record services revenue with AI integration across products. iPhone upgrade cycle catalyst. Defensive mega-cap in a volatile market.'},
-    {keys:['oil','wti','energy','crude'],
-     a:'WTI Oil is above $110/barrel, driven by Middle East tensions and threats to the Strait of Hormuz. OPEC+ has agreed to boost output when the strait reopens. Trump gave Iran a Tuesday night deadline to open the strait. High oil prices are a headwind for global growth.'},
-    {keys:['middle east','geopolitical','war','iran','conflict','hormuz'],
-     a:'Key geopolitical developments: (1) Trump gave Iran until Tuesday night to open the Strait of Hormuz. (2) Middle East conflict is stirring fears of stalled growth and inflation globally. (3) OPEC+ agreed to boost oil output when the strait reopens. (4) Markets rallied briefly on hopes for swift resolution. Oil above $110/bbl is a major risk factor.'},
-    {keys:['s&p','sp500','wall street','us market','american'],
-     a:'The S&P 500 gained +0.6% for the week. Wall Street recovered from early losses to close with a weekly gain. Key focus this week: inflation data and early earnings that may show the Middle East war\'s economic impact. Three structural headwinds remain even with anticipated SpaceX, Anthropic & OpenAI IPOs.'},
-    {keys:['klci','fbm','bursa range','market range'],
-     a:'FBM KLCI is expected to remain cautious this week, confined within the 1,680-1,740 range due to Middle East conflict uncertainty. Bursa ended last week mixed on global energy jitters. The HKEX-Bursa MOU for market connectivity is a positive development.'},
-    {keys:['dividend','yield','income'],
-     a:'Top dividend picks: Maybank offers 5-6% dividend yield, CIMB ~5% yield, and Tenaga Nasional ~4% yield. These are solid defensive income plays amid the current volatile market environment.'},
-    {keys:['help','what can you','menu','options'],
-     a:'I can help with: Gold price outlook & buy zones, Bitcoin technical analysis & support/resistance levels, Malaysian stock picks (Maybank, CIMB, Tenaga, IHH, 99 Speedmart), International stocks (ASML, Alibaba, MercadoLibre, Apple), Oil & energy outlook, Geopolitical developments, and Market indices (KLCI, S&P 500). Just ask!'},
-  ];
-
-  function findAnswer(q){
-    const lower=q.toLowerCase().trim();
-    let best=null,bestScore=0;
-    for(const entry of kb){
-      let score=0;
-      for(const key of entry.keys){
-        if(lower===key){score+=100}
-        else if(lower.includes(key)){score+=10+key.length}
-        else{
-          const words=key.split(/\s+/);
-          for(const w of words){if(w.length>2&&lower.includes(w))score+=3}
-        }
-      }
-      if(score>bestScore){bestScore=score;best=entry}
-    }
-    return best&&bestScore>=3?best.a:"I don't have specific information about that in my knowledge base. Try asking about gold, Bitcoin, Malaysian stocks, international picks, oil, or geopolitical developments. For AI-powered answers, connect your MuleRun API key.";
-  }
-
-  function addMsg(text,type){
-    const div=document.createElement('div');
-    div.className='chat-msg '+type;
-    div.textContent=text;
-    msgs.appendChild(div);
-    msgs.scrollTop=msgs.scrollHeight;
-  }
-
-  function handleSend(){
-    const q=input.value.trim();
-    if(!q)return;
-    addMsg(q,'user');
-    input.value='';
-    setTimeout(()=>addMsg(findAnswer(q),'bot'),300+Math.random()*400);
-  }
-
-  let isOpen=false;
-  fab.addEventListener('click',()=>{isOpen=true;panel.classList.add('open');fab.style.display='none'});
-  closeBtn.addEventListener('click',()=>{isOpen=false;panel.classList.remove('open');fab.style.display='flex'});
-  sendBtn.addEventListener('click',handleSend);
-  input.addEventListener('keydown',e=>{if(e.key==='Enter')handleSend()});
-  quickReplies.addEventListener('click',e=>{
-    const btn=e.target.closest('.chat-quick-btn');
-    if(!btn)return;
-    const q=btn.dataset.q;
-    addMsg(q,'user');
-    setTimeout(()=>addMsg(findAnswer(q),'bot'),300+Math.random()*400);
-  });
-})();
+// Resize handler
+window.addEventListener('resize',function(){goldChart.resize();btcChart.resize()});
 </script>
+
 </body>
 </html>

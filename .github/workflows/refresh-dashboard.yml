@@ -2,7 +2,7 @@ name: Refresh Investment Dashboard
 
 on:
   schedule:
-    # Every day at 00:00 UTC (08:00 MYT, UTC+8)
+    # Everyday at 00:00 UTC (08:00 MYT, UTC+8)
     - cron: "0 0 * * *"
   workflow_dispatch:
 
@@ -28,8 +28,6 @@ jobs:
           pip install yfinance requests feedparser jinja2
 
       - name: Generate dashboard
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/generate_dashboard.py
 
       - name: Configure git user
