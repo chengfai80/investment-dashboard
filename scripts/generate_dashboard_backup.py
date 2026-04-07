@@ -1,54 +1,282 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+Investment Intelligence Dashboard Generator
+Fetches live market data and news, then generates a complete HTML dashboard.
+"""
+
+import json
+import html as html_module
+from datetime import datetime
+
+try:
+    import yfinance as yf
+except ImportError:
+    print("[WARN] yfinance not installed. Run: pip install yfinance")
+    yf = None
+
+try:
+    import feedparser
+except ImportError:
+    print("[WARN] feedparser not installed. Run: pip install feedparser")
+    feedparser = None
+
+
+# ── Configuration ──────────────────────────────────────────────────────────
+
+SYMBOLS = {
+    "gold": "GC=F",
+    "btc": "BTC-USD",
+    "aapl": "AAPL",
+    "asml": "ASML",
+    "baba": "BABA",
+    "meli": "MELI",
+    "maybank": "1155.KL",
+    "cimb": "1295.KL",
+    "tenaga": "5347.KL",
+    "ihh": "5225.KL",
+    "speedmart": "5326.KL",
+}
+
+RSS_FEEDS = {
+    "Reuters": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
+    "CNBC": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114",
+    "CoinTelegraph": "https://cointelegraph.com/rss",
+    "CoinDesk": "https://www.coindesk.com/arc/outboundfeeds/rss/",
+}
+
+FALLBACK_PRICES = {
+    "gold": 4644.30,
+    "btc": 69189,
+    "aapl": 255.92,
+    "asml": 1317.23,
+    "baba": 122.05,
+    "meli": 1715.52,
+    "maybank": 11.26,
+    "cimb": 4.66,
+    "tenaga": 14.04,
+    "ihh": 8.96,
+    "speedmart": 2.10,
+}
+
+
+# ── Data Fetching ──────────────────────────────────────────────────────────
+
+def fetch_prices():
+    """Fetch current prices for all tracked symbols via yfinance."""
+    prices = dict(FALLBACK_PRICES)
+    if yf is None:
+        print("[WARN] yfinance unavailable, using fallback prices.")
+        return prices
+
+    for key, symbol in SYMBOLS.items():
+        try:
+            print(f"  Fetching price for {symbol}...")
+            ticker = yf.Ticker(symbol)
+            info = ticker.fast_info
+            price = getattr(info, "last_price", None)
+            if price is None:
+                hist = ticker.history(period="1d")
+                if not hist.empty:
+                    price = float(hist["Close"].iloc[-1])
+            if price is not None:
+                prices[key] = round(float(price), 2)
+                print(f"    {symbol}: {prices[key]}")
+            else:
+                print(f"    {symbol}: using fallback {prices[key]}")
+        except Exception as e:
+            print(f"    [ERROR] {symbol}: {e} — using fallback {prices[key]}")
+    return prices
+
+
+def fetch_ohlcv(symbol, period="6mo"):
+    """Fetch OHLCV history for a symbol. Returns (dates[], closes[])."""
+    dates, closes = [], []
+    if yf is None:
+        print(f"[WARN] yfinance unavailable, skipping OHLCV for {symbol}.")
+        return dates, closes
+
+    try:
+        print(f"  Fetching {period} OHLCV for {symbol}...")
+        ticker = yf.Ticker(symbol)
+        hist = ticker.history(period=period)
+        if hist.empty:
+            print(f"    No data returned for {symbol}.")
+            return dates, closes
+        # Sample ~40 points for chart readability
+        step = max(1, len(hist) // 40)
+        sampled = hist.iloc[::step]
+        for idx, row in sampled.iterrows():
+            dates.append(idx.strftime("%b %d"))
+            closes.append(round(float(row["Close"]), 2))
+        print(f"    Got {len(dates)} data points for {symbol}.")
+    except Exception as e:
+        print(f"    [ERROR] OHLCV {symbol}: {e}")
+    return dates, closes
+
+
+def fetch_news():
+    """Fetch headlines from RSS feeds. Returns dict of source -> list of titles."""
+    news = {}
+    if feedparser is None:
+        print("[WARN] feedparser unavailable, skipping news.")
+        return news
+
+    for source, url in RSS_FEEDS.items():
+        try:
+            print(f"  Fetching news from {source}...")
+            feed = feedparser.parse(url)
+            titles = []
+            for entry in feed.entries[:5]:
+                titles.append(html_module.escape(entry.get("title", "No title")))
+            news[source] = titles
+            print(f"    Got {len(titles)} headlines from {source}.")
+        except Exception as e:
+            print(f"    [ERROR] {source}: {e}")
+            news[source] = []
+    return news
+
+
+# ── HTML Generation ────────────────────────────────────────────────────────
+
+def _fmt_usd(val):
+    """Format a number as USD string."""
+    if val >= 1000:
+        return f"${val:,.2f}"
+    return f"${val:.2f}"
+
+
+def _fmt_myr(val):
+    return f"MYR {val:.2f}"
+
+
+def _js_array(lst):
+    """Convert a Python list to a JS array literal string."""
+    return json.dumps(lst)
+
+
+def generate_html(prices, gold_ohlcv, btc_ohlcv, news):
+    """Build the complete HTML dashboard string."""
+    now = datetime.now()
+    date_str = now.strftime("%-d %B %Y")
+    date_short = now.strftime("%-d %b %Y").upper()
+    timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    gold_price = prices["gold"]
+    btc_price = prices["btc"]
+    gold_int = int(round(gold_price))
+    btc_int = int(round(btc_price))
+
+    # Chart data — use fetched data or fall back to static
+    # PLACEHOLDER: CHART_DATA_SECTION
+    gold_dates, gold_closes = gold_ohlcv
+    btc_dates, btc_closes = btc_ohlcv
+
+    # Build news cards HTML
+    # PLACEHOLDER: NEWS_CARDS_SECTION
+    news_cards_html = _build_news_cards(news)
+
+    # Local stock prices
+    maybank_price = _fmt_myr(prices["maybank"])
+    cimb_price = _fmt_myr(prices["cimb"])
+    tenaga_price = _fmt_myr(prices["tenaga"])
+    ihh_price = _fmt_myr(prices["ihh"])
+    speedmart_price = _fmt_myr(prices["speedmart"])
+
+    # International stock prices
+    asml_price = _fmt_usd(prices["asml"])
+    baba_price = _fmt_usd(prices["baba"])
+    meli_price = _fmt_usd(prices["meli"])
+    aapl_price = _fmt_usd(prices["aapl"])
+
+    # PLACEHOLDER: BUILD_HTML
+    html = _build_html_head(date_str, date_short, gold_price, btc_price, gold_int, btc_int)
+    html += _build_html_stat_cards(gold_int, btc_int)
+    html += _build_html_local_news()
+    html += _build_html_intl_news()
+    html += _build_html_news_feed(news_cards_html)
+    html += _build_html_local_stocks(maybank_price, cimb_price, tenaga_price, ihh_price, speedmart_price)
+    html += _build_html_intl_stocks(asml_price, baba_price, meli_price, aapl_price)
+    html += _build_html_gold_section(gold_price)
+    html += _build_html_btc_section(btc_price)
+    html += _build_html_footer(timestamp)
+    html += _build_html_scripts(gold_dates, gold_closes, gold_int, btc_dates, btc_closes, btc_int)
+    html += "\n</body>\n</html>"
+
+    return html
+
+
+def _build_news_cards(news):
+    """Build HTML cards for RSS news headlines."""
+    if not news:
+        return ""
+    cards = []
+    for source, titles in news.items():
+        for title in titles[:3]:
+            cards.append(
+                f'    <div class="card-news anim-card">'
+                f'<span class="badge badge-neutral mb-3">{source}</span>'
+                f'<h3 class="text-sm font-semibold text-white leading-snug mb-2">{title}</h3>'
+                f'<p class="text-[10px] text-gold-600 mt-3 font-mono">{source}</p></div>'
+            )
+    return "\n".join(cards)
+
+
+# PLACEHOLDER: All _build_html_* helper functions will be filled in via Edit
+
+
+def _build_html_head(date_str, date_short, gold_price, btc_price, gold_int, btc_int):
+    """Return the <!DOCTYPE> through end of <header>."""
+    return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investment Intelligence Dashboard &mdash; 7 April 2026</title>
+<title>Investment Intelligence Dashboard &mdash; {date_str}</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>
-tailwind.config={theme:{extend:{colors:{vault:{950:'#050a14',900:'#0a1128',800:'#0f172a',700:'#1e293b',600:'#334155',500:'#475569'},gold:{50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e'},bull:'#22c55e',bear:'#ef4444',btc:'#f7931a'},fontFamily:{display:['Space Grotesk','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}
+tailwind.config={{theme:{{extend:{{colors:{{vault:{{950:'#050a14',900:'#0a1128',800:'#0f172a',700:'#1e293b',600:'#334155',500:'#475569'}},gold:{{50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e'}},bull:'#22c55e',bear:'#ef4444',btc:'#f7931a'}},fontFamily:{{display:['Space Grotesk','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}}}}}
 </script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:#050a14;overflow-x:hidden}
-.noise{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#f59e0b,#fbbf24,#f7931a);z-index:10000;transition:width .1s}
-.glow-gold{box-shadow:0 0 30px rgba(245,158,11,.08),0 0 60px rgba(245,158,11,.04)}
-.glow-gold-strong{box-shadow:0 0 40px rgba(245,158,11,.15),0 0 80px rgba(245,158,11,.06)}
-.card{background:linear-gradient(135deg,rgba(30,41,59,.8),rgba(15,23,42,.9));border:1px solid rgba(245,158,11,.1);border-radius:12px;backdrop-filter:blur(10px)}
-.card:hover{border-color:rgba(245,158,11,.25);box-shadow:0 0 30px rgba(245,158,11,.06)}
-.card-news{background:linear-gradient(135deg,rgba(30,41,59,.6),rgba(15,23,42,.8));border:1px solid rgba(245,158,11,.07);border-radius:10px;padding:1.25rem;transition:all .3s}
-.card-news:hover{border-color:rgba(245,158,11,.2);transform:translateY(-2px)}
-.table-container{overflow-x:auto;border-radius:12px;border:1px solid rgba(245,158,11,.1)}
-.rec-table{width:100%;border-collapse:collapse;font-size:.85rem}
-.rec-table thead{background:rgba(245,158,11,.08)}
-.rec-table th{padding:12px 14px;text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:600;color:#fbbf24;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
-.rec-table td{padding:12px 14px;border-top:1px solid rgba(245,158,11,.06);white-space:nowrap}
-.rec-table tbody tr:nth-child(even){background:rgba(245,158,11,.02)}
-.rec-table tbody tr:hover{background:rgba(245,158,11,.06)}
-.rec-box{background:linear-gradient(135deg,rgba(30,41,59,.9),rgba(15,23,42,.95));border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:1.5rem}
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:.03em}
-.badge-bull{background:rgba(34,197,94,.12);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
-.badge-bear{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
-.badge-neutral{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
-.section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(245,158,11,.15),transparent);margin:3rem 0}
-.hero-mesh{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 50%,rgba(245,158,11,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(247,147,26,.04) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(245,158,11,.03) 0%,transparent 50%)}
-.ticker-strip{background:rgba(245,158,11,.04);border-top:1px solid rgba(245,158,11,.08);border-bottom:1px solid rgba(245,158,11,.08)}
-@keyframes pulse-gold{0%,100%{opacity:.6}50%{opacity:1}}
-.pulse-dot{animation:pulse-gold 2s ease-in-out infinite}
-.stat-value{font-family:'Space Grotesk',sans-serif;font-variant-numeric:tabular-nums}
-.chart-container{width:100%;height:400px;border-radius:12px;overflow:hidden}
-@media(max-width:768px){.chart-container{height:300px}.rec-table{font-size:.75rem}.rec-table th,.rec-table td{padding:8px 10px}}
-.refresh-btn{position:fixed;bottom:24px;right:24px;z-index:9998;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:50%;width:48px;height:48px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,158,11,.3);transition:transform .2s}
-.refresh-btn:hover{transform:scale(1.1)}
-.chat-widget{position:fixed;bottom:24px;left:24px;z-index:9998}
-.chat-btn{background:linear-gradient(135deg,rgba(30,41,59,.9),rgba(15,23,42,.95));border:1px solid rgba(245,158,11,.2);color:#fbbf24;border-radius:50%;width:48px;height:48px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:transform .2s}
-.chat-btn:hover{transform:scale(1.1)}
+*{{margin:0;padding:0;box-sizing:border-box}}
+html{{scroll-behavior:smooth}}
+body{{background:#050a14;overflow-x:hidden}}
+.noise{{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}}
+.progress-bar{{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#f59e0b,#fbbf24,#f7931a);z-index:10000;transition:width .1s}}
+.glow-gold{{box-shadow:0 0 30px rgba(245,158,11,.08),0 0 60px rgba(245,158,11,.04)}}
+.glow-gold-strong{{box-shadow:0 0 40px rgba(245,158,11,.15),0 0 80px rgba(245,158,11,.06)}}
+.card{{background:linear-gradient(135deg,rgba(30,41,59,.8),rgba(15,23,42,.9));border:1px solid rgba(245,158,11,.1);border-radius:12px;backdrop-filter:blur(10px)}}
+.card:hover{{border-color:rgba(245,158,11,.25);box-shadow:0 0 30px rgba(245,158,11,.06)}}
+.card-news{{background:linear-gradient(135deg,rgba(30,41,59,.6),rgba(15,23,42,.8));border:1px solid rgba(245,158,11,.07);border-radius:10px;padding:1.25rem;transition:all .3s}}
+.card-news:hover{{border-color:rgba(245,158,11,.2);transform:translateY(-2px)}}
+.table-container{{overflow-x:auto;border-radius:12px;border:1px solid rgba(245,158,11,.1)}}
+.rec-table{{width:100%;border-collapse:collapse;font-size:.85rem}}
+.rec-table thead{{background:rgba(245,158,11,.08)}}
+.rec-table th{{padding:12px 14px;text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:600;color:#fbbf24;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}}
+.rec-table td{{padding:12px 14px;border-top:1px solid rgba(245,158,11,.06);white-space:nowrap}}
+.rec-table tbody tr:nth-child(even){{background:rgba(245,158,11,.02)}}
+.rec-table tbody tr:hover{{background:rgba(245,158,11,.06)}}
+.rec-box{{background:linear-gradient(135deg,rgba(30,41,59,.9),rgba(15,23,42,.95));border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:1.5rem}}
+.badge{{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:.03em}}
+.badge-bull{{background:rgba(34,197,94,.12);color:#22c55e;border:1px solid rgba(34,197,94,.2)}}
+.badge-bear{{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.2)}}
+.badge-neutral{{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}}
+.section-divider{{height:1px;background:linear-gradient(90deg,transparent,rgba(245,158,11,.15),transparent);margin:3rem 0}}
+.hero-mesh{{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 50%,rgba(245,158,11,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(247,147,26,.04) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(245,158,11,.03) 0%,transparent 50%)}}
+.ticker-strip{{background:rgba(245,158,11,.04);border-top:1px solid rgba(245,158,11,.08);border-bottom:1px solid rgba(245,158,11,.08)}}
+@keyframes pulse-gold{{0%,100%{{opacity:.6}}50%{{opacity:1}}}}
+.pulse-dot{{animation:pulse-gold 2s ease-in-out infinite}}
+.stat-value{{font-family:'Space Grotesk',sans-serif;font-variant-numeric:tabular-nums}}
+.chart-container{{width:100%;height:400px;border-radius:12px;overflow:hidden}}
+@media(max-width:768px){{.chart-container{{height:300px}}.rec-table{{font-size:.75rem}}.rec-table th,.rec-table td{{padding:8px 10px}}}}
+.refresh-btn{{position:fixed;bottom:24px;right:24px;z-index:9998;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:50%;width:48px;height:48px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,158,11,.3);transition:transform .2s}}
+.refresh-btn:hover{{transform:scale(1.1)}}
+.chat-widget{{position:fixed;bottom:24px;left:24px;z-index:9998}}
+.chat-btn{{background:linear-gradient(135deg,rgba(30,41,59,.9),rgba(15,23,42,.95));border:1px solid rgba(245,158,11,.2);color:#fbbf24;border-radius:50%;width:48px;height:48px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:transform .2s}}
+.chat-btn:hover{{transform:scale(1.1)}}
 </style>
 </head>
 <body class="bg-vault-900 text-gray-200 font-body">
@@ -60,9 +288,9 @@ body{background:#050a14;overflow-x:hidden}
   <div class="hero-mesh"></div>
   <div class="ticker-strip py-2 relative z-10">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 text-xs font-mono tracking-wide">
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE 7 APR 2026</span>
-      <span>Gold <span class="text-gold-400 font-semibold">$4,678.90</span>/oz</span>
-      <span>Bitcoin <span class="text-btc font-semibold">$68,103</span></span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE {date_short}</span>
+      <span>Gold <span class="text-gold-400 font-semibold">${gold_price:,.2f}</span>/oz</span>
+      <span>Bitcoin <span class="text-btc font-semibold">${btc_int:,}</span></span>
       <span>FBM KLCI <span class="text-gold-300 font-semibold">1,680&ndash;1,740</span></span>
     </div>
   </div>
@@ -78,18 +306,23 @@ body{background:#050a14;overflow-x:hidden}
     </div>
   </div>
 </header>
+'''
 
+
+def _build_html_stat_cards(gold_int, btc_int):
+    """Return the stat cards section."""
+    return f'''
 <!-- STAT CARDS -->
 <section class="max-w-7xl mx-auto px-4 py-12">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="statCards">
     <div class="card p-5 glow-gold anim-card">
       <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">Gold (XAU/USD)</p>
-      <p class="stat-value text-3xl font-bold text-gold-300" data-target="4679">$0</p>
+      <p class="stat-value text-3xl font-bold text-gold-300" data-target="{gold_int}">$0</p>
       <p class="text-xs text-bear mt-2 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg> -15% from Jan high $5,500</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-btc font-mono uppercase tracking-wider mb-1">Bitcoin (BTC/USD)</p>
-      <p class="stat-value text-3xl font-bold text-btc" data-target="68103">$0</p>
+      <p class="stat-value text-3xl font-bold text-btc" data-target="{btc_int}">$0</p>
       <p class="text-xs text-bull mt-2 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg> Recovering from $60K Feb low</p>
     </div>
     <div class="card p-5 anim-card">
@@ -106,7 +339,12 @@ body{background:#050a14;overflow-x:hidden}
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_local_news():
+    """Return the local news section."""
+    return '''
 <!-- LOCAL NEWS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-8">
@@ -151,7 +389,12 @@ body{background:#050a14;overflow-x:hidden}
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_intl_news():
+    """Return the international news section."""
+    return '''
 <!-- INTERNATIONAL NEWS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-8">
@@ -202,7 +445,14 @@ body{background:#050a14;overflow-x:hidden}
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_news_feed(news_cards_html):
+    """Return the live RSS news feed section."""
+    if not news_cards_html:
+        return ""
+    return f'''
 <!-- LIVE RSS NEWS FEED -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-8">
@@ -213,20 +463,17 @@ body{background:#050a14;overflow-x:hidden}
     </div>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Trump warns Iran’s ‘whole civilization will die tonight’ unless deal struck</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Used car prices rise to highest point since summer 2023</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">House Democrats call on federal regulator to crack down on offshore prediction market war bets</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Polymarket bags 97% of onchain prediction market fees after pricing overhaul</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Bitcoin waits at $68K as hours tick down to Iran deadline</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">CME Group expands crypto futures with Avalanche and Sui contracts</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Schwab says even a 1% crypto allocation can reshape portfolio risk</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">Crypto&#x27;s $224 million inflow rebound was led by mostly one country and XRP</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2">CoinDesk 20 performance update: index drops 2.4% as all constituents trade lower</h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+{news_cards_html}
   </div>
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_local_stocks(maybank, cimb, tenaga, ihh, speedmart):
+    """Return the local stock recommendations table."""
+    return f'''
 <!-- LOCAL STOCK RECOMMENDATIONS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
@@ -244,7 +491,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">Maybank</td>
           <td class="font-mono text-gold-300">1155.KL</td>
           <td>Banking</td>
-          <td class="font-mono">MYR 11.16</td>
+          <td class="font-mono">{maybank}</td>
           <td class="font-mono text-gray-300">10.80&ndash;11.30</td>
           <td class="font-mono text-bull font-semibold">MYR 13.00</td>
           <td><span class="badge badge-bull">+15%</span></td>
@@ -254,7 +501,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">CIMB Group</td>
           <td class="font-mono text-gold-300">1295.KL</td>
           <td>Banking</td>
-          <td class="font-mono">MYR 4.60</td>
+          <td class="font-mono">{cimb}</td>
           <td class="font-mono text-gray-300">4.50&ndash;4.70</td>
           <td class="font-mono text-bull font-semibold">MYR 5.50</td>
           <td><span class="badge badge-bull">+18%</span></td>
@@ -264,7 +511,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">Tenaga Nasional</td>
           <td class="font-mono text-gold-300">5347.KL</td>
           <td>Utilities</td>
-          <td class="font-mono">MYR 14.00</td>
+          <td class="font-mono">{tenaga}</td>
           <td class="font-mono text-gray-300">13.50&ndash;14.10</td>
           <td class="font-mono text-bull font-semibold">MYR 16.00</td>
           <td><span class="badge badge-bull">+14%</span></td>
@@ -274,7 +521,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">IHH Healthcare</td>
           <td class="font-mono text-gold-300">5225.KL</td>
           <td>Healthcare</td>
-          <td class="font-mono">MYR 8.69</td>
+          <td class="font-mono">{ihh}</td>
           <td class="font-mono text-gray-300">8.50&ndash;9.00</td>
           <td class="font-mono text-bull font-semibold">MYR 10.50</td>
           <td><span class="badge badge-bull">+17%</span></td>
@@ -284,7 +531,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">99 Speedmart</td>
           <td class="font-mono text-gold-300">5326.KL</td>
           <td>Retail</td>
-          <td class="font-mono">MYR 3.32</td>
+          <td class="font-mono">{speedmart}</td>
           <td class="font-mono text-gray-300">1.95&ndash;2.10</td>
           <td class="font-mono text-bull font-semibold">MYR 2.50</td>
           <td><span class="badge badge-bull">+19%</span></td>
@@ -296,7 +543,12 @@ body{background:#050a14;overflow-x:hidden}
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_intl_stocks(asml, baba, meli, aapl):
+    """Return the international stock recommendations table."""
+    return f'''
 <!-- INTERNATIONAL STOCK RECOMMENDATIONS -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
@@ -314,7 +566,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">ASML Holding</td>
           <td class="font-mono text-gold-300">ASML</td>
           <td>Semiconductors</td>
-          <td class="font-mono">$1,282.94</td>
+          <td class="font-mono">{asml}</td>
           <td class="font-mono text-gray-300">$1,250&ndash;1,320</td>
           <td class="font-mono text-bull font-semibold">$1,600</td>
           <td><span class="badge badge-bull">+21%</span></td>
@@ -324,7 +576,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">Alibaba</td>
           <td class="font-mono text-gold-300">BABA</td>
           <td>E-commerce / Cloud</td>
-          <td class="font-mono">$120.08</td>
+          <td class="font-mono">{baba}</td>
           <td class="font-mono text-gray-300">$115&ndash;125</td>
           <td class="font-mono text-bull font-semibold">$160</td>
           <td><span class="badge badge-bull">+31%</span></td>
@@ -334,7 +586,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">MercadoLibre</td>
           <td class="font-mono text-gold-300">MELI</td>
           <td>E-comm / Fintech</td>
-          <td class="font-mono">$1,698.84</td>
+          <td class="font-mono">{meli}</td>
           <td class="font-mono text-gray-300">$1,650&ndash;1,720</td>
           <td class="font-mono text-bull font-semibold">$2,200</td>
           <td><span class="badge badge-bull">+28%</span></td>
@@ -344,7 +596,7 @@ body{background:#050a14;overflow-x:hidden}
           <td class="font-semibold text-white">Apple</td>
           <td class="font-mono text-gold-300">AAPL</td>
           <td>Technology</td>
-          <td class="font-mono">$246.94</td>
+          <td class="font-mono">{aapl}</td>
           <td class="font-mono text-gray-300">$245&ndash;258</td>
           <td class="font-mono text-bull font-semibold">$300</td>
           <td><span class="badge badge-bull">+17%</span></td>
@@ -356,7 +608,13 @@ body{background:#050a14;overflow-x:hidden}
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_gold_section(gold_price):
+    """Return the gold analysis section."""
+    gold_int = int(round(gold_price))
+    return f'''
 <!-- GOLD SECTION -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
@@ -382,7 +640,7 @@ body{background:#050a14;overflow-x:hidden}
       <h3 class="font-display text-lg font-semibold text-gold-400 mb-4">Gold Recommendation</h3>
       <div class="rec-box glow-gold-strong">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">$4,679/oz</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">${gold_int:,}/oz</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$4,400&ndash;4,650</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">$5,000&ndash;5,400</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$4,100</p></div>
@@ -395,7 +653,13 @@ body{background:#050a14;overflow-x:hidden}
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_btc_section(btc_price):
+    """Return the bitcoin analysis section."""
+    btc_int = int(round(btc_price))
+    return f'''
 <!-- BITCOIN SECTION -->
 <section class="max-w-7xl mx-auto px-4 py-12 anim-section">
   <div class="flex items-center gap-3 mb-2">
@@ -440,7 +704,7 @@ body{background:#050a14;overflow-x:hidden}
       <h3 class="font-display text-lg font-semibold text-btc mb-4">Bitcoin Recommendation</h3>
       <div class="rec-box" style="border-color:rgba(247,147,26,.2)">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">$68,103</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">${btc_int:,}</p></div>
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$64,000&ndash;67,000</p></div>
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">$72,000&ndash;74,000</p></div>
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$60,000</p></div>
@@ -456,7 +720,12 @@ body{background:#050a14;overflow-x:hidden}
 </section>
 
 <div class="section-divider max-w-7xl mx-auto"></div>
+'''
 
+
+def _build_html_footer(timestamp):
+    """Return the disclaimer + footer."""
+    return f'''
 <!-- DISCLAIMER -->
 <section class="max-w-7xl mx-auto px-4 py-8">
   <div class="card p-5 text-center" style="border-color:rgba(239,68,68,.15)">
@@ -468,7 +737,7 @@ body{background:#050a14;overflow-x:hidden}
 <footer class="border-t border-gold-500/10 mt-8">
   <div class="max-w-7xl mx-auto px-4 py-8 text-center">
     <p class="text-xs text-gray-600 font-mono">Powered by <span class="text-gold-500">MuleRun Super Agent</span></p>
-    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Finnhub, CoinGecko, Reuters, J.P. Morgan Research, Goldman Sachs &middot; Generated 2026-04-07 14:52:47</p>
+    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Finnhub, CoinGecko, Reuters, J.P. Morgan Research, Goldman Sachs &middot; Generated {timestamp}</p>
   </div>
 </footer>
 
@@ -479,62 +748,123 @@ body{background:#050a14;overflow-x:hidden}
 <div class="chat-widget">
   <button class="chat-btn" title="Chat assistant">&#128172;</button>
 </div>
+'''
 
+
+def _build_html_scripts(gold_dates, gold_closes, gold_int, btc_dates, btc_closes, btc_int):
+    """Return the <script> block."""
+    # Use fetched data if available, otherwise fall back to static arrays
+    if gold_dates and gold_closes:
+        gd_js = _js_array(gold_dates)
+        gp_js = _js_array(gold_closes)
+        g_min = int(min(gold_closes) * 0.95)
+        g_max = int(max(gold_closes) * 1.05)
+    else:
+        gd_js = "['Oct 6','Oct 13','Oct 16','Oct 20','Oct 31','Nov 10','Nov 25','Nov 28','Dec 1','Dec 11','Dec 17','Dec 22','Dec 26','Dec 31','Jan 5','Jan 12','Jan 20','Jan 22','Jan 26','Jan 28','Jan 29','Jan 30','Feb 2','Feb 6','Feb 9','Feb 13','Feb 23','Feb 27','Mar 2','Mar 10','Mar 13','Mar 18','Mar 19','Mar 23','Mar 25','Mar 31','Apr 1','Apr 2','Apr 5']"
+        gp_js = "[3948,4108,4280,4336,3982,4112,4139,4218,4239,4286,4348,4445,4529,4326,4437,4604,4760,4909,5080,5302,5318,4714,4623,4951,5051,5022,5205,5231,5294,5230,5053,4890,4601,4404,4550,4648,4783,4652,4644]"
+        g_min = 3800
+        g_max = 5500
+
+    if btc_dates and btc_closes:
+        bd_js = _js_array(btc_dates)
+        bp_js = _js_array(btc_closes)
+        b_min = int(min(btc_closes) * 0.90)
+        b_max = int(max(btc_closes) * 1.05)
+    else:
+        bd_js = "['Oct 6','Oct 10','Oct 17','Oct 20','Oct 27','Nov 4','Nov 10','Nov 14','Nov 17','Nov 20','Nov 21','Nov 26','Dec 1','Dec 3','Dec 9','Dec 15','Dec 22','Dec 31','Jan 5','Jan 13','Jan 20','Jan 29','Jan 31','Feb 4','Feb 5','Feb 6','Feb 10','Feb 17','Feb 23','Feb 25','Mar 2','Mar 4','Mar 9','Mar 13','Mar 16','Mar 19','Mar 23','Mar 26','Mar 27','Mar 31','Apr 2','Apr 4','Apr 6']"
+        bp_js = "[124753,113214,106468,110589,114119,101591,105997,94398,92094,86632,85091,90518,86322,93528,92692,86420,88490,87509,93883,95322,88311,84562,78621,73020,62702,70555,68794,67494,64617,67960,68776,72711,68402,70968,74861,69913,70915,68792,66338,68233,66889,67291,69189]"
+        b_min = 55000
+        b_max = 130000
+
+    return f'''
 <!-- SCRIPTS -->
 <script>
 // Progress Bar
-window.addEventListener('scroll',function(){var h=document.documentElement;var p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;document.getElementById('progressBar').style.width=p+'%'});
+window.addEventListener('scroll',function(){{var h=document.documentElement;var p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;document.getElementById('progressBar').style.width=p+'%'}});
 
 // Number Counter
-function animateValue(el,start,end,dur){var st=null;var step=function(ts){if(!st)st=ts;var p=Math.min((ts-st)/dur,1);el.textContent='$'+Math.floor(p*(end-start)+start).toLocaleString();if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+function animateValue(el,start,end,dur){{var st=null;var step=function(ts){{if(!st)st=ts;var p=Math.min((ts-st)/dur,1);el.textContent='$'+Math.floor(p*(end-start)+start).toLocaleString();if(p<1)requestAnimationFrame(step)}};requestAnimationFrame(step)}}
 
 // GSAP Animations
 gsap.registerPlugin(ScrollTrigger);
-gsap.utils.toArray('.anim-card').forEach(function(el,i){gsap.from(el,{scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'},opacity:0,y:40,duration:.6,delay:i*.07,ease:'power2.out'})});
-gsap.utils.toArray('.anim-section').forEach(function(el){gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},opacity:0,y:30,duration:.8,ease:'power2.out'})});
+gsap.utils.toArray('.anim-card').forEach(function(el,i){{gsap.from(el,{{scrollTrigger:{{trigger:el,start:'top 90%',toggleActions:'play none none none'}},opacity:0,y:40,duration:.6,delay:i*.07,ease:'power2.out'}})}});
+gsap.utils.toArray('.anim-section').forEach(function(el){{gsap.from(el,{{scrollTrigger:{{trigger:el,start:'top 85%'}},opacity:0,y:30,duration:.8,ease:'power2.out'}})}});
 
 // Counter animation on stat cards
-document.querySelectorAll('[data-target]').forEach(function(el){var t=parseInt(el.dataset.target);ScrollTrigger.create({trigger:el,start:'top 90%',onEnter:function(){animateValue(el,0,t,1200)}});});
+document.querySelectorAll('[data-target]').forEach(function(el){{var t=parseInt(el.dataset.target);ScrollTrigger.create({{trigger:el,start:'top 90%',onEnter:function(){{animateValue(el,0,t,1200)}}}});}});
 
 // Gold Chart
-var goldDates=["Oct 07", "Oct 10", "Oct 15", "Oct 20", "Oct 23", "Oct 28", "Oct 31", "Nov 05", "Nov 10", "Nov 13", "Nov 18", "Nov 21", "Nov 26", "Dec 02", "Dec 05", "Dec 10", "Dec 15", "Dec 18", "Dec 23", "Dec 29", "Jan 02", "Jan 07", "Jan 12", "Jan 15", "Jan 21", "Jan 26", "Jan 29", "Feb 03", "Feb 06", "Feb 11", "Feb 17", "Feb 20", "Feb 25", "Mar 02", "Mar 05", "Mar 10", "Mar 13", "Mar 18", "Mar 23", "Mar 26", "Mar 31", "Apr 06"];
-var goldPrices=[3976.6, 3975.9, 4176.9, 4336.4, 4125.5, 3966.2, 3982.2, 3980.3, 4111.8, 4186.9, 4061.3, 4076.7, 4165.2, 4186.6, 4212.9, 4196.4, 4306.7, 4339.5, 4482.8, 4325.1, 4314.4, 4449.3, 4604.3, 4616.3, 4831.8, 5079.7, 5318.4, 4903.7, 4951.2, 5071.6, 4882.9, 5059.3, 5206.4, 5294.4, 5065.3, 5229.7, 5052.5, 4889.9, 4404.1, 4375.5, 4647.6, 4656.8];
+var goldDates={gd_js};
+var goldPrices={gp_js};
 
-var goldChart=echarts.init(document.getElementById('goldChart'),null,{renderer:'svg'});
-goldChart.setOption({
-  tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(245,158,11,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fde68a'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#fbbf24;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'/oz</div>'}},
-  grid:{top:30,right:20,bottom:40,left:70,containLabel:false},
-  xAxis:{type:'category',data:goldDates,axisLine:{lineStyle:{color:'rgba(245,158,11,.15)'}},axisLabel:{color:'rgba(251,191,36,.5)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
-  yAxis:{type:'value',min:3767,max:5584,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(245,158,11,.06)'}},axisLabel:{color:'rgba(251,191,36,.4)',fontFamily:'JetBrains Mono',fontSize:10,formatter:'${value}'}},
-  series:[{
-    type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f59e0b',width:2.5},
-    areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,.35)'},{offset:.5,color:'rgba(245,158,11,.08)'},{offset:1,color:'rgba(245,158,11,0)'}])},
+var goldChart=echarts.init(document.getElementById('goldChart'),null,{{renderer:'svg'}});
+goldChart.setOption({{
+  tooltip:{{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(245,158,11,.3)',borderWidth:1,textStyle:{{fontFamily:'JetBrains Mono',fontSize:12,color:'#fde68a'}},formatter:function(p){{return '<div style="font-family:Space Grotesk;font-weight:600;color:#fbbf24;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'/oz</div>'}}}},
+  grid:{{top:30,right:20,bottom:40,left:70,containLabel:false}},
+  xAxis:{{type:'category',data:goldDates,axisLine:{{lineStyle:{{color:'rgba(245,158,11,.15)'}}}},axisLabel:{{color:'rgba(251,191,36,.5)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45}},axisTick:{{show:false}}}},
+  yAxis:{{type:'value',min:{g_min},max:{g_max},axisLine:{{show:false}},splitLine:{{lineStyle:{{color:'rgba(245,158,11,.06)'}}}},axisLabel:{{color:'rgba(251,191,36,.4)',fontFamily:'JetBrains Mono',fontSize:10,formatter:'${{value}}'}}}},
+  series:[{{
+    type:'line',smooth:true,symbol:'none',lineStyle:{{color:'#f59e0b',width:2.5}},
+    areaStyle:{{color:new echarts.graphic.LinearGradient(0,0,0,1,[{{offset:0,color:'rgba(245,158,11,.35)'}},{{offset:.5,color:'rgba(245,158,11,.08)'}},{{offset:1,color:'rgba(245,158,11,0)'}}])}},
     data:goldPrices,
-    markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(245,158,11,.3)',type:'dashed'},data:[{yAxis:4679,label:{formatter:'Current $4,679',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}]}
-  }]
-});
+    markLine:{{silent:true,symbol:'none',lineStyle:{{color:'rgba(245,158,11,.3)',type:'dashed'}},data:[{{yAxis:{gold_int},label:{{formatter:'Current ${gold_int:,}',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}}}]}}
+  }}]
+}});
 
 // BTC Chart
-var btcDates=["Oct 07", "Oct 11", "Oct 15", "Oct 19", "Oct 23", "Oct 27", "Oct 31", "Nov 04", "Nov 08", "Nov 12", "Nov 16", "Nov 20", "Nov 24", "Nov 28", "Dec 02", "Dec 06", "Dec 10", "Dec 14", "Dec 18", "Dec 22", "Dec 26", "Dec 30", "Jan 03", "Jan 07", "Jan 11", "Jan 15", "Jan 19", "Jan 23", "Jan 27", "Jan 31", "Feb 04", "Feb 08", "Feb 12", "Feb 16", "Feb 20", "Feb 24", "Feb 28", "Mar 04", "Mar 08", "Mar 12", "Mar 16", "Mar 20", "Mar 24", "Mar 28", "Apr 01", "Apr 05"];
-var btcPrices=[121451.38, 110807.88, 110783.16, 108666.71, 110069.73, 114119.33, 109556.16, 101590.52, 102282.12, 101663.19, 94177.08, 86631.9, 88270.56, 90919.27, 91350.2, 89272.38, 92020.95, 88175.18, 85462.51, 88490.02, 87301.43, 88430.13, 90603.19, 91308.05, 90827.46, 95551.19, 92553.59, 89503.88, 89102.57, 78621.12, 73019.7, 70264.73, 66221.84, 68843.16, 68005.42, 64080.04, 66995.86, 72710.58, 65969.78, 70493.46, 74861.09, 70522.59, 70517.86, 66319.7, 68078.55, 68981.9];
+var btcDates={bd_js};
+var btcPrices={bp_js};
 
-var btcChart=echarts.init(document.getElementById('btcChart'),null,{renderer:'svg'});
-btcChart.setOption({
-  tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(247,147,26,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fed7aa'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#f7931a;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'</div>'}},
-  grid:{top:30,right:20,bottom:40,left:80,containLabel:false},
-  xAxis:{type:'category',data:btcDates,axisLine:{lineStyle:{color:'rgba(247,147,26,.15)'}},axisLabel:{color:'rgba(247,147,26,.4)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
-  yAxis:{type:'value',min:57672,max:127523,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(247,147,26,.06)'}},axisLabel:{color:'rgba(247,147,26,.35)',fontFamily:'JetBrains Mono',fontSize:10,formatter:function(v){return '$'+Math.round(v/1000)+'K'}}},
-  series:[{
-    type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f7931a',width:2.5},
-    areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(247,147,26,.3)'},{offset:.5,color:'rgba(247,147,26,.06)'},{offset:1,color:'rgba(247,147,26,0)'}])},
+var btcChart=echarts.init(document.getElementById('btcChart'),null,{{renderer:'svg'}});
+btcChart.setOption({{
+  tooltip:{{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(247,147,26,.3)',borderWidth:1,textStyle:{{fontFamily:'JetBrains Mono',fontSize:12,color:'#fed7aa'}},formatter:function(p){{return '<div style="font-family:Space Grotesk;font-weight:600;color:#f7931a;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'</div>'}}}},
+  grid:{{top:30,right:20,bottom:40,left:80,containLabel:false}},
+  xAxis:{{type:'category',data:btcDates,axisLine:{{lineStyle:{{color:'rgba(247,147,26,.15)'}}}},axisLabel:{{color:'rgba(247,147,26,.4)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45}},axisTick:{{show:false}}}},
+  yAxis:{{type:'value',min:{b_min},max:{b_max},axisLine:{{show:false}},splitLine:{{lineStyle:{{color:'rgba(247,147,26,.06)'}}}},axisLabel:{{color:'rgba(247,147,26,.35)',fontFamily:'JetBrains Mono',fontSize:10,formatter:function(v){{return '$'+Math.round(v/1000)+'K'}}}}}},
+  series:[{{
+    type:'line',smooth:true,symbol:'none',lineStyle:{{color:'#f7931a',width:2.5}},
+    areaStyle:{{color:new echarts.graphic.LinearGradient(0,0,0,1,[{{offset:0,color:'rgba(247,147,26,.3)'}},{{offset:.5,color:'rgba(247,147,26,.06)'}},{{offset:1,color:'rgba(247,147,26,0)'}}])}},
     data:btcPrices,
-    markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(247,147,26,.3)',type:'dashed'},data:[{yAxis:68103,label:{formatter:'Current $68,103',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}]}
-  }]
-});
+    markLine:{{silent:true,symbol:'none',lineStyle:{{color:'rgba(247,147,26,.3)',type:'dashed'}},data:[{{yAxis:{btc_int},label:{{formatter:'Current ${btc_int:,}',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}}}]}}
+  }}]
+}});
 
 // Resize handler
-window.addEventListener('resize',function(){goldChart.resize();btcChart.resize()});
+window.addEventListener('resize',function(){{goldChart.resize();btcChart.resize()}});
 </script>
+'''
 
-</body>
-</html>
+
+# ── Main ───────────────────────────────────────────────────────────────────
+
+def main():
+    print("=" * 60)
+    print("Investment Intelligence Dashboard Generator")
+    print("=" * 60)
+
+    print("\n[1/4] Fetching live prices...")
+    prices = fetch_prices()
+
+    print("\n[2/4] Fetching Gold OHLCV (6 months)...")
+    gold_ohlcv = fetch_ohlcv("GC=F", period="6mo")
+
+    print("\n[3/4] Fetching Bitcoin OHLCV (6 months)...")
+    btc_ohlcv = fetch_ohlcv("BTC-USD", period="6mo")
+
+    print("\n[4/4] Fetching news headlines...")
+    news = fetch_news()
+
+    print("\nGenerating HTML dashboard...")
+    html = generate_html(prices, gold_ohlcv, btc_ohlcv, news)
+
+    import os
+    output_path = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "index.html")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"\nDashboard saved to: {output_path}")
+    print("Done!")
+
+
+if __name__ == "__main__":
+    main()
