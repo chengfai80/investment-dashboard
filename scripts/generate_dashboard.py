@@ -858,8 +858,8 @@ def main():
     html = generate_html(prices, gold_ohlcv, btc_ohlcv, news)
 
     import os
-    output_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
-        os.path.abspath(__file__)))), "index.html")
+    output_path = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "index.html")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"\nDashboard saved to: {output_path}")
