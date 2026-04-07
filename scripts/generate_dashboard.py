@@ -34,7 +34,7 @@ SYMBOLS = {
     "cimb": "1295.KL",
     "tenaga": "5347.KL",
     "ihh": "5225.KL",
-    "speedmart": "5765.KL",
+    "speedmart": "5326.KL",
 }
 
 RSS_FEEDS = {
