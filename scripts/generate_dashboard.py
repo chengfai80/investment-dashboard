@@ -34,7 +34,7 @@ SYMBOLS = {
     "cimb": "1295.KL",
     "tenaga": "5347.KL",
     "ihh": "5225.KL",
-    "speedmart": "5765.KL",
+    "speedmart": "5326.KL",
 }
 
 RSS_FEEDS = {
@@ -529,7 +529,7 @@ def _build_html_local_stocks(maybank, cimb, tenaga, ihh, speedmart):
         </tr>
         <tr>
           <td class="font-semibold text-white">99 Speedmart</td>
-          <td class="font-mono text-gold-300">5765.KL</td>
+          <td class="font-mono text-gold-300">5326.KL</td>
           <td>Retail</td>
           <td class="font-mono">{speedmart}</td>
           <td class="font-mono text-gray-300">1.95&ndash;2.10</td>
