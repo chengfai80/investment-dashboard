@@ -40,12 +40,12 @@ jobs:
 
       - name: Commit changes if any
         run: |
-          git pull --rebase origin main
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "Update dashboard — $(date -u +'%Y-%m-%d')"
+            git pull --rebase origin main
             git push
           fi
 
