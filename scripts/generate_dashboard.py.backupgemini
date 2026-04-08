@@ -29,7 +29,8 @@ except ImportError:
 # ── Configuration ──────────────────────────────────────────────────────────
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+DISPATCH_TOKEN = os.environ.get("DISPATCH_TOKEN", "")
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 SYMBOLS = {
     "gold": "GC=F",
@@ -141,15 +142,6 @@ def call_gemini(prompt, max_retries=2):
                 data = json.loads(resp.read().decode("utf-8"))
                 text = data["candidates"][0]["content"]["parts"][0]["text"]
                 return text.strip()
-        except urllib.error.HTTPError as e:
-            body = ""
-            try:
-                body = e.read().decode("utf-8", errors="replace")
-            except Exception:
-                pass
-            print(f"  [ERROR] Gemini attempt {attempt+1}/{max_retries+1}: HTTP {e.code} - {body[:500]}")
-            if attempt < max_retries:
-                time.sleep(2)
         except Exception as e:
             print(f"  [ERROR] Gemini attempt {attempt+1}/{max_retries+1}: {e}")
             if attempt < max_retries:
@@ -491,7 +483,7 @@ def generate_html(prices, gold_ohlcv, btc_ohlcv, news,
     html += _build_html_intl_stocks(ai_intl_stocks, prices)
     html += _build_html_gold_section(gold_price, ai_gold)
     html += _build_html_btc_section(btc_price, ai_btc)
-    html += _build_html_footer(timestamp)
+    html += _build_html_footer(timestamp, DISPATCH_TOKEN)
     html += _build_html_scripts(gold_dates, gold_closes, gold_int, btc_dates, btc_closes, btc_int)
     html += "\n</body>\n</html>"
     return html
@@ -965,18 +957,15 @@ def _build_html_btc_section(btc_price, data=None):
 '''
 
 
-def _build_html_footer(timestamp):
-    # Token is NOT embedded in HTML. User enters it once and it's saved in browser localStorage.
-    refresh_js = '''
+def _build_html_footer(timestamp, dispatch_token):
+    refresh_js = ""
+    if dispatch_token:
+        refresh_js = f'''
 <div id="refreshModal" style="display:none;position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center">
   <div class="card p-6 max-w-sm mx-4 text-center" style="border-color:rgba(245,158,11,.25)">
     <div id="refreshIdle">
       <p class="text-gold-400 font-display font-semibold text-lg mb-2">Refresh Dashboard</p>
-      <p class="text-gray-400 text-sm mb-4">Trigger a full rebuild with fresh AI analysis and live market data.</p>
-      <div id="tokenInput" style="display:none" class="mb-4">
-        <input id="patInput" type="password" placeholder="Paste your GitHub PAT" class="w-full px-3 py-2 rounded-lg bg-vault-900 border border-gold-500/20 text-gray-200 text-sm focus:border-gold-500/50 outline-none mb-2">
-        <p class="text-gray-600 text-[10px]">Fine-grained PAT with Actions permission. Saved in your browser only.</p>
-      </div>
+      <p class="text-gray-400 text-sm mb-4">This will trigger a full rebuild with fresh AI analysis and live market data. It takes about 2-3 minutes.</p>
       <div class="flex gap-3 justify-center">
         <button onclick="triggerRefresh()" class="px-4 py-2 rounded-lg bg-gold-500 text-black font-semibold text-sm hover:bg-gold-400 transition">Confirm</button>
         <button onclick="closeRefreshModal()" class="px-4 py-2 rounded-lg border border-gray-600 text-gray-400 text-sm hover:border-gray-400 transition">Cancel</button>
@@ -984,7 +973,7 @@ def _build_html_footer(timestamp):
     </div>
     <div id="refreshLoading" style="display:none">
       <p class="text-gold-400 font-display font-semibold text-lg mb-2">&#8635; Rebuilding...</p>
-      <p class="text-gray-400 text-sm">Workflow triggered. The dashboard will update in a few minutes.</p>
+      <p class="text-gray-400 text-sm">Workflow triggered. The dashboard will update in a few minutes. You can close this and check back later.</p>
       <button onclick="closeRefreshModal()" class="mt-4 px-4 py-2 rounded-lg border border-gray-600 text-gray-400 text-sm hover:border-gray-400 transition">Close</button>
     </div>
     <div id="refreshError" style="display:none">
@@ -995,11 +984,12 @@ def _build_html_footer(timestamp):
   </div>
 </div>
 <script>
-function _getToken(){var t=localStorage.getItem("_dash_pat");if(t)return t;var el=document.getElementById("patInput");if(el&&el.value.trim()){t=el.value.trim();localStorage.setItem("_dash_pat",t);return t}return null}
-function openRefreshModal(){document.getElementById("refreshModal").style.display="flex";document.getElementById("refreshIdle").style.display="block";document.getElementById("refreshLoading").style.display="none";document.getElementById("refreshError").style.display="none";var hasToken=!!localStorage.getItem("_dash_pat");document.getElementById("tokenInput").style.display=hasToken?"none":"block"}
-function closeRefreshModal(){document.getElementById("refreshModal").style.display="none"}
-function triggerRefresh(){var tk=_getToken();if(!tk){document.getElementById("tokenInput").style.display="block";document.getElementById("patInput").focus();return}document.getElementById("refreshIdle").style.display="none";document.getElementById("refreshLoading").style.display="block";fetch("https://api.github.com/repos/chengfai80/investment-dashboard/actions/workflows/refresh-dashboard.yml/dispatches",{method:"POST",headers:{"Authorization":"Bearer "+tk,"Accept":"application/vnd.github+json"},body:JSON.stringify({ref:"main"})}).then(function(r){if(!r.ok){if(r.status===401||r.status===403){localStorage.removeItem("_dash_pat")}throw new Error("HTTP "+r.status)}}).catch(function(e){document.getElementById("refreshLoading").style.display="none";document.getElementById("refreshError").style.display="block";document.getElementById("refreshErrorMsg").textContent="Failed: "+e.message})}
+const _DT="{dispatch_token}";
+function openRefreshModal(){{document.getElementById("refreshModal").style.display="flex";document.getElementById("refreshIdle").style.display="block";document.getElementById("refreshLoading").style.display="none";document.getElementById("refreshError").style.display="none"}}
+function closeRefreshModal(){{document.getElementById("refreshModal").style.display="none"}}
+function triggerRefresh(){{document.getElementById("refreshIdle").style.display="none";document.getElementById("refreshLoading").style.display="block";fetch("https://api.github.com/repos/chengfai80/investment-dashboard/actions/workflows/refresh-dashboard.yml/dispatches",{{method:"POST",headers:{{"Authorization":"Bearer "+_DT,"Accept":"application/vnd.github+json"}},body:JSON.stringify({{ref:"main"}})}}).then(function(r){{if(!r.ok)throw new Error("HTTP "+r.status)}}).catch(function(e){{document.getElementById("refreshLoading").style.display="none";document.getElementById("refreshError").style.display="block";document.getElementById("refreshErrorMsg").textContent="Failed to trigger workflow: "+e.message}})}}
 </script>'''
+    button_onclick = 'onclick="openRefreshModal()"' if dispatch_token else 'onclick="location.reload()"'
     return f'''
 <!-- DISCLAIMER -->
 <section class="max-w-7xl mx-auto px-4 py-8">
@@ -1015,7 +1005,7 @@ function triggerRefresh(){var tk=_getToken();if(!tk){document.getElementById("to
   </div>
 </footer>
 {refresh_js}
-<button class="refresh-btn" onclick="openRefreshModal()" title="Refresh dashboard">&#8635;</button>
+<button class="refresh-btn" {button_onclick} title="Refresh dashboard">&#8635;</button>
 '''
 
 
