@@ -993,7 +993,11 @@ def _build_html_footer(timestamp, dispatch_token):
   </div>
 </div>
 <script>
-const _DT="{dispatch_token}";
+# At the top of the function, after `if dispatch_token:`, add:
+encoded = base64.b64encode(dispatch_token.encode()).decode()
+
+# Then in the JavaScript:
+const _DT=atob("{encoded}");
 function openRefreshModal(){{document.getElementById("refreshModal").style.display="flex";document.getElementById("refreshIdle").style.display="block";document.getElementById("refreshLoading").style.display="none";document.getElementById("refreshError").style.display="none"}}
 function closeRefreshModal(){{document.getElementById("refreshModal").style.display="none"}}
 function triggerRefresh(){{document.getElementById("refreshIdle").style.display="none";document.getElementById("refreshLoading").style.display="block";fetch("https://api.github.com/repos/chengfai80/investment-dashboard/actions/workflows/refresh-dashboard.yml/dispatches",{{method:"POST",headers:{{"Authorization":"Bearer "+_DT,"Accept":"application/vnd.github+json"}},body:JSON.stringify({{ref:"main"}})}}).then(function(r){{if(!r.ok)throw new Error("HTTP "+r.status)}}).catch(function(e){{document.getElementById("refreshLoading").style.display="none";document.getElementById("refreshError").style.display="block";document.getElementById("refreshErrorMsg").textContent="Failed to trigger workflow: "+e.message}})}}
