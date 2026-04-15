@@ -8,7 +8,6 @@ then generates a complete HTML dashboard.
 import json
 import os
 import time
-import math
 import html as html_module
 import urllib.request
 import urllib.error
@@ -51,23 +50,6 @@ RSS_FEEDS = {
     "CNBC": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114",
     "CoinTelegraph": "https://cointelegraph.com/rss",
     "CoinDesk": "https://www.coindesk.com/arc/outboundfeeds/rss/",
-}
-
-# ── Technical Analysis Watchlist ──────────────────────────────────────────
-TA_STOCKS = {
-    # Bursa Malaysia
-    "INARI": {"ticker": "0166.KL", "currency": "MYR"},
-    "KOPI": {"ticker": "0338.KL", "currency": "MYR"},
-    "AQUAWALK": {"ticker": "0380.KL", "currency": "MYR"},
-    "MAYBANK": {"ticker": "1155.KL", "currency": "MYR"},
-    "PBBANK": {"ticker": "1295.KL", "currency": "MYR"},
-    "99SMART": {"ticker": "5326.KL", "currency": "MYR"},
-    "GAMUDA": {"ticker": "5398.KL", "currency": "MYR"},
-    "YTLPOWER": {"ticker": "6742.KL", "currency": "MYR"},
-    "MAXIS": {"ticker": "6012.KL", "currency": "MYR"},
-    # US Stocks
-    "NVDA": {"ticker": "NVDA", "currency": "USD"},
-    "CSCO": {"ticker": "CSCO", "currency": "USD"},
 }
 
 FALLBACK_PRICES = {
@@ -464,213 +446,6 @@ def fetch_news():
     return news
 
 
-# ── Technical Analysis Engine ─────────────────────────────────────────────
-
-def _ta_ema(data, period):
-    """Calculate Exponential Moving Average."""
-    ema = [0.0] * len(data)
-    if len(data) < period:
-        return ema
-    k = 2 / (period + 1)
-    ema[period - 1] = sum(data[:period]) / period
-    for i in range(period, len(data)):
-        ema[i] = data[i] * k + ema[i - 1] * (1 - k)
-    return ema
-
-def _ta_sma(data, period):
-    """Calculate Simple Moving Average."""
-    sma = [0.0] * len(data)
-    for i in range(period - 1, len(data)):
-        sma[i] = sum(data[i - period + 1:i + 1]) / period
-    return sma
-
-def _ta_rsi(closes, period=14):
-    """Calculate RSI."""
-    if len(closes) < period + 1:
-        return 50.0
-    gains, losses = [], []
-    for i in range(1, len(closes)):
-        diff = closes[i] - closes[i - 1]
-        gains.append(max(diff, 0))
-        losses.append(max(-diff, 0))
-    avg_gain = sum(gains[:period]) / period
-    avg_loss = sum(losses[:period]) / period
-    for i in range(period, len(gains)):
-        avg_gain = (avg_gain * (period - 1) + gains[i]) / period
-        avg_loss = (avg_loss * (period - 1) + losses[i]) / period
-    if avg_loss == 0:
-        return 100.0
-    rs = avg_gain / avg_loss
-    return round(100 - 100 / (1 + rs), 2)
-
-def _ta_macd(closes, fast=12, slow=26, signal=9):
-    """Calculate MACD. Returns (dif, dea, hist) as latest values."""
-    if len(closes) < slow + signal:
-        return 0, 0, 0
-    ema_fast = _ta_ema(closes, fast)
-    ema_slow = _ta_ema(closes, slow)
-    dif = [ema_fast[i] - ema_slow[i] for i in range(len(closes))]
-    dea = _ta_ema(dif[slow - 1:], signal)
-    if not dea:
-        return 0, 0, 0
-    d = dif[-1]
-    e = dea[-1]
-    h = (d - e) * 2
-    # Also get previous hist for trend detection
-    if len(dea) >= 2:
-        h_prev = (dif[-2] - dea[-2]) * 2
-    else:
-        h_prev = h
-    return round(d, 4), round(e, 4), round(h, 4), round(h_prev, 4)
-
-def _ta_bollinger(closes, period=20, std_dev=2):
-    """Calculate Bollinger Bands. Returns (upper, middle, lower, pctb)."""
-    if len(closes) < period:
-        p = closes[-1] if closes else 0
-        return p * 1.02, p, p * 0.98, 0.5
-    window = closes[-period:]
-    mid = sum(window) / period
-    variance = sum((x - mid) ** 2 for x in window) / period
-    sd = math.sqrt(variance)
-    upper = mid + std_dev * sd
-    lower = mid - std_dev * sd
-    pctb = (closes[-1] - lower) / (upper - lower) if upper != lower else 0.5
-    return round(upper, 4), round(mid, 4), round(lower, 4), round(pctb, 4)
-
-def _ta_supertrend(highs, lows, closes, period=10, multiplier=3.0):
-    """Calculate SuperTrend. Returns (direction, value, streak)."""
-    n = len(closes)
-    if n < period + 1:
-        return "BEARISH", closes[-1] if closes else 0, 0
-    # ATR
-    trs = [max(highs[i] - lows[i], abs(highs[i] - closes[i - 1]), abs(lows[i] - closes[i - 1])) for i in range(1, n)]
-    atr = [0.0] * len(trs)
-    atr[period - 1] = sum(trs[:period]) / period
-    for i in range(period, len(trs)):
-        atr[i] = (atr[i - 1] * (period - 1) + trs[i]) / period
-    # SuperTrend
-    direction = 1
-    st_val = 0
-    streak = 0
-    for i in range(period, len(trs)):
-        hl2 = (highs[i + 1] + lows[i + 1]) / 2
-        up = hl2 - multiplier * atr[i]
-        dn = hl2 + multiplier * atr[i]
-        if direction == 1:
-            st_val = max(up, st_val) if st_val else up
-            if closes[i + 1] < st_val:
-                direction = -1
-                st_val = dn
-                streak = 0
-        else:
-            st_val = min(dn, st_val) if st_val else dn
-            if closes[i + 1] > st_val:
-                direction = 1
-                st_val = up
-                streak = 0
-        streak += 1
-    return ("BULLISH" if direction == 1 else "BEARISH"), round(st_val, 4), streak
-
-def _ta_kdj(highs, lows, closes, period=9):
-    """Calculate KDJ. Returns (k, d, j)."""
-    n = len(closes)
-    if n < period:
-        return 50, 50, 50
-    rsv_list = []
-    for i in range(period - 1, n):
-        h = max(highs[i - period + 1:i + 1])
-        l = min(lows[i - period + 1:i + 1])
-        rsv = ((closes[i] - l) / (h - l) * 100) if h != l else 50
-        rsv_list.append(rsv)
-    k, d = 50.0, 50.0
-    for rsv in rsv_list:
-        k = 2 / 3 * k + 1 / 3 * rsv
-        d = 2 / 3 * d + 1 / 3 * k
-    j = 3 * k - 2 * d
-    return round(k, 2), round(d, 2), round(j, 2)
-
-
-def fetch_ta_data():
-    """Fetch OHLCV data and calculate technical indicators for TA watchlist."""
-    results = {}
-    for name, info in TA_STOCKS.items():
-        ticker = info["ticker"]
-        currency = info["currency"]
-        try:
-            url = f'https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=6mo&interval=1d'
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-            resp = urllib.request.urlopen(req, timeout=15)
-            data = json.loads(resp.read().decode("utf-8"))
-            r = data['chart']['result'][0]
-            meta = r['meta']
-            quote = r['indicators']['quote'][0]
-            closes = [c for c in quote['close'] if c is not None]
-            highs = [h for h in quote['high'] if h is not None]
-            lows = [l for l in quote['low'] if l is not None]
-            if len(closes) < 30:
-                print(f"  [WARN] {name}: only {len(closes)} bars, skipping TA")
-                continue
-            price = meta.get("regularMarketPrice", closes[-1])
-            rsi = _ta_rsi(closes)
-            macd_result = _ta_macd(closes)
-            macd_dif, macd_dea, macd_hist, macd_hist_prev = macd_result if len(macd_result) == 4 else (*macd_result, 0)
-            boll_upper, boll_mid, boll_lower, boll_pctb = _ta_bollinger(closes)
-            st_dir, st_val, st_streak = _ta_supertrend(highs, lows, closes)
-            kdj_k, kdj_d, kdj_j = _ta_kdj(highs, lows, closes)
-            results[name] = {
-                "ticker": ticker, "currency": currency, "price": price,
-                "rsi": rsi,
-                "macd_dif": macd_dif, "macd_dea": macd_dea,
-                "macd_hist": macd_hist, "macd_hist_prev": macd_hist_prev,
-                "boll_upper": boll_upper, "boll_mid": boll_mid,
-                "boll_lower": boll_lower, "boll_pctb": boll_pctb,
-                "st_dir": st_dir, "st_val": st_val, "st_streak": st_streak,
-                "kdj_k": kdj_k, "kdj_d": kdj_d, "kdj_j": kdj_j,
-            }
-            print(f"  {name} ({ticker}): {currency} {price} | {st_dir} | RSI={rsi}")
-            time.sleep(0.5)
-        except Exception as e:
-            print(f"  [ERROR] {name} ({ticker}): {e}")
-    return results
-
-def _ta_verdict(s):
-    """Score-based signal from TA indicators."""
-    score = 0
-    if s["st_dir"] == "BULLISH": score += 2
-    else: score -= 2
-    if s["macd_hist"] > 0 and s["macd_hist"] > s["macd_hist_prev"]: score += 2
-    elif s["macd_hist"] > 0: score += 1
-    elif s["macd_hist"] < 0 and s["macd_hist"] < s["macd_hist_prev"]: score -= 2
-    else: score -= 1
-    if s["rsi"] > 70: score -= 1
-    elif s["rsi"] < 30: score += 1
-    elif s["rsi"] > 50: score += 1
-    else: score -= 0.5
-    if s["kdj_j"] > 100: score -= 1
-    elif s["kdj_j"] < 0: score += 1
-    elif s["kdj_k"] > s["kdj_d"]: score += 0.5
-    else: score -= 0.5
-    if s["boll_pctb"] > 1: score -= 1
-    elif s["boll_pctb"] < 0: score += 1
-    if score >= 3: return "STRONG BUY", "badge-bull"
-    if score >= 1: return "BUY", "badge-bull"
-    if score >= -1: return "HOLD", "badge-neutral"
-    if score >= -3: return "SELL", "badge-bear"
-    return "STRONG SELL", "badge-bear"
-
-def _ta_levels(s):
-    """Calculate entry, target, stop loss."""
-    if s["st_dir"] == "BULLISH":
-        entry = max(s["boll_mid"], s["st_val"])
-        stop = s["boll_lower"] * 0.97
-        target = s["boll_upper"] * 1.02
-    else:
-        entry = s["boll_lower"]
-        stop = s["boll_lower"] * 0.95
-        target = s["boll_mid"]
-    return round(entry, 4), round(target, 4), round(stop, 4)
-
-
 # ── HTML Helpers ───────────────────────────────────────────────────────────
 
 def _e(s):
@@ -691,7 +466,7 @@ def _js_array(lst):
 
 def generate_html(prices, gold_ohlcv, btc_ohlcv, news,
                   ai_local_news, ai_intl_news, ai_local_stocks,
-                  ai_intl_stocks, ai_gold, ai_btc, ta_data=None):
+                  ai_intl_stocks, ai_gold, ai_btc):
     """Build the complete HTML dashboard string."""
     myt = timezone(timedelta(hours=8))
     now = datetime.now(myt)
@@ -718,7 +493,6 @@ def generate_html(prices, gold_ohlcv, btc_ohlcv, news,
     html += _build_html_intl_stocks(ai_intl_stocks, prices)
     html += _build_html_gold_section(gold_price, ai_gold)
     html += _build_html_btc_section(btc_price, ai_btc)
-    html += _build_html_ta_section(ta_data)
     html += _build_html_footer(timestamp)
     html += _build_html_scripts(gold_dates, gold_closes, gold_int, btc_dates, btc_closes, btc_int)
     html += "\n</body>\n</html>"
@@ -1223,78 +997,6 @@ def _build_html_btc_section(btc_price, data=None):
 '''
 
 
-def _build_html_ta_section(ta_data):
-    """Build Technical Analysis watchlist section."""
-    if not ta_data:
-        return ""
-    my_stocks = {k: v for k, v in ta_data.items() if v["currency"] == "MYR"}
-    us_stocks = {k: v for k, v in ta_data.items() if v["currency"] == "USD"}
-
-    def _rows(sd):
-        r = ""
-        for nm, s in sd.items():
-            sig, sig_cls = _ta_verdict(s)
-            entry, target, stop = _ta_levels(s)
-            cy = "$" if s["currency"] == "USD" else ""
-            dp = 2 if s["price"] >= 10 else (3 if s["price"] >= 1 else 4)
-            sc = "bull" if s["st_dir"] == "BULLISH" else "bear"
-            rc = "bear" if s["rsi"] > 70 else ("bull" if s["rsi"] < 30 else "gold-300")
-            rl = "OB" if s["rsi"] > 70 else ("OS" if s["rsi"] < 30 else "")
-            mc = "bull" if s["macd_hist"] > 0 else "bear"
-            mt = "&#9650;" if abs(s["macd_hist"]) > abs(s["macd_hist_prev"]) else "&#9660;"
-            kc = "bear" if s["kdj_j"] > 80 else ("bull" if s["kdj_j"] < 20 else "gold-300")
-            bp = "Upper" if s["boll_pctb"] > 0.5 else "Lower"
-            up = round((target / s["price"] - 1) * 100, 1) if s["price"] > 0 else 0
-            dn = round((1 - stop / s["price"]) * 100, 1) if s["price"] > 0 else 0
-            r += f'<tr><td class="font-semibold text-white">{_e(nm)}<br><span class="text-[10px] text-gray-500">{_e(s["ticker"])}</span></td>'
-            r += f'<td class="font-mono font-semibold text-gold-300">{cy}{s["price"]:.{dp}f}</td>'
-            r += f'<td class="text-{sc} font-semibold">{s["st_dir"]}<br><span class="text-[10px] text-gray-500">{s["st_streak"]}d</span></td>'
-            r += f'<td class="text-{rc} font-semibold">{s["rsi"]:.1f} <span class="text-[10px]">{rl}</span></td>'
-            r += f'<td class="text-{mc} font-semibold">{s["macd_hist"]:.4f} {mt}</td>'
-            r += f'<td class="text-{kc} font-semibold">J={s["kdj_j"]:.0f}</td>'
-            r += f'<td class="font-mono text-xs">{bp}<br><span class="text-[10px] text-gray-500">%B={s["boll_pctb"]:.2f}</span></td>'
-            r += f'<td class="font-mono text-xs">{cy}{entry:.{dp}f}</td>'
-            r += f'<td class="font-mono text-xs text-bull">{cy}{target:.{dp}f}<br><span class="text-[10px] text-gray-500">+{up}%</span></td>'
-            r += f'<td class="font-mono text-xs text-bear">{cy}{stop:.{dp}f}<br><span class="text-[10px] text-gray-500">-{dn}%</span></td>'
-            r += f'<td><span class="badge {sig_cls}">{sig}</span></td></tr>'
-        return r
-
-    th = '<thead><tr><th>Stock</th><th>Price</th><th>Trend</th><th>RSI</th><th>MACD</th><th>KDJ</th><th>Boll</th><th>Entry</th><th>Target</th><th>Stop</th><th>Signal</th></tr></thead>'
-    my_t = f'<h3 class="font-display text-lg font-semibold text-gold-400 mb-4">&#127470;&#127486; Bursa Malaysia</h3><div class="table-container mb-6"><table class="rec-table">{th}<tbody>{_rows(my_stocks)}</tbody></table></div>' if my_stocks else ""
-    us_t = f'<h3 class="font-display text-lg font-semibold text-gold-400 mb-4">&#127482;&#127480; US Stocks</h3><div class="table-container mb-6"><table class="rec-table">{th}<tbody>{_rows(us_stocks)}</tbody></table></div>' if us_stocks else ""
-
-    cds = ""
-    for nm, s in ta_data.items():
-        sig, sig_cls = _ta_verdict(s)
-        entry, target, stop = _ta_levels(s)
-        cy = "$" if s["currency"] == "USD" else ""
-        cl = "USD" if s["currency"] == "USD" else "MYR"
-        dp = 2 if s["price"] >= 10 else (3 if s["price"] >= 1 else 4)
-        sc = "bull" if s["st_dir"] == "BULLISH" else "bear"
-        rc = "bear" if s["rsi"] > 70 else ("bull" if s["rsi"] < 30 else "gold-300")
-        rl = "Overbought" if s["rsi"] > 70 else ("Oversold" if s["rsi"] < 30 else "Neutral")
-        mc = "bull" if s["macd_hist"] > 0 else "bear"
-        mt = "Expanding" if abs(s["macd_hist"]) > abs(s["macd_hist_prev"]) else "Contracting"
-        kl = "Overbought" if s["kdj_j"] > 80 else ("Oversold" if s["kdj_j"] < 20 else "Neutral")
-        kc = "bear" if s["kdj_j"] > 80 else ("bull" if s["kdj_j"] < 20 else "gold-300")
-        bp = "Above Upper" if s["boll_pctb"] > 1 else ("Upper Half" if s["boll_pctb"] > 0.5 else ("Lower Half" if s["boll_pctb"] > 0 else "Below Lower"))
-        up = round((target / s["price"] - 1) * 100, 1) if s["price"] > 0 else 0
-        dn = round((1 - stop / s["price"]) * 100, 1) if s["price"] > 0 else 0
-        cds += f'''<div class="card p-5 anim-card"><div class="flex flex-wrap items-center justify-between gap-2 mb-3"><div><h4 class="font-display text-lg font-bold text-white">{_e(nm)}</h4><p class="text-gold-600 text-[10px] font-mono">{_e(s["ticker"])} &middot; {cl} {cy}{s["price"]:.{dp}f}</p></div><span class="badge {sig_cls}">{sig}</span></div><div class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-3 text-center"><div class="bg-vault-950 rounded-lg p-2"><p class="text-[9px] text-gold-600 font-mono uppercase">Trend</p><p class="text-{sc} font-display font-bold text-sm">{s["st_dir"]}</p><p class="text-[9px] text-gray-500">{s["st_streak"]} bars</p></div><div class="bg-vault-950 rounded-lg p-2"><p class="text-[9px] text-gold-600 font-mono uppercase">RSI</p><p class="text-{rc} font-display font-bold text-sm">{s["rsi"]:.1f}</p><p class="text-[9px] text-gray-500">{rl}</p></div><div class="bg-vault-950 rounded-lg p-2"><p class="text-[9px] text-gold-600 font-mono uppercase">MACD</p><p class="text-{mc} font-display font-bold text-sm">{s["macd_hist"]:.4f}</p><p class="text-[9px] text-gray-500">{mt}</p></div><div class="bg-vault-950 rounded-lg p-2"><p class="text-[9px] text-gold-600 font-mono uppercase">KDJ J</p><p class="text-{kc} font-display font-bold text-sm">{s["kdj_j"]:.1f}</p><p class="text-[9px] text-gray-500">{kl}</p></div><div class="bg-vault-950 rounded-lg p-2"><p class="text-[9px] text-gold-600 font-mono uppercase">Bollinger</p><p class="text-gold-300 font-display font-bold text-sm">{bp}</p><p class="text-[9px] text-gray-500">%B={s["boll_pctb"]:.2f}</p></div><div class="bg-vault-950 rounded-lg p-2"><p class="text-[9px] text-gold-600 font-mono uppercase">Levels</p><p class="text-bull text-[10px]">T:{cy}{target:.{dp}f} +{up}%</p><p class="text-bear text-[10px]">S:{cy}{stop:.{dp}f} -{dn}%</p></div></div></div>'''
-
-    return f'''
-<!-- TECHNICAL ANALYSIS -->
-<section class="max-w-7xl mx-auto px-4 py-12 anim-section">
-  <div class="flex items-center gap-3 mb-2"><span class="text-2xl">&#128200;</span><h2 class="font-display text-2xl md:text-3xl font-bold text-white">Technical Analysis</h2></div>
-  <p class="text-gold-500 text-sm font-mono mb-8">Watchlist &mdash; Daily Timeframe &middot; MACD, RSI, KDJ, Bollinger Bands, SuperTrend</p>
-  {my_t}{us_t}
-  <h3 class="font-display text-lg font-semibold text-gold-400 mt-8 mb-4">Detail Cards</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">{cds}</div>
-</section>
-<div class="section-divider max-w-7xl mx-auto"></div>
-'''
-
-
 def _build_html_footer(timestamp):
     # Token is NOT embedded in HTML. User enters it once and it's saved in browser localStorage.
     refresh_js = '''
@@ -1410,19 +1112,19 @@ def main():
     print("Investment Intelligence Dashboard Generator")
     print("=" * 60)
 
-    print("\n[1/7] Fetching live prices...")
+    print("\n[1/6] Fetching live prices...")
     prices = fetch_prices()
 
-    print("\n[2/7] Fetching Gold OHLCV (6 months)...")
+    print("\n[2/6] Fetching Gold OHLCV (6 months)...")
     gold_ohlcv = fetch_ohlcv("GC=F", period="6mo")
 
-    print("\n[3/7] Fetching Bitcoin OHLCV (6 months)...")
+    print("\n[3/6] Fetching Bitcoin OHLCV (6 months)...")
     btc_ohlcv = fetch_ohlcv("BTC-USD", period="6mo")
 
-    print("\n[4/7] Fetching news headlines...")
+    print("\n[4/6] Fetching news headlines...")
     news = fetch_news()
 
-    print("\n[5/7] Fetching AI-powered analysis via Gemini...")
+    print("\n[5/6] Fetching AI-powered analysis via Gemini...")
     ai_local_news = fetch_gemini_local_news()
     ai_intl_news = fetch_gemini_intl_news()
     ai_local_stocks = fetch_gemini_local_stocks(prices)
@@ -1430,13 +1132,10 @@ def main():
     ai_gold = fetch_gemini_gold_analysis(prices["gold"])
     ai_btc = fetch_gemini_btc_analysis(prices["btc"])
 
-    print("\n[6/7] Running Technical Analysis on watchlist...")
-    ta_data = fetch_ta_data()
-
-    print("\n[7/7] Generating HTML dashboard...")
+    print("\n[6/6] Generating HTML dashboard...")
     html = generate_html(prices, gold_ohlcv, btc_ohlcv, news,
                          ai_local_news, ai_intl_news, ai_local_stocks,
-                         ai_intl_stocks, ai_gold, ai_btc, ta_data)
+                         ai_intl_stocks, ai_gold, ai_btc)
 
     output_path = os.path.join(os.path.dirname(os.path.dirname(
         os.path.abspath(__file__))), "index.html")
