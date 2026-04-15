@@ -59,20 +59,20 @@ FALLBACK_PRICES = {
 }
 
 FALLBACK_LOCAL_NEWS = [
-    {"badge": "Cautious", "badge_class": "badge-bear", "headline": "Bursa Malaysia to remain cautious, confined within narrow range due to Mideast conflict", "summary": "Trading expected to be range-bound as geopolitical uncertainty continues to weigh on sentiment.", "source": "The Star", "date": "Apr 2026", "url": ""},
-    {"badge": "Mixed", "badge_class": "badge-neutral", "headline": "Bursa ends week mixed on global energy jitters — FBM KLCI in narrow range", "summary": "The benchmark index traded in a tight range as oil price volatility affected regional markets.", "source": "Business Today", "date": "Apr 2026", "url": ""},
-    {"badge": "Sell-off", "badge_class": "badge-bear", "headline": "FTSE Bursa Malaysia drops over 1% amid risk-off sentiment", "summary": "Malaysian equities came under selling pressure following global risk-off moves.", "source": "LiveMint", "date": "Apr 2026", "url": ""},
-    {"badge": "Positive", "badge_class": "badge-bull", "headline": "HKEX & Bursa Malaysia launch co-branded index, sign MOU for connectivity", "summary": "Strategic partnership to enhance cross-border investment flows between HK and Malaysian markets.", "source": "HKEX", "date": "Mar 2026", "url": ""},
-    {"badge": "Rally", "badge_class": "badge-bull", "headline": "Bursa Malaysia, Asian stocks rise on hopes for speedy Middle East resolution", "summary": "Asian markets rallied on hopes for swift resolution, providing temporary relief.", "source": "Asia News Network", "date": "Apr 2026", "url": ""},
+    {"badge": "Cautious", "badge_class": "badge-bear", "headline": "Bursa Malaysia to remain cautious, confined within narrow range due to Mideast conflict", "summary": "Trading expected to be range-bound as geopolitical uncertainty continues to weigh on sentiment.", "source": "The Star", "date": "Apr 2026"},
+    {"badge": "Mixed", "badge_class": "badge-neutral", "headline": "Bursa ends week mixed on global energy jitters — FBM KLCI in narrow range", "summary": "The benchmark index traded in a tight range as oil price volatility affected regional markets.", "source": "Business Today", "date": "Apr 2026"},
+    {"badge": "Sell-off", "badge_class": "badge-bear", "headline": "FTSE Bursa Malaysia drops over 1% amid risk-off sentiment", "summary": "Malaysian equities came under selling pressure following global risk-off moves.", "source": "LiveMint", "date": "Apr 2026"},
+    {"badge": "Positive", "badge_class": "badge-bull", "headline": "HKEX & Bursa Malaysia launch co-branded index, sign MOU for connectivity", "summary": "Strategic partnership to enhance cross-border investment flows between HK and Malaysian markets.", "source": "HKEX", "date": "Mar 2026"},
+    {"badge": "Rally", "badge_class": "badge-bull", "headline": "Bursa Malaysia, Asian stocks rise on hopes for speedy Middle East resolution", "summary": "Asian markets rallied on hopes for swift resolution, providing temporary relief.", "source": "Asia News Network", "date": "Apr 2026"},
 ]
 
 FALLBACK_INTL_NEWS = [
-    {"badge": "Watch", "badge_class": "badge-neutral", "headline": "Wall St Week Ahead: Inflation in focus for markets jostled by Middle East war signals", "summary": "Fresh inflation data could start showing the Middle East war's economic impact.", "source": "Reuters", "date": "Apr 2026", "url": ""},
-    {"badge": "Recovery", "badge_class": "badge-bull", "headline": "Stocks recover from early losses, close with weekly gain. US oil tops $110/barrel", "summary": "Wall Street shook off an early stumble to close with slim gains.", "source": "AP News", "date": "Apr 2026", "url": ""},
-    {"badge": "Risk", "badge_class": "badge-bear", "headline": "Middle East Conflict circles world markets, stirring fears of stalled growth & inflation", "summary": "Widening conflict threatening Strait of Hormuz has sparked global stock declines.", "source": "WSJ", "date": "Mar 2026", "url": ""},
-    {"badge": "Headwinds", "badge_class": "badge-neutral", "headline": "SpaceX, Anthropic & OpenAI mega IPOs alone can't fix this stock market", "summary": "Despite anticipated tech IPOs, the market faces structural headwinds.", "source": "CNBC", "date": "Apr 2026", "url": ""},
-    {"badge": "Geopolitical", "badge_class": "badge-bear", "headline": "Trump gives Iran until Tuesday night to open Strait of Hormuz", "summary": "Ultimatum intensifies standoff over critical shipping lane.", "source": "Reuters / WSJ", "date": "Apr 2026", "url": ""},
-    {"badge": "Supply", "badge_class": "badge-bull", "headline": "OPEC+ agrees to boost oil output when Strait of Hormuz reopens", "summary": "Oil cartel signals readiness to increase production once shipping route becomes accessible.", "source": "Reuters", "date": "Apr 2026", "url": ""},
+    {"badge": "Watch", "badge_class": "badge-neutral", "headline": "Wall St Week Ahead: Inflation in focus for markets jostled by Middle East war signals", "summary": "Fresh inflation data could start showing the Middle East war's economic impact.", "source": "Reuters", "date": "Apr 2026"},
+    {"badge": "Recovery", "badge_class": "badge-bull", "headline": "Stocks recover from early losses, close with weekly gain. US oil tops $110/barrel", "summary": "Wall Street shook off an early stumble to close with slim gains.", "source": "AP News", "date": "Apr 2026"},
+    {"badge": "Risk", "badge_class": "badge-bear", "headline": "Middle East Conflict circles world markets, stirring fears of stalled growth & inflation", "summary": "Widening conflict threatening Strait of Hormuz has sparked global stock declines.", "source": "WSJ", "date": "Mar 2026"},
+    {"badge": "Headwinds", "badge_class": "badge-neutral", "headline": "SpaceX, Anthropic & OpenAI mega IPOs alone can't fix this stock market", "summary": "Despite anticipated tech IPOs, the market faces structural headwinds.", "source": "CNBC", "date": "Apr 2026"},
+    {"badge": "Geopolitical", "badge_class": "badge-bear", "headline": "Trump gives Iran until Tuesday night to open Strait of Hormuz", "summary": "Ultimatum intensifies standoff over critical shipping lane.", "source": "Reuters / WSJ", "date": "Apr 2026"},
+    {"badge": "Supply", "badge_class": "badge-bull", "headline": "OPEC+ agrees to boost oil output when Strait of Hormuz reopens", "summary": "Oil cartel signals readiness to increase production once shipping route becomes accessible.", "source": "Reuters", "date": "Apr 2026"},
 ]
 
 FALLBACK_LOCAL_STOCKS = [
@@ -92,11 +92,11 @@ FALLBACK_INTL_STOCKS = [
 
 FALLBACK_GOLD = {
     "headlines": [
-        {"text": "Gold loses 15% from war highs as safe haven trade unwinds", "source": "Bitcoin.com", "date": "Apr", "url": ""},
-        {"text": "Gold overtakes U.S. Treasuries as world's largest foreign reserve asset", "source": "Economics", "date": "Apr", "url": ""},
-        {"text": "Brazil cuts dollar holdings, adds 42 tons of gold as BRICS push grows", "source": "WatcherGuru", "date": "Apr", "url": ""},
-        {"text": "Kiyosaki recommends Bitcoin & gold as 1974 shift comes full circle", "source": "CoinTelegraph", "date": "Apr", "url": ""},
-        {"text": "Gold futures on Bursa Malaysia Derivatives expected to trade cautiously", "source": "KLSEScreener", "date": "Apr", "url": ""},
+        {"text": "Gold loses 15% from war highs as safe haven trade unwinds", "source": "Bitcoin.com", "date": "Apr"},
+        {"text": "Gold overtakes U.S. Treasuries as world's largest foreign reserve asset", "source": "Economics", "date": "Apr"},
+        {"text": "Brazil cuts dollar holdings, adds 42 tons of gold as BRICS push grows", "source": "WatcherGuru", "date": "Apr"},
+        {"text": "Kiyosaki recommends Bitcoin & gold as 1974 shift comes full circle", "source": "CoinTelegraph", "date": "Apr"},
+        {"text": "Gold futures on Bursa Malaysia Derivatives expected to trade cautiously", "source": "KLSEScreener", "date": "Apr"},
     ],
     "buy_zone": "$4,400-4,650", "target": "$5,000-5,400", "stop_loss": "$4,100",
     "sentiment": "BULLISH Long-Term", "sentiment_class": "badge-bull",
@@ -105,12 +105,12 @@ FALLBACK_GOLD = {
 
 FALLBACK_BTC = {
     "headlines": [
-        {"text": "Bitcoin at $66,500 on Liberation Day — new prediction targets $240K", "source": "FinanceMagnates", "date": "Apr", "url": ""},
-        {"text": "Bitcoin ETF outflows amid US-Iran tensions pressure price", "source": "Capital.com", "date": "Apr", "url": ""},
-        {"text": "Bitcoin enters April with fading ETF momentum, rising whale selling", "source": "BeInCrypto", "date": "Mar", "url": ""},
-        {"text": "Bitcoin ETFs 'will be larger' than gold ETFs: Analyst", "source": "CoinTelegraph", "date": "Apr", "url": ""},
-        {"text": "Bitcoin tends to outperform gold & stocks after global shocks", "source": "CoinDesk", "date": "Apr", "url": ""},
-        {"text": "Fidelity: Bitcoin winning back gold investors", "source": "U.Today", "date": "Apr", "url": ""},
+        {"text": "Bitcoin at $66,500 on Liberation Day — new prediction targets $240K", "source": "FinanceMagnates", "date": "Apr"},
+        {"text": "Bitcoin ETF outflows amid US-Iran tensions pressure price", "source": "Capital.com", "date": "Apr"},
+        {"text": "Bitcoin enters April with fading ETF momentum, rising whale selling", "source": "BeInCrypto", "date": "Mar"},
+        {"text": "Bitcoin ETFs 'will be larger' than gold ETFs: Analyst", "source": "CoinTelegraph", "date": "Apr"},
+        {"text": "Bitcoin tends to outperform gold & stocks after global shocks", "source": "CoinDesk", "date": "Apr"},
+        {"text": "Fidelity: Bitcoin winning back gold investors", "source": "U.Today", "date": "Apr"},
     ],
     "rsi": "51.91", "rsi_label": "Neutral", "macd": "-650", "macd_label": "Death Cross",
     "ma7": "$67,991", "ma25": "$69,415", "ma99": "$76,372", "atr": "$2,315", "atr_pct": "3.34%",
@@ -190,8 +190,7 @@ Return ONLY a JSON array (no markdown, no explanation) with this exact structure
     "headline": "Short headline (max 120 chars)",
     "summary": "2-3 sentence summary (max 200 chars)",
     "source": "Source name",
-    "date": "{datetime.now().strftime('%d %b %Y')}",
-    "url": "https://... (direct link to the source article, must be a real working URL)"
+    "date": "{datetime.now().strftime('%d %b %Y')}"
   }}
 ]
 
@@ -218,8 +217,7 @@ Return ONLY a JSON array (no markdown, no explanation) with this exact structure
     "headline": "Short headline (max 120 chars)",
     "summary": "2-3 sentence summary (max 200 chars)",
     "source": "Source name",
-    "date": "{datetime.now().strftime('%d %b %Y')}",
-    "url": "https://... (direct link to the source article, must be a real working URL)"
+    "date": "{datetime.now().strftime('%d %b %Y')}"
   }}
 ]
 
@@ -310,11 +308,11 @@ Current gold price: ${gold_price:,.2f}/oz as of {today}.
 Return ONLY a JSON object (no markdown, no explanation):
 {{
   "headlines": [
-    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}", "url": "https://... (direct link to article)"}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}}
+    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}"}},
+    {{"text": "...", "source": "...", "date": "..."}},
+    {{"text": "...", "source": "...", "date": "..."}},
+    {{"text": "...", "source": "...", "date": "..."}},
+    {{"text": "...", "source": "...", "date": "..."}}
   ],
   "buy_zone": "$X,XXX-X,XXX",
   "target": "$X,XXX-X,XXX",
@@ -342,12 +340,12 @@ Current BTC price: ${btc_price:,.0f} as of {today}.
 Return ONLY a JSON object (no markdown, no explanation):
 {{
   "headlines": [
-    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}", "url": "https://... (direct link to article)"}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}},
-    {{"text": "...", "source": "...", "date": "...", "url": "..."}}
+    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}"}},
+    {{"text": "...", "source": "...", "date": "..."}},
+    {{"text": "...", "source": "...", "date": "..."}},
+    {{"text": "...", "source": "...", "date": "..."}},
+    {{"text": "...", "source": "...", "date": "..."}},
+    {{"text": "...", "source": "...", "date": "..."}}
   ],
   "rsi": "XX.XX",
   "rsi_label": "Neutral|Overbought|Oversold",
@@ -437,9 +435,9 @@ def fetch_news():
         try:
             print(f"  Fetching news from {source}...")
             feed = feedparser.parse(url)
-            items = [{"title": html_module.escape(e.get("title", "")), "url": e.get("link", "")} for e in feed.entries[:5]]
-            news[source] = items
-            print(f"    Got {len(items)} headlines from {source}.")
+            titles = [html_module.escape(e.get("title", "")) for e in feed.entries[:5]]
+            news[source] = titles
+            print(f"    Got {len(titles)} headlines from {source}.")
         except Exception as e:
             print(f"    [ERROR] {source}: {e}")
             news[source] = []
@@ -503,22 +501,12 @@ def _build_news_cards(news):
     if not news:
         return ""
     cards = []
-    for source, items in news.items():
-        for item in items[:3]:
-            if isinstance(item, dict):
-                title = item.get("title", "")
-                url = item.get("url", "")
-            else:
-                title = item
-                url = ""
-            if url:
-                headline = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">{title}</a>'
-            else:
-                headline = title
+    for source, titles in news.items():
+        for title in titles[:3]:
             cards.append(
                 f'    <div class="card-news anim-card">'
                 f'<span class="badge badge-neutral mb-3">{source}</span>'
-                f'<h3 class="text-sm font-semibold text-white leading-snug mb-2">{headline}</h3>'
+                f'<h3 class="text-sm font-semibold text-white leading-snug mb-2">{title}</h3>'
                 f'<p class="text-[10px] text-gold-600 mt-3 font-mono">{source}</p></div>'
             )
     return "\n".join(cards)
@@ -648,15 +636,10 @@ def _build_html_local_news(data=None):
         summary = _e(item.get("summary", ""))
         src = _e(item.get("source", ""))
         dt = _e(item.get("date", ""))
-        url = item.get("url", "")
-        if url:
-            hl_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">{hl}</a>'
-        else:
-            hl_html = hl
         cards += f'''
     <div class="card-news anim-card">
       <span class="badge {bc} mb-3">{badge}</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">{hl_html}</h3>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">{hl}</h3>
       <p class="text-xs text-gray-400">{summary}</p>
       <p class="text-[10px] text-gold-600 mt-3 font-mono">{src} &middot; {dt}</p>
     </div>'''
@@ -688,15 +671,10 @@ def _build_html_intl_news(data=None):
         summary = _e(item.get("summary", ""))
         src = _e(item.get("source", ""))
         dt = _e(item.get("date", ""))
-        url = item.get("url", "")
-        if url:
-            hl_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">{hl}</a>'
-        else:
-            hl_html = hl
         cards += f'''
     <div class="card-news anim-card">
       <span class="badge {bc} mb-3">{badge}</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">{hl_html}</h3>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">{hl}</h3>
       <p class="text-xs text-gray-400">{summary}</p>
       <p class="text-[10px] text-gold-600 mt-3 font-mono">{src} &middot; {dt}</p>
     </div>'''
@@ -855,13 +833,8 @@ def _build_html_gold_section(gold_price, data=None):
         txt = _e(h.get("text", ""))
         src = _e(h.get("source", ""))
         dt = _e(h.get("date", ""))
-        url = h.get("url", "")
-        if url:
-            txt_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">{txt}</a>'
-        else:
-            txt_html = txt
         headlines += f'''
-        <div class="card-news"><p class="text-sm text-white font-medium">{txt_html}</p><p class="text-[10px] text-gold-600 font-mono mt-1">{src} &middot; {dt}</p></div>'''
+        <div class="card-news"><p class="text-sm text-white font-medium">{txt}</p><p class="text-[10px] text-gold-600 font-mono mt-1">{src} &middot; {dt}</p></div>'''
     buy_zone = _e(data.get("buy_zone", "$4,400-4,650"))
     target = _e(data.get("target", "$5,000-5,400"))
     stop_loss = _e(data.get("stop_loss", "$4,100"))
@@ -913,13 +886,8 @@ def _build_html_btc_section(btc_price, data=None):
         txt = _e(h.get("text", ""))
         src = _e(h.get("source", ""))
         dt = _e(h.get("date", ""))
-        url = h.get("url", "")
-        if url:
-            txt_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">{txt}</a>'
-        else:
-            txt_html = txt
         headlines += f'''
-        <div class="card-news"><p class="text-sm text-white font-medium">{txt_html}</p><p class="text-[10px] text-gold-600 font-mono mt-1">{src} &middot; {dt}</p></div>'''
+        <div class="card-news"><p class="text-sm text-white font-medium">{txt}</p><p class="text-[10px] text-gold-600 font-mono mt-1">{src} &middot; {dt}</p></div>'''
     rsi = _e(data.get("rsi", "51.91"))
     rsi_label = _e(data.get("rsi_label", "Neutral"))
     macd = _e(data.get("macd", "-650"))
