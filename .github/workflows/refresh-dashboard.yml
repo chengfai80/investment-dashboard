@@ -3,7 +3,7 @@ name: Refresh Investment Dashboard
 on:
   schedule:
     # Every day at 00:00 UTC (08:00 MYT, UTC+8)
-    - cron: "0 21 * * *"
+    - cron: "0 22 * * *"
   workflow_dispatch:
 
 permissions:
