@@ -7,7 +7,6 @@ then generates a complete HTML dashboard.
 
 import json
 import os
-import re
 import time
 import math
 import html as html_module
@@ -52,10 +51,6 @@ RSS_FEEDS = {
     "CNBC": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114",
     "CoinTelegraph": "https://cointelegraph.com/rss",
     "CoinDesk": "https://www.coindesk.com/arc/outboundfeeds/rss/",
-    "Bloomberg": "https://feeds.bloomberg.com/markets/news.rss",
-    "MarketWatch": "https://feeds.marketwatch.com/marketwatch/topstories/",
-    "TheStar_Biz": "https://www.thestar.com.my/rss/Business",
-    "FMT_Biz": "https://www.freemalaysiatoday.com/category/business/feed/",
 }
 
 # ── Technical Analysis Watchlist ──────────────────────────────────────────
@@ -199,33 +194,11 @@ def _parse_gemini_json(text):
         return None
 
 
-def _format_rss_context(news, sources=None, max_items=8):
-    """Format RSS headlines as context string for Gemini prompts."""
-    lines = []
-    for source, items in news.items():
-        if sources and source not in sources:
-            continue
-        for item in items[:5]:
-            title = item.get("title", "") if isinstance(item, dict) else str(item)
-            url = item.get("url", "") if isinstance(item, dict) else ""
-            if title:
-                lines.append(f"- [{source}] {title}")
-    return "\n".join(lines[:max_items]) if lines else "(no live headlines available)"
-
-
-def fetch_gemini_local_news(news=None):
-    """Ask Gemini for current Malaysian/Bursa market news, grounded in live RSS headlines."""
+def fetch_gemini_local_news():
+    """Ask Gemini for current Malaysian/Bursa market news."""
     today = datetime.now().strftime("%d %B %Y")
-    rss_context = _format_rss_context(news or {}, sources=["TheStar_Biz", "FMT_Biz", "Reuters", "CNBC"], max_items=12)
     prompt = f"""You are a financial news analyst specializing in Malaysian markets.
-Today is {today}. Below are REAL headlines fetched from live RSS feeds just now:
-
-{rss_context}
-
-Using these real headlines as your primary source, produce exactly 5 news items about Bursa Malaysia and Malaysian financial markets.
-- You MUST base your output on the real headlines above. Rewrite/summarize them — do NOT invent news.
-- If a headline has a URL, include it. If not, use "".
-- If fewer than 5 relevant Malaysian headlines exist, supplement with closely related regional/ASEAN market news from the list.
+Provide exactly 5 current news items about Bursa Malaysia and Malaysian financial markets as of {today}.
 
 Return ONLY a JSON array (no markdown, no explanation) with this exact structure:
 [
@@ -234,9 +207,9 @@ Return ONLY a JSON array (no markdown, no explanation) with this exact structure
     "badge_class": "badge-bear|badge-neutral|badge-bull",
     "headline": "Short headline (max 120 chars)",
     "summary": "2-3 sentence summary (max 200 chars)",
-    "source": "Source name (from the RSS feed)",
+    "source": "Source name",
     "date": "{datetime.now().strftime('%d %b %Y')}",
-    "url": "https://... (direct link if available, otherwise empty string)"
+    "url": "https://... (direct link to the source article, must be a real working URL)"
   }}
 ]
 
@@ -249,19 +222,11 @@ Focus on the most recent and impactful developments affecting Bursa Malaysia, FB
     return None
 
 
-def fetch_gemini_intl_news(news=None):
-    """Ask Gemini for current international market news, grounded in live RSS headlines."""
+def fetch_gemini_intl_news():
+    """Ask Gemini for current international market news."""
     today = datetime.now().strftime("%d %B %Y")
-    rss_context = _format_rss_context(news or {}, sources=["Reuters", "CNBC", "Bloomberg", "MarketWatch"], max_items=15)
     prompt = f"""You are a Wall Street financial analyst.
-Today is {today}. Below are REAL headlines fetched from live RSS feeds just now:
-
-{rss_context}
-
-Using these real headlines as your primary source, produce exactly 6 international financial news items.
-- You MUST base your output on the real headlines above. Rewrite/summarize them — do NOT invent news.
-- If a headline has a URL, include it. If not, use "".
-- Cover diverse topics: Wall Street, global macro, geopolitics, commodities, and major market-moving events.
+Provide exactly 6 current international financial news items as of {today}.
 
 Return ONLY a JSON array (no markdown, no explanation) with this exact structure:
 [
@@ -270,11 +235,13 @@ Return ONLY a JSON array (no markdown, no explanation) with this exact structure
     "badge_class": "badge-bear|badge-neutral|badge-bull",
     "headline": "Short headline (max 120 chars)",
     "summary": "2-3 sentence summary (max 200 chars)",
-    "source": "Source name (from the RSS feed)",
+    "source": "Source name",
     "date": "{datetime.now().strftime('%d %b %Y')}",
-    "url": "https://... (direct link if available, otherwise empty string)"
+    "url": "https://... (direct link to the source article, must be a real working URL)"
   }}
-]"""
+]
+
+Cover Wall Street, global macro, geopolitics, commodities, and major market-moving events."""
     result = _parse_gemini_json(call_gemini(prompt))
     if isinstance(result, list) and len(result) >= 3:
         print(f"  Got {len(result)} international news items from Gemini.")
@@ -283,17 +250,11 @@ Return ONLY a JSON array (no markdown, no explanation) with this exact structure
     return None
 
 
-def fetch_gemini_local_stocks(prices, news=None):
-    """Ask Gemini for Bursa Malaysia stock recommendations, informed by live news."""
+def fetch_gemini_local_stocks(prices):
+    """Ask Gemini for Bursa Malaysia stock recommendations."""
     today = datetime.now().strftime("%d %B %Y")
-    rss_context = _format_rss_context(news or {}, sources=["TheStar_Biz", "FMT_Biz", "Reuters", "CNBC"], max_items=10)
     prompt = f"""You are a Malaysian equity research analyst.
-Today is {today}. Below are today's REAL market headlines from live RSS feeds:
-
-{rss_context}
-
-Based on these current news developments and market conditions, provide exactly 5 Bursa Malaysia stock recommendations.
-Your picks should reflect today's themes (e.g. if headlines mention banking sector strength, recommend banking stocks; if commodities are in focus, recommend commodity plays).
+Based on current market conditions as of {today}, provide exactly 5 Bursa Malaysia stock recommendations.
 
 Current live prices:
 - Maybank (1155.KL): MYR {prices.get('maybank', 11.26)}
@@ -311,11 +272,11 @@ Return ONLY a JSON array (no markdown, no explanation):
     "buy_zone": "10.80-11.30",
     "target": "MYR 13.00",
     "upside": "+15%",
-    "justification": "2-3 sentence justification referencing today's news and specific catalysts"
+    "justification": "2-3 sentence justification with specific catalysts"
   }}
 ]
 
-You may recommend any Bursa-listed stocks. Include realistic buy zones based on recent support levels and analyst consensus targets. Keep upside between 10-30%. Reference today's headlines in your justifications where relevant."""
+You may recommend any Bursa-listed stocks. Include realistic buy zones based on recent support levels and analyst consensus targets. Keep upside between 10-30%."""
     result = _parse_gemini_json(call_gemini(prompt))
     if isinstance(result, list) and len(result) >= 3:
         print(f"  Got {len(result)} local stock picks from Gemini.")
@@ -324,17 +285,11 @@ You may recommend any Bursa-listed stocks. Include realistic buy zones based on 
     return None
 
 
-def fetch_gemini_intl_stocks(prices, news=None):
-    """Ask Gemini for international stock recommendations, informed by live news."""
+def fetch_gemini_intl_stocks(prices):
+    """Ask Gemini for international stock recommendations."""
     today = datetime.now().strftime("%d %B %Y")
-    rss_context = _format_rss_context(news or {}, sources=["Reuters", "CNBC", "Bloomberg", "MarketWatch"], max_items=10)
     prompt = f"""You are a global equity research analyst.
-Today is {today}. Below are today's REAL market headlines from live RSS feeds:
-
-{rss_context}
-
-Based on these current news developments and market conditions, provide exactly 4 international stock recommendations.
-Your picks should reflect today's themes and market narrative.
+Based on current market conditions as of {today}, provide exactly 4 international stock recommendations.
 
 Current live prices:
 - ASML Holding (ASML): ${prices.get('asml', 1317.23)}
@@ -351,11 +306,11 @@ Return ONLY a JSON array (no markdown, no explanation):
     "buy_zone": "$245-258",
     "target": "$300",
     "upside": "+17%",
-    "justification": "2-3 sentence justification referencing today's news and specific catalysts"
+    "justification": "2-3 sentence justification with specific catalysts"
   }}
 ]
 
-You may recommend any internationally listed stocks. Include realistic buy zones and analyst consensus targets. Keep upside between 10-35%. Reference today's headlines in your justifications where relevant."""
+You may recommend any internationally listed stocks. Include realistic buy zones and analyst consensus targets. Keep upside between 10-35%."""
     result = _parse_gemini_json(call_gemini(prompt))
     if isinstance(result, list) and len(result) >= 3:
         print(f"  Got {len(result)} international stock picks from Gemini.")
@@ -364,23 +319,16 @@ You may recommend any internationally listed stocks. Include realistic buy zones
     return None
 
 
-def fetch_gemini_gold_analysis(gold_price, news=None):
-    """Ask Gemini for gold market analysis, grounded in live headlines."""
+def fetch_gemini_gold_analysis(gold_price):
+    """Ask Gemini for gold market analysis."""
     today = datetime.now().strftime("%d %B %Y")
-    rss_context = _format_rss_context(news or {}, max_items=10)
     prompt = f"""You are a commodities analyst specializing in gold.
 Current gold price: ${gold_price:,.2f}/oz as of {today}.
-
-Below are today's REAL market headlines from live RSS feeds:
-{rss_context}
-
-Using these headlines and the current gold price, provide your analysis.
-For the headlines array, select and rewrite the 5 most gold-relevant headlines from above (or closely related ones about commodities, central banks, geopolitics, inflation, USD).
 
 Return ONLY a JSON object (no markdown, no explanation):
 {{
   "headlines": [
-    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}", "url": "https://... (direct link if available, otherwise empty string)"}},
+    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}", "url": "https://... (direct link to article)"}},
     {{"text": "...", "source": "...", "date": "...", "url": "..."}},
     {{"text": "...", "source": "...", "date": "...", "url": "..."}},
     {{"text": "...", "source": "...", "date": "...", "url": "..."}},
@@ -391,10 +339,10 @@ Return ONLY a JSON object (no markdown, no explanation):
   "stop_loss": "$X,XXX",
   "sentiment": "BULLISH Long-Term|BEARISH|NEUTRAL",
   "sentiment_class": "badge-bull|badge-bear|badge-neutral",
-  "analysis": "3-4 sentence analysis paragraph covering key drivers, central bank buying, geopolitical factors, and recommendation. Reference today's headlines."
+  "analysis": "3-4 sentence analysis paragraph covering key drivers, central bank buying, geopolitical factors, and recommendation."
 }}
 
-Provide exactly 5 headlines. Base analysis on the current headlines and macro conditions."""
+Base analysis on current macro conditions, central bank gold reserves, geopolitical factors, and technical levels. Provide exactly 5 headlines."""
     result = _parse_gemini_json(call_gemini(prompt))
     if isinstance(result, dict) and "headlines" in result and "analysis" in result:
         print("  Got gold analysis from Gemini.")
@@ -403,23 +351,16 @@ Provide exactly 5 headlines. Base analysis on the current headlines and macro co
     return None
 
 
-def fetch_gemini_btc_analysis(btc_price, news=None):
-    """Ask Gemini for Bitcoin market analysis, grounded in live headlines."""
+def fetch_gemini_btc_analysis(btc_price):
+    """Ask Gemini for Bitcoin market analysis."""
     today = datetime.now().strftime("%d %B %Y")
-    rss_context = _format_rss_context(news or {}, sources=["CoinTelegraph", "CoinDesk", "Reuters", "CNBC"], max_items=12)
     prompt = f"""You are a cryptocurrency analyst specializing in Bitcoin.
 Current BTC price: ${btc_price:,.0f} as of {today}.
-
-Below are today's REAL crypto & market headlines from live RSS feeds:
-{rss_context}
-
-Using these headlines and the current BTC price, provide your analysis.
-For the headlines array, select and rewrite the 6 most Bitcoin/crypto-relevant headlines from above.
 
 Return ONLY a JSON object (no markdown, no explanation):
 {{
   "headlines": [
-    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}", "url": "https://... (direct link if available, otherwise empty string)"}},
+    {{"text": "Headline (max 100 chars)", "source": "Source Name", "date": "{datetime.now().strftime('%d %b')}", "url": "https://... (direct link to article)"}},
     {{"text": "...", "source": "...", "date": "...", "url": "..."}},
     {{"text": "...", "source": "...", "date": "...", "url": "..."}},
     {{"text": "...", "source": "...", "date": "...", "url": "..."}},
@@ -444,7 +385,7 @@ Return ONLY a JSON object (no markdown, no explanation):
   "sentiment_short_class": "badge-bear|badge-neutral",
   "sentiment_mid": "Cautiously Bullish|Bullish (Medium-Term)",
   "sentiment_mid_class": "badge-bull|badge-neutral",
-  "analysis": "3-4 sentence analysis covering technicals, ETF flows, macro factors, and recommendation with specific price levels. Reference today's headlines."
+  "analysis": "3-4 sentence analysis covering technicals, ETF flows, macro factors, and recommendation with specific price levels."
 }}
 
 Provide realistic technical indicator values based on the current price action. Include exactly 6 headlines. Base support/resistance on recent price action."""
@@ -514,16 +455,7 @@ def fetch_news():
         try:
             print(f"  Fetching news from {source}...")
             feed = feedparser.parse(url)
-            items = []
-            for e in feed.entries[:8]:
-                title = html_module.escape(e.get("title", ""))
-                link = e.get("link", "")
-                summary = ""
-                if e.get("summary"):
-                    # Strip HTML tags from summary
-                    raw = e.get("summary", "")
-                    summary = re.sub(r'<[^>]+>', '', raw)[:150]
-                items.append({"title": title, "url": link, "summary": summary})
+            items = [{"title": html_module.escape(e.get("title", "")), "url": e.get("link", "")} for e in feed.entries[:5]]
             news[source] = items
             print(f"    Got {len(items)} headlines from {source}.")
         except Exception as e:
@@ -1490,13 +1422,13 @@ def main():
     print("\n[4/7] Fetching news headlines...")
     news = fetch_news()
 
-    print("\n[5/7] Fetching AI-powered analysis via Gemini (grounded in live RSS)...")
-    ai_local_news = fetch_gemini_local_news(news)
-    ai_intl_news = fetch_gemini_intl_news(news)
-    ai_local_stocks = fetch_gemini_local_stocks(prices, news)
-    ai_intl_stocks = fetch_gemini_intl_stocks(prices, news)
-    ai_gold = fetch_gemini_gold_analysis(prices["gold"], news)
-    ai_btc = fetch_gemini_btc_analysis(prices["btc"], news)
+    print("\n[5/7] Fetching AI-powered analysis via Gemini...")
+    ai_local_news = fetch_gemini_local_news()
+    ai_intl_news = fetch_gemini_intl_news()
+    ai_local_stocks = fetch_gemini_local_stocks(prices)
+    ai_intl_stocks = fetch_gemini_intl_stocks(prices)
+    ai_gold = fetch_gemini_gold_analysis(prices["gold"])
+    ai_btc = fetch_gemini_btc_analysis(prices["btc"])
 
     print("\n[6/7] Running Technical Analysis on watchlist...")
     ta_data = fetch_ta_data()
