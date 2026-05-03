@@ -768,6 +768,21 @@ def _fmt_usd(val):
 def _fmt_myr(val):
     return f"MYR {val:.2f}"
 
+def _usd_to_myr_str(usd_str, usdmyr, per_gram=False):
+    """Convert a USD price string like '$4,400-4,650' or '$60,000' to MYR equivalent.
+    If per_gram=True, also divides by 31.1035 for gold per-gram conversion."""
+    nums = re.findall(r'[\d,]+(?:\.\d+)?', usd_str)
+    if not nums:
+        return ""
+    converted = []
+    for n in nums:
+        val = float(n.replace(",", ""))
+        myr_val = val * usdmyr
+        if per_gram:
+            myr_val = myr_val / 31.1035
+        converted.append(f"RM{myr_val:,.0f}" if myr_val >= 1000 else f"RM{myr_val:,.2f}")
+    return " - ".join(converted)
+
 def _js_array(lst):
     return json.dumps(lst)
 
@@ -1192,6 +1207,9 @@ def _build_html_gold_section(gold_price, data=None, usdmyr=None):
     buy_zone = _e(data.get("buy_zone", "$4,400-4,650"))
     target = _e(data.get("target", "$5,000-5,400"))
     stop_loss = _e(data.get("stop_loss", "$4,100"))
+    buy_zone_myr = _usd_to_myr_str(data.get("buy_zone", "$4,400-4,650"), usdmyr, per_gram=True)
+    target_myr = _usd_to_myr_str(data.get("target", "$5,000-5,400"), usdmyr, per_gram=True)
+    stop_loss_myr = _usd_to_myr_str(data.get("stop_loss", "$4,100"), usdmyr, per_gram=True)
     sentiment = _e(data.get("sentiment", "BULLISH Long-Term"))
     sc = _e(data.get("sentiment_class", "badge-bull"))
     analysis = _e(data.get("analysis", ""))
@@ -1217,9 +1235,9 @@ def _build_html_gold_section(gold_price, data=None, usdmyr=None):
       <div class="rec-box glow-gold-strong">
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">${gold_per_g_usd:,.2f}/g</p><p class="text-xs text-gold-200/60 font-mono">RM {gold_per_g_myr:,.2f}/g</p><p class="text-[10px] text-gray-500 font-mono mt-1">${gold_int:,}/oz</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">{buy_zone}</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">{target}</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">{stop_loss}</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">{buy_zone}</p><p class="text-xs text-gold-200/60 font-mono">{buy_zone_myr}/g</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">{target}</p><p class="text-xs text-gold-200/60 font-mono">{target_myr}/g</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">{stop_loss}</p><p class="text-xs text-gold-200/60 font-mono">{stop_loss_myr}/g</p></div>
         </div>
         <div class="mb-3"><span class="badge {sc}">{sentiment}</span></div>
         <p class="text-xs text-gray-300 leading-relaxed">{analysis}</p>
@@ -1264,6 +1282,9 @@ def _build_html_btc_section(btc_price, data=None, usdmyr=None):
     buy_zone = _e(data.get("buy_zone", "$64,000-67,000"))
     target_short = _e(data.get("target_short", "$72,000-74,000"))
     stop_loss = _e(data.get("stop_loss", "$60,000"))
+    buy_zone_myr = _usd_to_myr_str(data.get("buy_zone", "$64,000-67,000"), usdmyr)
+    target_short_myr = _usd_to_myr_str(data.get("target_short", "$72,000-74,000"), usdmyr)
+    stop_loss_myr = _usd_to_myr_str(data.get("stop_loss", "$60,000"), usdmyr)
     ss = _e(data.get("sentiment_short", "Neutral-Bearish (Short-Term)"))
     ssc = _e(data.get("sentiment_short_class", "badge-neutral"))
     sm = _e(data.get("sentiment_mid", "Cautiously Bullish (Medium-Term)"))
@@ -1310,9 +1331,9 @@ def _build_html_btc_section(btc_price, data=None, usdmyr=None):
       <div class="rec-box" style="border-color:rgba(247,147,26,.2)">
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">${btc_int:,}</p><p class="text-xs text-orange-300/60 font-mono">RM {btc_myr:,}</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">{buy_zone}</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">{target_short}</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">{stop_loss}</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">{buy_zone}</p><p class="text-xs text-orange-300/60 font-mono">{buy_zone_myr}</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">{target_short}</p><p class="text-xs text-orange-300/60 font-mono">{target_short_myr}</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">{stop_loss}</p><p class="text-xs text-orange-300/60 font-mono">{stop_loss_myr}</p></div>
         </div>
         <div class="mb-3 flex gap-2 flex-wrap">
           <span class="badge {ssc}">{ss}</span>
