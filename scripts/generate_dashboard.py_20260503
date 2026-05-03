@@ -58,8 +58,6 @@ RSS_FEEDS = {
     "FMT_Biz": "https://www.freemalaysiatoday.com/category/business/feed/",
 }
 
-FALLBACK_USDMYR = 4.42  # fallback USD/MYR rate
-
 # ── Technical Analysis Watchlist ──────────────────────────────────────────
 TA_STOCKS = {
     # Bursa Malaysia
@@ -534,21 +532,6 @@ def fetch_news():
     return news
 
 
-def fetch_usdmyr():
-    """Fetch current USD/MYR exchange rate via Yahoo Finance API."""
-    try:
-        url = 'https://query1.finance.yahoo.com/v8/finance/chart/MYR=X?range=1d&interval=1d'
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        resp = urllib.request.urlopen(req, timeout=15)
-        data = json.loads(resp.read().decode("utf-8"))
-        rate = data['chart']['result'][0]['meta'].get('regularMarketPrice', FALLBACK_USDMYR)
-        print(f"  USD/MYR rate: {rate}")
-        return round(float(rate), 4)
-    except Exception as e:
-        print(f"  [ERROR] USD/MYR fetch failed: {e} — using fallback {FALLBACK_USDMYR}")
-        return FALLBACK_USDMYR
-
-
 # ── Technical Analysis Engine ─────────────────────────────────────────────
 
 def _ta_ema(data, period):
@@ -776,10 +759,8 @@ def _js_array(lst):
 
 def generate_html(prices, gold_ohlcv, btc_ohlcv, news,
                   ai_local_news, ai_intl_news, ai_local_stocks,
-                  ai_intl_stocks, ai_gold, ai_btc, ta_data=None, usdmyr=None):
+                  ai_intl_stocks, ai_gold, ai_btc, ta_data=None):
     """Build the complete HTML dashboard string."""
-    if usdmyr is None:
-        usdmyr = FALLBACK_USDMYR
     myt = timezone(timedelta(hours=8))
     now = datetime.now(myt)
     date_str = now.strftime("%-d %B %Y")
@@ -796,15 +777,15 @@ def generate_html(prices, gold_ohlcv, btc_ohlcv, news,
     btc_dates, btc_closes = btc_ohlcv
     news_cards_html = _build_news_cards(news)
 
-    html = _build_html_head(date_str, date_short, time_str, gold_price, btc_price, gold_int, btc_int, usdmyr)
-    html += _build_html_stat_cards(gold_int, btc_int, usdmyr)
+    html = _build_html_head(date_str, date_short, time_str, gold_price, btc_price, gold_int, btc_int)
+    html += _build_html_stat_cards(gold_int, btc_int)
     html += _build_html_local_news(ai_local_news)
     html += _build_html_intl_news(ai_intl_news)
     html += _build_html_news_feed(news_cards_html)
     html += _build_html_local_stocks(ai_local_stocks, prices)
     html += _build_html_intl_stocks(ai_intl_stocks, prices)
-    html += _build_html_gold_section(gold_price, ai_gold, usdmyr)
-    html += _build_html_btc_section(btc_price, ai_btc, usdmyr)
+    html += _build_html_gold_section(gold_price, ai_gold)
+    html += _build_html_btc_section(btc_price, ai_btc)
     html += _build_html_ta_section(ta_data)
     html += _build_html_footer(timestamp)
     html += _build_html_scripts(gold_dates, gold_closes, gold_int, btc_dates, btc_closes, btc_int)
@@ -837,12 +818,8 @@ def _build_news_cards(news):
     return "\n".join(cards)
 
 
-def _build_html_head(date_str, date_short, time_str, gold_price, btc_price, gold_int, btc_int, usdmyr):
+def _build_html_head(date_str, date_short, time_str, gold_price, btc_price, gold_int, btc_int):
     """Return the <!DOCTYPE> through end of <header>."""
-    gold_myr = int(round(gold_price * usdmyr))
-    btc_myr = int(round(btc_price * usdmyr))
-    gold_per_g_usd = gold_price / 31.1035
-    gold_per_g_myr = gold_per_g_usd * usdmyr
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -903,9 +880,8 @@ body{{background:#050a14;overflow-x:hidden}}
   <div class="ticker-strip py-2 relative z-10">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 text-xs font-mono tracking-wide">
       <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE {date_short} &middot; {time_str}</span>
-      <span>Gold <span class="text-gold-400 font-semibold">${gold_per_g_usd:,.2f}</span>/g <span class="text-gray-500">|</span> <span class="text-gold-300">RM{gold_per_g_myr:,.2f}</span>/g</span>
-      <span>Bitcoin <span class="text-btc font-semibold">${btc_int:,}</span> <span class="text-gray-500">|</span> <span class="text-orange-300">RM{btc_myr:,}</span></span>
-      <span>USD/MYR <span class="text-green-400 font-semibold">{usdmyr:.4f}</span></span>
+      <span>Gold <span class="text-gold-400 font-semibold">${gold_price:,.2f}</span>/oz</span>
+      <span>Bitcoin <span class="text-btc font-semibold">${btc_int:,}</span></span>
       <span>FBM KLCI <span class="text-gold-300 font-semibold">1,680&ndash;1,740</span></span>
     </div>
   </div>
@@ -924,35 +900,30 @@ body{{background:#050a14;overflow-x:hidden}}
 '''
 
 
-def _build_html_stat_cards(gold_int, btc_int, usdmyr):
-    gold_per_g_usd = gold_int / 31.1035
-    gold_per_g_myr = gold_per_g_usd * usdmyr
-    btc_myr = int(round(btc_int * usdmyr))
+def _build_html_stat_cards(gold_int, btc_int):
     return f'''
 <!-- STAT CARDS -->
 <section class="max-w-7xl mx-auto px-4 py-12">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="statCards">
     <div class="card p-5 glow-gold anim-card">
-      <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">Gold (XAU)</p>
-      <p class="stat-value text-2xl font-bold text-gold-300">${gold_per_g_usd:,.2f}<span class="text-base text-gold-500">/g</span></p>
-      <p class="text-sm text-gold-200/70 font-mono mt-1">RM {gold_per_g_myr:,.2f}/g</p>
-      <p class="text-[10px] text-gray-500 mt-1 font-mono">${gold_int:,}/oz &middot; RM {int(round(gold_int * usdmyr)):,}/oz</p>
+      <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">Gold (XAU/USD)</p>
+      <p class="stat-value text-3xl font-bold text-gold-300" data-target="{gold_int}">$0</p>
+      <p class="text-xs text-gray-400 mt-2">Live price &middot; Updated today</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-btc font-mono uppercase tracking-wider mb-1">Bitcoin (BTC/USD)</p>
       <p class="stat-value text-3xl font-bold text-btc" data-target="{btc_int}">$0</p>
-      <p class="text-sm text-orange-300/70 font-mono mt-1">RM {btc_myr:,}</p>
-      <p class="text-xs text-gray-400 mt-1">Live price &middot; Updated today</p>
-    </div>
-    <div class="card p-5 anim-card">
-      <p class="text-xs text-green-400 font-mono uppercase tracking-wider mb-1">USD / MYR</p>
-      <p class="stat-value text-3xl font-bold text-green-300">{usdmyr:.4f}</p>
-      <p class="text-xs text-gray-400 mt-2">Exchange rate &middot; Updated today</p>
+      <p class="text-xs text-gray-400 mt-2">Live price &middot; Updated today</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">FBM KLCI</p>
       <p class="stat-value text-3xl font-bold text-white">1,710</p>
       <p class="text-xs text-gold-300 mt-2">Range 1,680&ndash;1,740 | Cautious</p>
+    </div>
+    <div class="card p-5 anim-card">
+      <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">S&amp;P 500</p>
+      <p class="stat-value text-3xl font-bold text-bull">+0.6%</p>
+      <p class="text-xs text-gray-400 mt-2">Weekly gain amid tensions</p>
     </div>
   </div>
 </section>
@@ -1169,14 +1140,10 @@ def _build_html_intl_stocks(data, prices):
 '''
 
 
-def _build_html_gold_section(gold_price, data=None, usdmyr=None):
+def _build_html_gold_section(gold_price, data=None):
     if data is None:
         data = FALLBACK_GOLD
-    if usdmyr is None:
-        usdmyr = FALLBACK_USDMYR
     gold_int = int(round(gold_price))
-    gold_per_g_usd = gold_price / 31.1035
-    gold_per_g_myr = gold_per_g_usd * usdmyr
     headlines = ""
     for h in data.get("headlines", []):
         txt = _e(h.get("text", ""))
@@ -1216,7 +1183,7 @@ def _build_html_gold_section(gold_price, data=None, usdmyr=None):
       <h3 class="font-display text-lg font-semibold text-gold-400 mb-4">Gold Recommendation</h3>
       <div class="rec-box glow-gold-strong">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">${gold_per_g_usd:,.2f}/g</p><p class="text-xs text-gold-200/60 font-mono">RM {gold_per_g_myr:,.2f}/g</p><p class="text-[10px] text-gray-500 font-mono mt-1">${gold_int:,}/oz</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">${gold_int:,}/oz</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">{buy_zone}</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">{target}</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">{stop_loss}</p></div>
@@ -1231,13 +1198,10 @@ def _build_html_gold_section(gold_price, data=None, usdmyr=None):
 '''
 
 
-def _build_html_btc_section(btc_price, data=None, usdmyr=None):
+def _build_html_btc_section(btc_price, data=None):
     if data is None:
         data = FALLBACK_BTC
-    if usdmyr is None:
-        usdmyr = FALLBACK_USDMYR
     btc_int = int(round(btc_price))
-    btc_myr = int(round(btc_price * usdmyr))
     headlines = ""
     for h in data.get("headlines", []):
         txt = _e(h.get("text", ""))
@@ -1309,7 +1273,7 @@ def _build_html_btc_section(btc_price, data=None, usdmyr=None):
       <h3 class="font-display text-lg font-semibold text-btc mb-4">Bitcoin Recommendation</h3>
       <div class="rec-box" style="border-color:rgba(247,147,26,.2)">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">${btc_int:,}</p><p class="text-xs text-orange-300/60 font-mono">RM {btc_myr:,}</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">${btc_int:,}</p></div>
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">{buy_zone}</p></div>
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">{target_short}</p></div>
           <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">{stop_loss}</p></div>
@@ -1514,22 +1478,19 @@ def main():
     print("Investment Intelligence Dashboard Generator")
     print("=" * 60)
 
-    print("\n[1/8] Fetching live prices...")
+    print("\n[1/7] Fetching live prices...")
     prices = fetch_prices()
 
-    print("\n[2/8] Fetching Gold OHLCV (6 months)...")
+    print("\n[2/7] Fetching Gold OHLCV (6 months)...")
     gold_ohlcv = fetch_ohlcv("GC=F", period="6mo")
 
-    print("\n[3/8] Fetching Bitcoin OHLCV (6 months)...")
+    print("\n[3/7] Fetching Bitcoin OHLCV (6 months)...")
     btc_ohlcv = fetch_ohlcv("BTC-USD", period="6mo")
 
-    print("\n[4/8] Fetching news headlines...")
+    print("\n[4/7] Fetching news headlines...")
     news = fetch_news()
 
-    print("\n[5/8] Fetching USD/MYR exchange rate...")
-    usdmyr = fetch_usdmyr()
-
-    print("\n[6/8] Fetching AI-powered analysis via Gemini (grounded in live RSS)...")
+    print("\n[5/7] Fetching AI-powered analysis via Gemini (grounded in live RSS)...")
     ai_local_news = fetch_gemini_local_news(news)
     ai_intl_news = fetch_gemini_intl_news(news)
     ai_local_stocks = fetch_gemini_local_stocks(prices, news)
@@ -1537,13 +1498,13 @@ def main():
     ai_gold = fetch_gemini_gold_analysis(prices["gold"], news)
     ai_btc = fetch_gemini_btc_analysis(prices["btc"], news)
 
-    print("\n[7/8] Running Technical Analysis on watchlist...")
+    print("\n[6/7] Running Technical Analysis on watchlist...")
     ta_data = fetch_ta_data()
 
-    print("\n[8/8] Generating HTML dashboard...")
+    print("\n[7/7] Generating HTML dashboard...")
     html = generate_html(prices, gold_ohlcv, btc_ohlcv, news,
                          ai_local_news, ai_intl_news, ai_local_stocks,
-                         ai_intl_stocks, ai_gold, ai_btc, ta_data, usdmyr)
+                         ai_intl_stocks, ai_gold, ai_btc, ta_data)
 
     output_path = os.path.join(os.path.dirname(os.path.dirname(
         os.path.abspath(__file__))), "index.html")
