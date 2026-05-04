@@ -544,5 +544,95 @@ btcChart.setOption({
 window.addEventListener('resize',function(){goldChart.resize();btcChart.resize()});
 </script>
 
+  <script>
+    // Dynamically load TA data and update the tables
+    async function loadLiveData() {
+      try {
+        // 1. Fetch JSON data
+        const [usRes, localRes] = await Promise.all([
+          fetch('us_stock_targets.json').catch(() => null),
+          fetch('stock_targets.json').catch(() => null)
+        ]);
+
+        let usData = [];
+        let localData = [];
+        if (usRes && usRes.ok) usData = await usRes.json();
+        if (localRes && localRes.ok) localData = await localRes.json();
+
+        // Helper to format percentage
+        const calcPercent = (current, target) => {
+          const pct = ((target - current) / current) * 100;
+          return (pct > 0 ? '+' : '') + pct.toFixed(1) + '%';
+        };
+
+        // 2. Map data to dictionaries for easy lookup
+        const usMap = {};
+        usData.forEach(s => usMap[s.Ticker] = s);
+
+        const localMap = {};
+        localData.forEach(s => {
+          const cleanTicker = s.Ticker.replace('.KL', ''); // INARI instead of 0166.KL mapping
+          localMap[s.Ticker] = s;
+          localMap[s.Stock] = s; // Also map by name just in case
+        });
+
+        // 3. Update the HTML tables
+        // Find all rows in the Technical Analysis tables
+        const rows = document.querySelectorAll('.rec-table tbody tr');
+        rows.forEach(row => {
+          const firstCell = row.querySelector('td');
+          if (!firstCell) return;
+          
+          const textContent = firstCell.textContent;
+          let matchData = null;
+          let isUS = false;
+
+          // Attempt to match row to our data
+          if (textContent.includes('.KL')) {
+            const tickerMatch = textContent.match(/(\d{4}\.KL)/);
+            if (tickerMatch) matchData = localMap[tickerMatch[1]];
+          } else {
+            // US stock or matched by name
+            const possibleNames = ['NVDA', 'CSCO', 'AMD', 'TSM', 'INTC', 'MSFT', 'AAPL', 'AMZN', 'GOOG'];
+            for (let name of possibleNames) {
+              if (textContent.includes(name)) {
+                matchData = usMap[name];
+                isUS = true;
+                break;
+              }
+            }
+          }
+
+          if (matchData) {
+            // Found matching live data, update cells
+            const cells = row.querySelectorAll('td');
+            const prefix = isUS ? '$' : '';
+            
+            // Cell 1: Price
+            cells[1].innerHTML = `${prefix}${matchData.Price.toFixed(isUS ? 2 : 3)}`;
+            
+            // Assuming the table structure: Stock | Price | Trend | RSI | MACD | KDJ | Boll | Entry | Target | Stop | Signal
+            // We update Entry(7), Target(8), Stop(9)
+            if (cells.length >= 10) {
+              const entry = isUS ? matchData.Buy : matchData.Price; // For local we might not have 'Buy', fallback to Price
+              const entryDisplay = typeof entry === 'number' ? entry.toFixed(isUS ? 2 : 3) : entry;
+              cells[7].innerHTML = `${prefix}${entryDisplay}`;
+              
+              const targetPct = calcPercent(matchData.Price, matchData.TP || matchData.Target);
+              cells[8].innerHTML = `${prefix}${(matchData.TP || matchData.Target).toFixed(isUS ? 2 : 3)}<br><span class="text-[10px] text-gray-500">${targetPct}</span>`;
+              
+              const slPct = calcPercent(matchData.Price, matchData.SL);
+              cells[9].innerHTML = `${prefix}${matchData.SL.toFixed(isUS ? 2 : 3)}<br><span class="text-[10px] text-gray-500">${slPct}</span>`;
+            }
+          }
+        });
+      } catch (err) {
+        console.error("Error loading live data:", err);
+      }
+    }
+
+    // Run on load
+    document.addEventListener("DOMContentLoaded", loadLiveData);
+  </script>
 </body>
 </html>
