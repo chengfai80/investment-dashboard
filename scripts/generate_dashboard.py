@@ -211,7 +211,10 @@ def _format_rss_context(news, sources=None, max_items=8):
             title = item.get("title", "") if isinstance(item, dict) else str(item)
             url = item.get("url", "") if isinstance(item, dict) else ""
             if title:
-                lines.append(f"- [{source}] {title}")
+                if url:
+                    lines.append(f"- [{source}] {title} (URL: {url})")
+                else:
+                    lines.append(f"- [{source}] {title}")
     return "\n".join(lines[:max_items]) if lines else "(no live headlines available)"
 
 
