@@ -936,6 +936,7 @@ body{{background:#050a14;overflow-x:hidden}}
       <span class="px-3 py-1.5 rounded-full border border-gold-500/20 text-gold-300">Wall Street</span>
       <span class="px-3 py-1.5 rounded-full border border-gold-500/20 text-gold-300">Gold</span>
       <span class="px-3 py-1.5 rounded-full border border-gold-500/20 text-gold-300">Bitcoin</span>
+      <a href="portfolio.html" class="px-3 py-1.5 rounded-full border border-gold-500 text-gold-400 font-semibold hover:bg-gold-500/10 transition flex items-center gap-1">💼 My Portfolio</a>
     </div>
   </div>
 </header>
