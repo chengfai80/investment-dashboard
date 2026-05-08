@@ -48,7 +48,7 @@
                 </h1>
                 <p class="text-gray-400 mt-1">Live data from local OpenD connection</p>
             </div>
-            <div class="flex gap-4"><button onclick="triggerGitHubAction()" class="bg-yellow-600 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Request Re-Deploy</button>
+            <div class="flex gap-4">
                 <a href="index.html" class="glass-panel px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition">Back to Main</a>
                 
             </div>
@@ -304,122 +304,6 @@
             }
         }
 
-        async function triggerGitHubAction() {
-            const btn = document.querySelector("button[onclick=\"triggerGitHubAction()\"]");
-            const origText = btn.innerHTML;
-            btn.innerHTML = "Triggering...";
-            btn.disabled = true;
-            try {
-                const response = await fetch("https://api.github.com/repos/chengfai80/investment-dashboard/actions/workflows/refresh-dashboard.yml/dispatches", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer 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",
-                        "Accept": "application/vnd.github+json",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ ref: "main" })
-                });
-                if (response.ok) {
-                    btn.innerHTML = "Deployment Started! (Wait 2-3 mins)";
-                    btn.classList.remove("bg-yellow-600", "hover:bg-yellow-500");
-                    btn.classList.add("bg-green-600");
-                } else {
-                    throw new Error("Failed");
-                }
-            } catch (e) {
-                btn.innerHTML = "Error Triggering";
-                btn.classList.remove("bg-yellow-600", "hover:bg-yellow-500");
-                btn.classList.add("bg-red-600");
-            }
-            setTimeout(() => {
-                btn.innerHTML = origText;
-                btn.disabled = false;
-                btn.className = "bg-yellow-600 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2";
-            }, 5000);
-        
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
-
-        // Enter key to login
-        document.getElementById('password').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') attemptLogin();
-        });
-
-        // Fetch data from local Moomoo API bridge
-        async function fetchData() {
-            document.getElementById('errorBanner').style.display = 'none';
-            document.getElementById('holdingsTable').innerHTML = '<tr><td colspan="5" class="py-4 text-center text-gray-500">Refreshing from OpenD...</td></tr>';
-            
-            try {
-                const response = await fetch('http://localhost:5050/api/portfolio');
-                const data = await response.json();
-                
-                if (data.status === 'success') {
-                    renderHoldings(data.holdings);
-                    renderSold(data.sold);
-                } else {
-                    throw new Error(data.message);
-                }
-            } catch (err) {
-                console.error(err);
-                document.getElementById('errorBanner').style.display = 'block';
-                document.getElementById('holdingsTable').innerHTML = '<tr><td colspan="5" class="py-4 text-center text-red-400">Fetch failed</td></tr>';
-            }
-        }
-
-        function renderHoldings(holdings) {
-            const tbody = document.getElementById('holdingsTable');
-            tbody.innerHTML = '';
-            
-            holdings.forEach(item => {
-                const isProfit = item.unrealized_pl > 0;
-                const isLoss = item.unrealized_pl < 0;
-                const colorClass = isProfit ? 'text-green-500' : (isLoss ? 'text-red-500' : 'text-gray-400');
-                const sign = isProfit ? '+' : '';
-                
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="py-3">
-                        <div class="font-semibold text-white">${item.name}</div>
-                        <div class="text-[10px] text-gray-500 font-mono">${item.code}</div>
-                    </td>
-                    <td class="py-3 font-mono text-gray-300">${item.qty}</td>
-                    <td class="py-3 font-mono text-gray-300">${item.avg_cost === 0 ? '0.00 (Free)' : item.avg_cost}</td>
-                    <td class="py-3 font-mono text-gray-300">${item.current_price}</td>
-                    <td class="py-3 text-right font-mono ${colorClass} font-medium">
-                        ${sign}${item.unrealized_pl.toFixed(2)}<br>
-                        <span class="text-xs opacity-80">${sign}${item.pl_pct.toFixed(2)}%</span>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderSold(sold) {
-            const tbody = document.getElementById('soldTable');
-            tbody.innerHTML = '';
-            
-            sold.forEach(item => {
-                const isProfit = item.net_profit > 0;
-                const colorClass = isProfit ? 'text-green-500' : 'text-red-500';
-                const sign = isProfit ? '+' : '';
-                
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="py-3">
-                        <div class="font-semibold text-white">${item.name}</div>
-                        <div class="text-[10px] text-gray-500 font-mono">${item.code}</div>
-                    </td>
-                    <td class="py-3 font-mono text-gray-400">RM ${item.charges.toFixed(2)}</td>
-                    <td class="py-3 text-right font-mono ${colorClass} font-medium">
-                        ${sign}${item.net_profit.toFixed(2)}
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-    </script>
+        </script>
 </body>
 </html>

@@ -1,6 +1,13 @@
 import requests
+import os
 
-TOKEN = "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"
+try:
+    with open('/home/chengfai/.dash_pat', 'r') as f:
+        TOKEN = f.read().strip()
+except Exception as e:
+    print(f"Error reading token: {e}")
+    exit(1)
+
 URL = "https://api.github.com/repos/chengfai80/investment-dashboard/actions/workflows/refresh-dashboard.yml/dispatches"
 
 headers = {
