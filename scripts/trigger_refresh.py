@@ -1,6 +1,6 @@
 import requests
 
-TOKEN = "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"
+TOKEN = "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"
 URL = "https://api.github.com/repos/chengfai80/investment-dashboard/actions/workflows/refresh-dashboard.yml/dispatches"
 
 headers = {
