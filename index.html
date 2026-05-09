@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investment Intelligence Dashboard &mdash; 9 May 2026</title>
+<title>Investment Intelligence Dashboard &mdash; 10 May 2026</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -57,9 +57,9 @@ body{background:#050a14;overflow-x:hidden}
   <div class="hero-mesh"></div>
   <div class="ticker-strip py-2 relative z-10">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 text-xs font-mono tracking-wide">
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE 9 MAY 2026 &middot; 06:07 AM MYT</span>
-      <span>Gold <span class="text-gold-400 font-semibold">$151.87</span>/g <span class="text-gray-500">|</span> <span class="text-gold-300">RM595.03</span>/g</span>
-      <span>Bitcoin <span class="text-btc font-semibold">$80,320</span> <span class="text-gray-500">|</span> <span class="text-orange-300">RM314,695</span></span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE 10 MAY 2026 &middot; 05:57 AM MYT</span>
+      <span>Gold <span class="text-gold-400 font-semibold">$151.76</span>/g <span class="text-gray-500">|</span> <span class="text-gold-300">RM594.61</span>/g</span>
+      <span>Bitcoin <span class="text-btc font-semibold">$80,771</span> <span class="text-gray-500">|</span> <span class="text-orange-300">RM316,460</span></span>
       <span>USD/MYR <span class="text-green-400 font-semibold">3.9180</span></span>
       <span>FBM KLCI <span class="text-gold-300 font-semibold">1,680&ndash;1,740</span></span>
     </div>
@@ -83,14 +83,14 @@ body{background:#050a14;overflow-x:hidden}
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="statCards">
     <div class="card p-5 glow-gold anim-card">
       <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">Gold (XAU)</p>
-      <p class="stat-value text-2xl font-bold text-gold-300">$151.88<span class="text-base text-gold-500">/g</span></p>
-      <p class="text-sm text-gold-200/70 font-mono mt-1">RM 595.07/g</p>
-      <p class="text-[10px] text-gray-500 mt-1 font-mono">$4,724/oz &middot; RM 18,509/oz</p>
+      <p class="stat-value text-2xl font-bold text-gold-300">$151.75<span class="text-base text-gold-500">/g</span></p>
+      <p class="text-sm text-gold-200/70 font-mono mt-1">RM 594.56/g</p>
+      <p class="text-[10px] text-gray-500 mt-1 font-mono">$4,720/oz &middot; RM 18,493/oz</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-btc font-mono uppercase tracking-wider mb-1">Bitcoin (BTC/USD)</p>
-      <p class="stat-value text-3xl font-bold text-btc" data-target="80320">$0</p>
-      <p class="text-sm text-orange-300/70 font-mono mt-1">RM 314,694</p>
+      <p class="stat-value text-3xl font-bold text-btc" data-target="80771">$0</p>
+      <p class="text-sm text-orange-300/70 font-mono mt-1">RM 316,461</p>
       <p class="text-xs text-gray-400 mt-1">Live price &middot; Updated today</p>
     </div>
     <div class="card p-5 anim-card">
@@ -211,24 +211,24 @@ body{background:#050a14;overflow-x:hidden}
     </div>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/05/08/jobs-report-april-2026.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">U.S. payrolls jump more than expected, but the report had several red flags for the economy</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/05/08/the-federal-reserve-is-quickly-running-out-of-reasons-to-cut-interest-rates.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">The Federal Reserve is quickly running out of reasons to cut interest rates</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/05/08/wall-street-ai-chip-love-moves-from-nvidia-to-intel-amd-and-micron.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Wall Street sees &#x27;changing of the guard in AI&#x27; as Intel, AMD shares soar while Nvidia lags</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/kraken-payward-occ-charter-banking?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Kraken parent company applies for OCC charter in move toward banking</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/markets/price-predictions-58-btc-eth-bnb-xrp-sol-doge-hype-ada-zec-bch?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Price predictions 5/8: BTC, ETH, BNB, XRP, SOL, DOGE, HYPE, ADA, ZEC, BCH</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/exodus-launches-ai-agent-focused-stablecoin-on-solana?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Exodus launches AI agent-focused stablecoin on Solana</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/markets/2026/05/08/coinbase-rebounds-as-altcoins-surge-with-bitcoin-holding-above-usd80-000" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Coinbase rebounds as altcoins surge with bitcoin holding above $80,000</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/tech/2026/05/08/ai-agents-fueled-a-frenzy-of-startup-building-at-the-consensus-miami-easya-hackathon" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">AI agents fueled a frenzy of startup building at the Consensus Miami EasyA hackathon</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/policy/2026/05/08/sec-chair-atkins-signals-new-rules-for-onchain-markets-ai-driven-finance" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">SEC chair Atkins signals new rules for onchain markets, AI-driven finance</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-05-08/honeywell-backed-computing-firm-quantinuum-files-for-us-ipo" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Honeywell-Backed Computing Firm Quantinuum Files for US IPO</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-05-08/blackrock-readies-launch-of-two-tokenized-money-market-funds" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">BlackRock Readies Launch of Two Tokenized Money-Market Funds</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-05-08/pe-firms-tap-europe-s-junk-market-for-dividends-as-exits-stall" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Private Equity Taps Junk Market for Dividends as Exits Stall</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/gold-has-climbed-back-above-a-key-trend-line-are-more-gains-on-the-way-6627e0f5?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Gold has climbed back above a key trend line. Are more gains on the way?</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/no-do-overs-how-one-extra-dollar-on-your-roth-conversion-triggers-a-tax-bill-you-wont-see-coming-5b52c911?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">No do-overs: How one extra dollar on your Roth conversion triggers a tax bill you won’t see coming</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/amd-micron-shares-surge-on-a-big-day-for-chip-sector-outperformance-fe2d5306?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">AMD, Micron shares surge on a big day for chip-sector outperformance</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/05/08/us-stocks-rise-after-solid-april-jobs-data" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">US stocks rise after solid April jobs data</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/highlight/2026/05/08/investors-snap-up-glove-stocks-on-hantavirus-news" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Investors snap up glove stocks on hantavirus news</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/05/08/stocks-fall-oil-steady-as-fresh-us-iran-clashes-hit-peace-hopes" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Stocks fall, oil steady as fresh US-Iran clashes hit peace hopes</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/05/09/capital-one-auto-forever-loans-used-cars.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Why one of the nation&#x27;s largest auto lenders isn&#x27;t worried about high vehicle prices or &#x27;forever loans&#x27;</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/05/09/nvidia-embraces-ai-investor-topping-40-billion-in-equity-bets-2026.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Nvidia embraces role of AI investor, pushing past $40 billion in equity bets this year</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/05/09/frontier-airlines-plane-engine-fire-pedestrian.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Frontier jet hits and kills pedestrian on runway in Denver during takeoff</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/clarity-act-reshore-crypto-industry-us?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">The CLARITY Act will help reshore the crypto industry in the US — Attorney</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/features/the-nobitex-dilemma-how-irans-biggest-crypto-exchange-stays-off-the-ofac-blacklist?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">The Nobitex dilemma: How Iran&#x27;s biggest crypto exchange stays off the OFAC blacklist</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/features/copy-fail-linux-vulnerability-crypto-security?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Why a 2017 Linux bug is now a major concern for the crypto industry</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/business/2026/05/09/trump-media-s-q1-loss-widens-to-usd406-million-on-bitcoin-cro-markdowns" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Trump Media’s Q1 loss widens to $406 million on bitcoin, CRO markdowns</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/policy/2026/05/09/sports-betting-should-be-regulated-as-a-financial-product-not-gambling-aspiring-prediction-market-provider-says" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Sports betting should be regulated as a financial product, not gambling, aspiring prediction market provider says</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/business/2026/05/09/it-might-be-too-late-for-bitcoin-s-quantum-migration-project-eleven-report-argues" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">It might be too late for bitcoin’s quantum migration, Project Eleven report argues</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-05-09/inflation-drumbeat-persists-for-unnerved-us-consumer" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Inflation Drumbeat Persists for Unnerved US Consumer</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/videos/2026-05-09/bloomberg-this-weekend-5-9-2026-video" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Bloomberg This Weekend 5/9/2026</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/videos/2026-05-09/rachel-entrekin-shatters-250-mile-course-record-video" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Rachel Entrekin Shatters 250-Mile Course Record</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/americans-are-not-great-at-managing-money-social-security-and-medicare-saved-my-father-from-financial-ruin-am-i-wrong-878bd7a2?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">My mother regrets paying Social Security. She says she should have invested her contributions. I disagree. Who’s right?</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/americans-love-their-rose-colored-glasses-i-was-a-slave-to-credit-card-debt-then-i-got-laid-off-and-turned-my-life-around-32ba4d4c?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">I was a slave to credit-card debt, then I got laid off and turned my life around. Here’s how I did it.</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/these-are-the-fastest-growing-jobs-for-new-college-graduates-even-in-this-low-hire-market-974bf612?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">These are the fastest-growing jobs for new college graduates — even in this low-hire market</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/nation/2026/05/09/petronas-finalising-next-phase-of-fuel-supply-arrangements" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Petronas finalising next phase of fuel supply arrangements</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/nation/2026/05/09/former-indian-chambers-president-kenneth-eswaran-dies-aged-65" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Former Indian chambers president Kenneth Eswaran dies, aged 65</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/05/09/indonesia-launches-first-asia-pacific-cross-border-undersea-cable" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Indonesia launches first Asia-Pacific cross-border undersea cable</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
   </div>
 </section>
 <div class="section-divider max-w-7xl mx-auto"></div>
@@ -247,54 +247,54 @@ body{background:#050a14;overflow-x:hidden}
       </thead>
       <tbody>
         <tr>
-          <td class="font-semibold text-white">Top Glove Corporation Bhd</td>
-          <td class="font-mono text-gold-300">7113.KL</td>
-          <td>Healthcare</td>
+          <td class="font-semibold text-white">Dialog Group Bhd</td>
+          <td class="font-mono text-gold-300">7277.KL</td>
+          <td>Oil &amp; Gas</td>
           <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">1.20-1.30</td>
-          <td class="font-mono text-bull font-semibold">MYR 1.50</td>
-          <td><span class="badge badge-bull">+20%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Investors are snapping up glove stocks on hantavirus news, directly boosting demand for medical gloves. Top Glove, as a market leader, is poised to benefit significantly from this emerging health crisis and increased prophylactic usage.</td>
+          <td class="font-mono text-gray-300">2.80-2.95</td>
+          <td class="font-mono text-bull font-semibold">MYR 3.40</td>
+          <td><span class="badge badge-bull">+17%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">The headline regarding &#x27;Petronas finalising next phase of fuel supply arrangements&#x27; directly benefits Dialog Group, a key player in Malaysia&#x27;s downstream O&amp;G sector with strong ties to Petronas. Continued geopolitical tensions (US-Iran) also support sustained energy prices and investment, ensuring stable demand for Dialog&#x27;s services.</td>
         </tr>
         <tr>
           <td class="font-semibold text-white">Inari Amertron Bhd</td>
           <td class="font-mono text-gold-300">0166.KL</td>
           <td>Technology</td>
           <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">3.40-3.60</td>
-          <td class="font-mono text-bull font-semibold">MYR 4.20</td>
-          <td><span class="badge badge-bull">+20%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Wall Street notes a &#x27;changing of the guard in AI&#x27; with Intel and AMD shares soaring. As a key outsourced semiconductor assembly and test (OSAT) player, Inari Amertron is a direct beneficiary of robust global AI chip demand and diversification of chip supply chains.</td>
+          <td class="font-mono text-gray-300">3.00-3.20</td>
+          <td class="font-mono text-bull font-semibold">MYR 3.80</td>
+          <td><span class="badge badge-bull">+22.5%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">Nvidia&#x27;s substantial $40 billion AI investments underscore the explosive growth in artificial intelligence, which will drive strong demand for semiconductor components. As a leading OSAT provider, Inari Amertron is a direct beneficiary of this global tech boom and increased chip demand.</td>
         </tr>
         <tr>
-          <td class="font-semibold text-white">Malaysian Pacific Industries Bhd</td>
-          <td class="font-mono text-gold-300">3867.KL</td>
-          <td>Technology</td>
+          <td class="font-semibold text-white">Westports Holdings Bhd</td>
+          <td class="font-mono text-gold-300">5246.KL</td>
+          <td>Transportation &amp; Logistics</td>
           <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">29.50-30.50</td>
-          <td class="font-mono text-bull font-semibold">MYR 36.50</td>
+          <td class="font-mono text-gray-300">3.85-4.00</td>
+          <td class="font-mono text-bull font-semibold">MYR 4.70</td>
+          <td><span class="badge badge-bull">+19%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">China&#x27;s trade beating forecasts in April despite global conflicts highlights robust regional trade activity, a key driver for port operators. Westports Holdings, as a major gateway, stands to gain significantly from sustained export and import volumes, particularly with strong demand from China.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">Malayan Banking Bhd</td>
+          <td class="font-mono text-gold-300">1155.KL</td>
+          <td>Banking</td>
+          <td class="font-mono">MYR 11.18</td>
+          <td class="font-mono text-gray-300">11.00-11.30</td>
+          <td class="font-mono text-bull font-semibold">MYR 13.00</td>
+          <td><span class="badge badge-bull">+16.2%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">The government&#x27;s initiative to create a &#x27;one-stop portal to help MSMEs access grants&#x27; is a positive catalyst for domestic banking, potentially boosting lending and fee income. As Malaysia&#x27;s largest bank, Maybank is well-positioned to capitalize on increased economic activity driven by MSME support and broader financial sector stability.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">YTL Power International Bhd</td>
+          <td class="font-mono text-gold-300">6747.KL</td>
+          <td>Utilities</td>
+          <td class="font-mono">N/A</td>
+          <td class="font-mono text-gray-300">4.00-4.20</td>
+          <td class="font-mono text-bull font-semibold">MYR 5.00</td>
           <td><span class="badge badge-bull">+22%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Intel&#x27;s reported Apple chip deal signals a total pivot for chipmaking, bolstering the semiconductor sector. MPI, with its strong position in OSAT and automotive chips, is well-placed to capitalize on the renewed optimism and growing demand for advanced packaging services.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">Press Metal Aluminium Holdings Bhd</td>
-          <td class="font-mono text-gold-300">8869.KL</td>
-          <td>Industrial Products &amp; Services</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">5.40-5.60</td>
-          <td class="font-mono text-bull font-semibold">MYR 6.50</td>
-          <td><span class="badge badge-bull">+18%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">The Ringgit eases against the greenback, benefiting exporters like Press Metal. With fresh US-Iran clashes hitting peace hopes, geopolitical tensions could further support base metal prices, providing tailwinds for this integrated aluminium producer.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">Dialog Group Bhd</td>
-          <td class="font-mono text-gold-300">7277.KL</td>
-          <td>Energy</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">2.15-2.25</td>
-          <td class="font-mono text-bull font-semibold">MYR 2.60</td>
-          <td><span class="badge badge-bull">+18%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Oil prices remain steady despite fresh US-Iran clashes, indicating resilience in the energy market. Dialog Group&#x27;s robust tank terminal and integrated technical services provide stable earnings and defensive characteristics amidst ongoing geopolitical uncertainties.</td>
+          <td class="text-xs max-w-xs whitespace-normal">Nvidia&#x27;s massive AI investment signals a booming demand for data center infrastructure, directly benefiting YTL Power&#x27;s strategic focus on green data centers. Furthermore, regional digital connectivity initiatives, such as Indonesia&#x27;s new undersea cable, underscore the growing need for robust digital infrastructure across Asia-Pacific.</td>
         </tr>
       </tbody>
     </table>
@@ -316,44 +316,44 @@ body{background:#050a14;overflow-x:hidden}
       </thead>
       <tbody>
         <tr>
-          <td class="font-semibold text-white">Intel Corporation</td>
-          <td class="font-mono text-gold-300">INTC</td>
-          <td>Technology</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">$52-56</td>
-          <td class="font-mono text-bull font-semibold">$68</td>
-          <td><span class="badge badge-bull">+17%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Intel shares soar on an Apple chip deal report, signaling a total pivot for chipmaking and a significant strategic win. This partnership, combined with the &#x27;changing of the guard in AI&#x27; narrative, positions Intel for substantial market share gains and a re-rating by investors.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">Advanced Micro Devices</td>
-          <td class="font-mono text-gold-300">AMD</td>
-          <td>Technology</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">$170-180</td>
-          <td class="font-mono text-bull font-semibold">$215</td>
-          <td><span class="badge badge-bull">+16%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Wall Street sees a &#x27;changing of the guard in AI&#x27; as Intel and AMD shares soar while Nvidia lags. AMD is a key beneficiary of the broadening AI chip market, indicating robust demand for its MI300X accelerators and potential for further market share gains.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">BlackRock Inc.</td>
-          <td class="font-mono text-gold-300">BLK</td>
-          <td>Financials</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">$780-800</td>
-          <td class="font-mono text-bull font-semibold">$950</td>
-          <td><span class="badge badge-bull">+16%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">BlackRock is preparing to launch two tokenized money-market funds, showcasing its commitment to innovation and capturing new revenue streams in the evolving digital finance landscape. This strategic move positions BlackRock to attract a new class of investors and expand its leadership in asset management.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">ASML Holding N.V.</td>
+          <td class="font-semibold text-white">ASML Holding</td>
           <td class="font-mono text-gold-300">ASML</td>
           <td>Technology</td>
           <td class="font-mono">$1,592.02</td>
-          <td class="font-mono text-gray-300">$1500-1550</td>
-          <td class="font-mono text-bull font-semibold">$1800</td>
-          <td><span class="badge badge-bull">+13%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">While not directly named, ASML is the sole provider of critical EUV lithography equipment essential for advanced chip manufacturing. The &#x27;changing of the guard in AI&#x27; and Intel&#x27;s &#x27;total pivot for chipmaking&#x27; imply increased capital expenditure and demand for cutting-edge chips, directly benefiting ASML&#x27;s order book and long-term revenue visibility.</td>
+          <td class="font-mono text-gray-300">$1480-1550</td>
+          <td class="font-mono text-bull font-semibold">$1850</td>
+          <td><span class="badge badge-bull">+16%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">Nvidia embracing its role as a major AI investor, pushing past $40 billion in equity bets this year, directly fuels demand for advanced chip manufacturing equipment. ASML, as the sole provider of EUV lithography, is a critical beneficiary of this sustained AI-driven growth.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">MercadoLibre</td>
+          <td class="font-mono text-gold-300">MELI</td>
+          <td>Consumer Discretionary</td>
+          <td class="font-mono">$1,632.52</td>
+          <td class="font-mono text-gray-300">$1520-1600</td>
+          <td class="font-mono text-bull font-semibold">$1950</td>
+          <td><span class="badge badge-bull">+19%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">While the &#x27;Inflation Drumbeat Persists for Unnerved US Consumer,&#x27; MercadoLibre&#x27;s strong growth in the Latin American e-commerce and fintech sectors offers a diversified play. It benefits from increasing digital adoption and consumer spending in a high-growth region, potentially less impacted by specific US consumer weakness.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">Alibaba</td>
+          <td class="font-mono text-gold-300">BABA</td>
+          <td>Consumer Discretionary</td>
+          <td class="font-mono">$140.06</td>
+          <td class="font-mono text-gray-300">$128-135</td>
+          <td class="font-mono text-bull font-semibold">$165</td>
+          <td><span class="badge badge-bull">+18%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">The &#x27;China Summit Stays on Track Despite Iran Concerns&#x27; suggests a continued focus on economic stability and engagement for China, which could be a positive catalyst for major domestic e-commerce and cloud players like Alibaba. Furthermore, Putin&#x27;s statement on the Russia-Ukraine war ending could signal broader geopolitical de-escalation, benefiting global trade and investor sentiment towards Chinese equities.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">Nestlé S.A.</td>
+          <td class="font-mono text-gold-300">NSRGY</td>
+          <td>Consumer Staples</td>
+          <td class="font-mono">N/A</td>
+          <td class="font-mono text-gray-300">$118-123</td>
+          <td class="font-mono text-bull font-semibold">$140</td>
+          <td><span class="badge badge-bull">+12%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">With the &#x27;Inflation Drumbeat Persists for Unnerved US Consumer,&#x27; defensive sectors like consumer staples become highly attractive. Nestlé, as a global leader in food and beverage, possesses strong pricing power and consistent demand, offering resilience against broader economic uncertainty and consumer spending jitters.</td>
         </tr>
       </tbody>
     </table>
@@ -386,7 +386,7 @@ body{background:#050a14;overflow-x:hidden}
       <h3 class="font-display text-lg font-semibold text-gold-400 mb-4">Gold Recommendation</h3>
       <div class="rec-box glow-gold-strong">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">$151.87/g</p><p class="text-xs text-gold-200/60 font-mono">RM 595.03/g</p><p class="text-[10px] text-gray-500 font-mono mt-1">$4,724/oz</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">$151.76/g</p><p class="text-xs text-gold-200/60 font-mono">RM 594.61/g</p><p class="text-[10px] text-gray-500 font-mono mt-1">$4,720/oz</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$4,400-4,650</p><p class="text-xs text-gold-200/60 font-mono">RM554.25 - RM585.74/g</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">$5,000-5,400</p><p class="text-xs text-gold-200/60 font-mono">RM629.83 - RM680.22/g</p></div>
           <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$4,100</p><p class="text-xs text-gold-200/60 font-mono">RM516.46/g</p></div>
@@ -413,44 +413,44 @@ body{background:#050a14;overflow-x:hidden}
   <div class="card p-5 mb-6" style="border-color:rgba(247,147,26,.12)">
     <h3 class="font-display text-lg font-semibold text-btc mb-4">Technical Summary (Daily)</h3>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
-      <div><p class="text-[10px] text-gray-500 font-mono uppercase">RSI(14)</p><p class="font-mono text-lg text-gold-300">71.25</p><span class="badge badge-bear text-[10px]">Overbought</span></div>
-      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MACD</p><p class="font-mono text-lg text-bear">+1250</p><span class="badge badge-neutral text-[10px]">Neutral</span></div>
-      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MA(7)</p><p class="font-mono text-lg text-gray-300">$79,800</p></div>
-      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MA(25)</p><p class="font-mono text-lg text-gray-300">$76,500</p></div>
-      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MA(99)</p><p class="font-mono text-lg text-gray-400">$68,200</p></div>
-      <div><p class="text-[10px] text-gray-500 font-mono uppercase">ATR</p><p class="font-mono text-lg text-gold-300">$2,100</p><span class="badge badge-neutral text-[10px]">2.61% Vol</span></div>
+      <div><p class="text-[10px] text-gray-500 font-mono uppercase">RSI(14)</p><p class="font-mono text-lg text-gold-300">51.91</p><span class="badge badge-neutral text-[10px]">Neutral</span></div>
+      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MACD</p><p class="font-mono text-lg text-bear">-650</p><span class="badge badge-bear text-[10px]">Death Cross</span></div>
+      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MA(7)</p><p class="font-mono text-lg text-gray-300">$67,991</p></div>
+      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MA(25)</p><p class="font-mono text-lg text-gray-300">$69,415</p></div>
+      <div><p class="text-[10px] text-gray-500 font-mono uppercase">MA(99)</p><p class="font-mono text-lg text-gray-400">$76,372</p></div>
+      <div><p class="text-[10px] text-gray-500 font-mono uppercase">ATR</p><p class="font-mono text-lg text-gold-300">$2,315</p><span class="badge badge-neutral text-[10px]">3.34% Vol</span></div>
     </div>
     <div class="mt-4 pt-4 border-t border-gold-500/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-      <div><span class="text-bull font-mono text-xs">Support:</span> <span class="font-mono text-gray-300">$80,000 / $79,500 / $77,000</span></div>
-      <div><span class="text-bear font-mono text-xs">Resistance:</span> <span class="font-mono text-gray-300">$81,500 / $83,000 / $85,000</span></div>
+      <div><span class="text-bull font-mono text-xs">Support:</span> <span class="font-mono text-gray-300">$64,058 / $65,971 / $66,011</span></div>
+      <div><span class="text-bear font-mono text-xs">Resistance:</span> <span class="font-mono text-gray-300">$71,337 / $72,667 / $74,885</span></div>
     </div>
   </div>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <div>
       <h3 class="font-display text-lg font-semibold text-btc mb-4">Bitcoin Headlines</h3>
       <div class="space-y-3">
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://cointelegraph.com/news/bitcoin-profit-accelerate-price-3-month-high?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Bitcoin profit-taking may &#x27;accelerate&#x27; as price hits 3-month high: Analyst</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; 08 May</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.coindesk.com/markets/2026/05/08/coinbase-rebounds-as-altcoins-surge-with-bitcoin-holding-above-usd80-000" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Coinbase rebounds, altcoins surge as Bitcoin holds above $80,000</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinDesk &middot; 08 May</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.cnbc.com/2026/05/08/the-federal-reserve-is-quickly-running-out-of-reasons-to-cut-interest-rates.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">The Federal Reserve is quickly running out of reasons to cut interest rates</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CNBC &middot; 08 May</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.cnbc.com/2026/05/08/jobs-report-april-2026.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">U.S. payrolls jump more than expected, but the report had several red flags for the economy</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CNBC &middot; 08 May</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://cointelegraph.com/news/kraken-payward-occ-charter-banking?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Kraken parent company applies for OCC charter in move toward banking</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; 08 May</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://cointelegraph.com/news/us-senator-mark-zuckerberg-meta-stablecoin?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">US Senator questions Mark Zuckerberg on Meta’s stablecoin plans</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; 08 May</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin at $66,500 on Liberation Day — new prediction targets $240K</p><p class="text-[10px] text-gold-600 font-mono mt-1">FinanceMagnates &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin ETF outflows amid US-Iran tensions pressure price</p><p class="text-[10px] text-gold-600 font-mono mt-1">Capital.com &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin enters April with fading ETF momentum, rising whale selling</p><p class="text-[10px] text-gold-600 font-mono mt-1">BeInCrypto &middot; Mar</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin ETFs &#x27;will be larger&#x27; than gold ETFs: Analyst</p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Bitcoin tends to outperform gold &amp; stocks after global shocks</p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinDesk &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Fidelity: Bitcoin winning back gold investors</p><p class="text-[10px] text-gold-600 font-mono mt-1">U.Today &middot; Apr</p></div>
       </div>
     </div>
     <div>
       <h3 class="font-display text-lg font-semibold text-btc mb-4">Bitcoin Recommendation</h3>
       <div class="rec-box" style="border-color:rgba(247,147,26,.2)">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">$80,320</p><p class="text-xs text-orange-300/60 font-mono">RM 314,695</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$78,000-79,500</p><p class="text-xs text-orange-300/60 font-mono">RM305,604 - RM311,481</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">$77,000-78,500</p><p class="text-xs text-orange-300/60 font-mono">RM301,686 - RM307,563</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$78,800</p><p class="text-xs text-orange-300/60 font-mono">RM308,738</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">$80,771</p><p class="text-xs text-orange-300/60 font-mono">RM 316,460</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$64,000-67,000</p><p class="text-xs text-orange-300/60 font-mono">RM250,752 - RM262,506</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">$72,000-74,000</p><p class="text-xs text-orange-300/60 font-mono">RM282,096 - RM289,932</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$60,000</p><p class="text-xs text-orange-300/60 font-mono">RM235,080</p></div>
         </div>
         <div class="mb-3 flex gap-2 flex-wrap">
-          <span class="badge badge-neutral">Neutral-Bearish</span>
-          <span class="badge badge-bull">Bullish (Medium-Term)</span>
+          <span class="badge badge-neutral">Neutral-Bearish (Short-Term)</span>
+          <span class="badge badge-bull">Cautiously Bullish (Medium-Term)</span>
         </div>
-        <p class="text-xs text-gray-300 leading-relaxed">Bitcoin continues to hold above $80,000, signaling robust demand after reaching a 3-month high, despite warnings of accelerated profit-taking. Technically, BTC is overbought with an RSI of 71.25, suggesting a potential short-term pullback, while moving averages confirm a strong medium-term uptrend. Macroeconomic factors, including surprisingly strong US payrolls and the Fed&#x27;s reduced motivation for interest rate cuts, introduce a hawkish bias that could temper risk asset enthusiasm. However, growing institutional interest, as seen with Kraken&#x27;s OCC charter application, and continued regulatory scrutiny on stablecoins highlight crypto&#x27;s increasing integration into traditional finance. Traders should eye support at $79,500, with a buy zone between $78,000-$79,500, while resistance lies at $81,500 and $83,000.</p>
+        <p class="text-xs text-gray-300 leading-relaxed">BTC dropped 45% from Oct 2025 ATH of ~$125K, now consolidating in $66-70K range. RSI neutral but MACD in death cross. Headwinds: ETF outflows, US-Iran war uncertainty, tariff fears. Tailwinds: Historical outperformance after global shocks, growing institutional adoption. Wait for confirmed breakout above $72K, or accumulate at $64K support zone.</p>
       </div>
     </div>
   </div>
@@ -477,7 +477,7 @@ body{background:#050a14;overflow-x:hidden}
 <footer class="border-t border-gold-500/10 mt-8">
   <div class="max-w-7xl mx-auto px-4 py-8 text-center">
     <p class="text-xs text-gray-600 font-mono">Powered by <span class="text-gold-500">MuleRun Super Agent</span> &middot; AI Analysis by <span class="text-gold-500">Gemini</span></p>
-    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Reuters, CNBC, CoinTelegraph, CoinDesk &middot; Generated 2026-05-09 06:07:33 MYT</p>
+    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Reuters, CNBC, CoinTelegraph, CoinDesk &middot; Generated 2026-05-10 05:57:21 MYT</p>
   </div>
 </footer>
 
@@ -523,24 +523,24 @@ gsap.utils.toArray('.anim-card').forEach(function(el,i){gsap.from(el,{scrollTrig
 gsap.utils.toArray('.anim-section').forEach(function(el){gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},opacity:0,y:30,duration:.8,ease:'power2.out'})});
 document.querySelectorAll('[data-target]').forEach(function(el){var t=parseInt(el.dataset.target);ScrollTrigger.create({trigger:el,start:'top 90%',onEnter:function(){animateValue(el,0,t,1200)}});});
 var goldDates=["Nov 10", "Nov 13", "Nov 18", "Nov 21", "Nov 26", "Dec 02", "Dec 05", "Dec 10", "Dec 15", "Dec 18", "Dec 23", "Dec 29", "Jan 02", "Jan 07", "Jan 12", "Jan 15", "Jan 21", "Jan 26", "Jan 29", "Feb 03", "Feb 06", "Feb 11", "Feb 17", "Feb 20", "Feb 25", "Mar 02", "Mar 05", "Mar 10", "Mar 13", "Mar 18", "Mar 23", "Mar 26", "Mar 31", "Apr 06", "Apr 09", "Apr 14", "Apr 17", "Apr 22", "Apr 27", "Apr 30", "May 05", "May 08"];
-var goldPrices=[4111.8, 4186.9, 4061.3, 4076.7, 4165.2, 4186.6, 4212.9, 4196.4, 4306.7, 4339.5, 4482.8, 4325.1, 4314.4, 4449.3, 4604.3, 4616.3, 4831.8, 5079.7, 5318.4, 4903.7, 4951.2, 5071.6, 4882.9, 5059.3, 5206.4, 5294.4, 5065.3, 5229.7, 5052.5, 4889.9, 4404.1, 4375.5, 4647.6, 4656.8, 4792.2, 4825.0, 4857.6, 4732.5, 4675.4, 4614.7, 4555.8, 4723.7];
+var goldPrices=[4111.8, 4186.9, 4061.3, 4076.7, 4165.2, 4186.6, 4212.9, 4196.4, 4306.7, 4339.5, 4482.8, 4325.1, 4314.4, 4449.3, 4604.3, 4616.3, 4831.8, 5079.7, 5318.4, 4903.7, 4951.2, 5071.6, 4882.9, 5059.3, 5206.4, 5294.4, 5065.3, 5229.7, 5052.5, 4889.9, 4404.1, 4375.5, 4647.6, 4656.8, 4792.2, 4825.0, 4857.6, 4732.5, 4675.4, 4614.7, 4555.8, 4720.4];
 var goldChart=echarts.init(document.getElementById('goldChart'),null,{renderer:'svg'});
 goldChart.setOption({
   tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(245,158,11,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fde68a'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#fbbf24;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'/oz</div>'}},
   grid:{top:30,right:20,bottom:40,left:70,containLabel:false},
   xAxis:{type:'category',data:goldDates,axisLine:{lineStyle:{color:'rgba(245,158,11,.15)'}},axisLabel:{color:'rgba(251,191,36,.5)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
   yAxis:{type:'value',min:3858,max:5584,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(245,158,11,.06)'}},axisLabel:{color:'rgba(251,191,36,.4)',fontFamily:'JetBrains Mono',fontSize:10,formatter:'${value}'}},
-  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f59e0b',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,.35)'},{offset:.5,color:'rgba(245,158,11,.08)'},{offset:1,color:'rgba(245,158,11,0)'}])},data:goldPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(245,158,11,.3)',type:'dashed'},data:[{yAxis:4724,label:{formatter:'Current $4,724',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
+  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f59e0b',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,.35)'},{offset:.5,color:'rgba(245,158,11,.08)'},{offset:1,color:'rgba(245,158,11,0)'}])},data:goldPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(245,158,11,.3)',type:'dashed'},data:[{yAxis:4720,label:{formatter:'Current $4,720',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
 });
-var btcDates=["Nov 08", "Nov 12", "Nov 16", "Nov 20", "Nov 24", "Nov 28", "Dec 02", "Dec 06", "Dec 10", "Dec 14", "Dec 18", "Dec 22", "Dec 26", "Dec 30", "Jan 03", "Jan 07", "Jan 11", "Jan 15", "Jan 19", "Jan 23", "Jan 27", "Jan 31", "Feb 04", "Feb 08", "Feb 12", "Feb 16", "Feb 20", "Feb 24", "Feb 28", "Mar 04", "Mar 08", "Mar 12", "Mar 16", "Mar 20", "Mar 24", "Mar 28", "Apr 01", "Apr 05", "Apr 09", "Apr 13", "Apr 17", "Apr 21", "Apr 25", "Apr 29", "May 03", "May 07"];
-var btcPrices=[102282.12, 101663.19, 94177.08, 86631.9, 88270.56, 90919.27, 91350.2, 89272.38, 92020.95, 88175.18, 85462.51, 88490.02, 87301.43, 88430.13, 90603.19, 91308.05, 90827.46, 95551.19, 92553.59, 89503.88, 89102.57, 78621.12, 73019.7, 70264.73, 66221.84, 68843.16, 68005.42, 64080.04, 66995.86, 72710.58, 65969.78, 70493.46, 74861.09, 70522.59, 70517.86, 66319.7, 68078.55, 68981.9, 71767.83, 74484.64, 77126.88, 76352.77, 77612.02, 75776.13, 78538.23, 80009.99];
+var btcDates=["Nov 09", "Nov 13", "Nov 17", "Nov 21", "Nov 25", "Nov 29", "Dec 03", "Dec 07", "Dec 11", "Dec 15", "Dec 19", "Dec 23", "Dec 27", "Dec 31", "Jan 04", "Jan 08", "Jan 12", "Jan 16", "Jan 20", "Jan 24", "Jan 28", "Feb 01", "Feb 05", "Feb 09", "Feb 13", "Feb 17", "Feb 21", "Feb 25", "Mar 01", "Mar 05", "Mar 09", "Mar 13", "Mar 17", "Mar 21", "Mar 25", "Mar 29", "Apr 02", "Apr 06", "Apr 10", "Apr 14", "Apr 18", "Apr 22", "Apr 26", "Apr 30", "May 04", "May 08"];
+var btcPrices=[104719.64, 99697.49, 92093.88, 85090.69, 87341.89, 90851.76, 93527.8, 90405.64, 92511.34, 86419.78, 88103.38, 87414.0, 87802.16, 87508.83, 91413.49, 91027.12, 91192.99, 95525.12, 88310.91, 89110.73, 89184.57, 76974.45, 62702.1, 70120.78, 68857.84, 67494.22, 68003.77, 67960.12, 65738.1, 70841.12, 68402.38, 70968.27, 73922.48, 68711.52, 71309.88, 65954.92, 66888.57, 68859.83, 72979.05, 74181.61, 75726.21, 78203.1, 78657.54, 76304.32, 79827.91, 80186.77];
 var btcChart=echarts.init(document.getElementById('btcChart'),null,{renderer:'svg'});
 btcChart.setOption({
   tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(247,147,26,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fed7aa'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#f7931a;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'</div>'}},
   grid:{top:30,right:20,bottom:40,left:80,containLabel:false},
   xAxis:{type:'category',data:btcDates,axisLine:{lineStyle:{color:'rgba(247,147,26,.15)'}},axisLabel:{color:'rgba(247,147,26,.4)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
-  yAxis:{type:'value',min:57672,max:107396,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(247,147,26,.06)'}},axisLabel:{color:'rgba(247,147,26,.35)',fontFamily:'JetBrains Mono',fontSize:10,formatter:function(v){return '$'+Math.round(v/1000)+'K'}}},
-  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f7931a',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(247,147,26,.3)'},{offset:.5,color:'rgba(247,147,26,.06)'},{offset:1,color:'rgba(247,147,26,0)'}])},data:btcPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(247,147,26,.3)',type:'dashed'},data:[{yAxis:80320,label:{formatter:'Current $80,320',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
+  yAxis:{type:'value',min:56431,max:109955,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(247,147,26,.06)'}},axisLabel:{color:'rgba(247,147,26,.35)',fontFamily:'JetBrains Mono',fontSize:10,formatter:function(v){return '$'+Math.round(v/1000)+'K'}}},
+  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f7931a',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(247,147,26,.3)'},{offset:.5,color:'rgba(247,147,26,.06)'},{offset:1,color:'rgba(247,147,26,0)'}])},data:btcPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(247,147,26,.3)',type:'dashed'},data:[{yAxis:80771,label:{formatter:'Current $80,771',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
 });
 window.addEventListener('resize',function(){goldChart.resize();btcChart.resize()});
 </script>
