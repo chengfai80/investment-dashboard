@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from moomoo import *
 
 # Path to the portfolio HTML file
@@ -146,6 +147,14 @@ def update_portfolio_html():
         html_content = re.sub(r'<h2 class="font-display text-xl font-semibold text-yellow-400 mb-4 border-b border-gray-800 pb-2">💸 Realized P/L \(Sold Stocks\)</h2>', new_sold_header, html_content)
     else:
         html_content = header_sold_pattern.sub(new_sold_header, html_content)
+
+
+
+    # Update the last updated time
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S MYT')
+    time_pattern = re.compile(r'<span id="updateTime">.*?</span>')
+    if time_pattern.search(html_content):
+        html_content = time_pattern.sub(f'<span id="updateTime">{current_time}</span>', html_content)
 
     with open(HTML_PATH, 'w', encoding='utf-8') as f:
         f.write(html_content)
