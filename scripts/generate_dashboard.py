@@ -685,7 +685,7 @@ def fetch_ta_data():
         ticker = info["ticker"]
         currency = info["currency"]
         try:
-            url = f'https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=6mo&interval=1d'
+            url = f'https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1mo&interval=1d'
             req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
             resp = urllib.request.urlopen(req, timeout=15)
             data = json.loads(resp.read().decode("utf-8"))
@@ -1631,11 +1631,11 @@ def main():
     print("\n[1/8] Fetching live prices...")
     prices = fetch_prices()
 
-    print("\n[2/8] Fetching Gold OHLCV (6 months)...")
-    gold_ohlcv = fetch_ohlcv("GC=F", period="6mo")
+    print("\n[2/8] Fetching Gold OHLCV (1 month)...")
+    gold_ohlcv = fetch_ohlcv("GC=F", period="1mo")
 
-    print("\n[3/8] Fetching Bitcoin OHLCV (6 months)...")
-    btc_ohlcv = fetch_ohlcv("BTC-USD", period="6mo")
+    print("\n[3/8] Fetching Bitcoin OHLCV (1 month)...")
+    btc_ohlcv = fetch_ohlcv("BTC-USD", period="1mo")
 
     print("\n[4/8] Fetching news headlines...")
     news = fetch_news()
