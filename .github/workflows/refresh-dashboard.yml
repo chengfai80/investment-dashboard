@@ -1,6 +1,9 @@
 name: Refresh Investment Dashboard
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # Every day at 21:00 UTC (05:00 MYT, UTC+8)
     - cron: "0 21 * * *"
