@@ -685,7 +685,7 @@ def fetch_ta_data():
         ticker = info["ticker"]
         currency = info["currency"]
         try:
-            url = f'https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1mo&interval=1d'
+            url = f'https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=3mo&interval=1d'
             req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
             resp = urllib.request.urlopen(req, timeout=15)
             data = json.loads(resp.read().decode("utf-8"))
