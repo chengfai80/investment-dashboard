@@ -1,65 +1,65 @@
 [
   {
     "Ticker": "NVDA",
-    "Price": 215.2,
-    "Buy": 203.18,
-    "Target": 229.92,
-    "SL": 203.18
+    "Price": 225.83,
+    "Buy": 207.25,
+    "Target": 242.04,
+    "SL": 207.25
   },
   {
     "Ticker": "AMD",
-    "Price": 455.19,
-    "Buy": 326.23,
-    "Target": 508.95,
-    "SL": 326.23
+    "Price": 445.5,
+    "Buy": 355.85,
+    "Target": 504.47,
+    "SL": 355.85
   },
   {
     "Ticker": "TSM",
-    "Price": 411.68,
-    "Buy": 389.58,
-    "Target": 441.9,
-    "SL": 389.01
+    "Price": 399.8,
+    "Buy": 393.43,
+    "Target": 430.98,
+    "SL": 376.41
   },
   {
     "Ticker": "INTC",
-    "Price": 124.92,
-    "Buy": 84.37,
-    "Target": 140.72,
-    "SL": 84.37
+    "Price": 120.29,
+    "Buy": 93.19,
+    "Target": 139.38,
+    "SL": 93.19
   },
   {
     "Ticker": "MSFT",
-    "Price": 415.12,
-    "Buy": 416.14,
-    "Target": 438.77,
-    "SL": 397.38
+    "Price": 405.21,
+    "Buy": 417.99,
+    "Target": 433.7,
+    "SL": 389.22
   },
   {
     "Ticker": "AAPL",
-    "Price": 293.05,
-    "Buy": 272.96,
-    "Target": 306.88,
-    "SL": 272.96
+    "Price": 298.87,
+    "Buy": 278.09,
+    "Target": 311.91,
+    "SL": 278.09
   },
   {
     "Ticker": "AMZN",
-    "Price": 272.68,
-    "Buy": 259.6,
-    "Target": 287.38,
-    "SL": 259.6
+    "Price": 270.13,
+    "Buy": 262.97,
+    "Target": 284.9,
+    "SL": 259.05
   },
   {
     "Ticker": "GOOG",
-    "Price": 397.05,
-    "Buy": 355.0,
-    "Target": 417.13,
-    "SL": 355.0
+    "Price": 399.04,
+    "Buy": 364.27,
+    "Target": 421.41,
+    "SL": 364.27
   },
   {
     "Ticker": "CSCO",
-    "Price": 96.57,
-    "Buy": 88.91,
-    "Target": 101.21,
-    "SL": 88.91
+    "Price": 101.87,
+    "Buy": 91.54,
+    "Target": 106.95,
+    "SL": 91.54
   }
 ]

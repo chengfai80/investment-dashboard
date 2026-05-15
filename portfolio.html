@@ -47,7 +47,7 @@
                     <span class="text-yellow-500">📈</span> Moomoo Portfolio
                 </h1>
                 <p class="text-gray-400 mt-1">Live data from local OpenD connection</p>
-                <p id="lastUpdated" class="text-xs text-gray-500 mt-1 font-mono">Last Updated: <span id="updateTime">2026-05-15 08:13:17 MYT</span></p>
+                <p id="lastUpdated" class="text-xs text-gray-500 mt-1 font-mono">Last Updated: <span id="updateTime">2026-05-15 08:23:25 MYT</span></p>
             </div>
             <div class="flex gap-4">
                 <a href="index.html" class="glass-panel px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition">Back to Main</a>
@@ -208,6 +208,148 @@
                                     +660.00<br>
                                     <span class="text-xs opacity-80">+50.38%</span>
                                 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Holdings TA -->
+            <div class="glass-panel rounded-xl p-6 mt-8">
+                <h2 class="font-display text-xl font-semibold text-yellow-400 mb-4 border-b border-gray-800 pb-2 flex justify-between items-center">
+                    <span>📊 Technical Analysis for Holdings</span>
+                    <span class="text-sm font-mono text-yellow-300 bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800">Live TA</span>
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-400 border-b border-gray-800">
+                                <th class="pb-3 font-medium">Asset</th>
+                                <th class="pb-3 font-medium">Price</th>
+                                <th class="pb-3 font-medium">MA(7)</th>
+                                <th class="pb-3 font-medium">MA(25)</th>
+                                <th class="pb-3 font-medium">MA(99)</th>
+                                <th class="pb-3 font-medium">RSI(14)</th>
+                                <th class="pb-3 font-medium">MACD Hist</th>
+                                <th class="pb-3 font-medium text-right">Signal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="holdingsTaTable" class="divide-y divide-gray-800/50">
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">NVIDIA</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA NVDA</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">$235.74</td>
+                                <td class="py-3 font-mono text-gray-300">$219.47</td>
+                                <td class="py-3 font-mono text-gray-300">$206.16</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">76.7</td>
+                                <td class="py-3 font-mono text-gray-300">2.2173</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-green-500">BULLISH</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">Cisco</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA CSCO</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">$115.53</td>
+                                <td class="py-3 font-mono text-gray-300">$99.40</td>
+                                <td class="py-3 font-mono text-gray-300">$91.03</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">87.7</td>
+                                <td class="py-3 font-mono text-gray-300">1.7531</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-green-500">BULLISH</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">YTLPOWR</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA 6742.KL</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">4.050</td>
+                                <td class="py-3 font-mono text-gray-300">4.170</td>
+                                <td class="py-3 font-mono text-gray-300">3.902</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">60.4</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0146</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">GAMUDA</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA 5398.KL</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">4.630</td>
+                                <td class="py-3 font-mono text-gray-300">4.569</td>
+                                <td class="py-3 font-mono text-gray-300">4.376</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">66.2</td>
+                                <td class="py-3 font-mono text-gray-300">0.0096</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-green-500">BULLISH</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">99SMART</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA 5326.KL</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">3.360</td>
+                                <td class="py-3 font-mono text-gray-300">3.369</td>
+                                <td class="py-3 font-mono text-gray-300">3.460</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">42.3</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0151</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">PBBANK</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA 1295.KL</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">4.830</td>
+                                <td class="py-3 font-mono text-gray-300">4.851</td>
+                                <td class="py-3 font-mono text-gray-300">4.749</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">53.2</td>
+                                <td class="py-3 font-mono text-gray-300">0.0135</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">MAYBANK</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA 1155.KL</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">11.180</td>
+                                <td class="py-3 font-mono text-gray-300">11.206</td>
+                                <td class="py-3 font-mono text-gray-300">11.169</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">47.3</td>
+                                <td class="py-3 font-mono text-gray-300">0.0164</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">KOPI</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA 0338.KL</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">1.080</td>
+                                <td class="py-3 font-mono text-gray-300">1.100</td>
+                                <td class="py-3 font-mono text-gray-300">1.106</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">42.7</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0028</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">
+                                    <div class="font-semibold text-white">INARI</div>
+                                    <div class="text-[10px] text-gray-500 font-mono">MY.0166 · TA 0166.KL</div>
+                                </td>
+                                <td class="py-3 font-mono text-gray-300">1.970</td>
+                                <td class="py-3 font-mono text-gray-300">1.949</td>
+                                <td class="py-3 font-mono text-gray-300">1.814</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">63.1</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0181</td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
                             </tr>
                         </tbody>
                     </table>
