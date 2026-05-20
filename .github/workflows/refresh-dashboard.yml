@@ -19,9 +19,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Pull latest changes
-        run: git pull --rebase origin main
+      - name: Sync with latest main
+        run: |
+          git fetch origin main
+          git checkout -B main origin/main
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -44,17 +48,20 @@ jobs:
           git config user.email "dashboard-bot@users.noreply.github.com"
 
       - name: Commit changes if any
+        id: commit_changes
         run: |
           git add -A
           if git diff --cached --quiet; then
+            echo "committed=false" >> "$GITHUB_OUTPUT"
             echo "No changes to commit."
           else
             git commit -m "Update dashboard — $(date -u +'%Y-%m-%d')"
-            git pull --rebase --autostash origin main
-            git push
+            git push origin HEAD:main
+            echo "committed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Deploy to GitHub Pages
+        if: steps.commit_changes.outputs.committed == 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
