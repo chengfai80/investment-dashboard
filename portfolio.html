@@ -47,7 +47,7 @@
                     <span class="text-yellow-500">📈</span> Moomoo Portfolio
                 </h1>
                 <p class="text-gray-400 mt-1">Live data from local OpenD connection</p>
-                <p id="lastUpdated" class="text-xs text-gray-500 mt-1 font-mono">Last Updated: <span id="updateTime">2026-05-29 12:00:10 MYT</span></p>
+                <p id="lastUpdated" class="text-xs text-gray-500 mt-1 font-mono">Last Updated: <span id="updateTime">2026-05-29 13:52:53 MYT</span></p>
             </div>
             <div class="flex gap-4">
                 <a href="index.html" class="glass-panel px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition">Back to Main</a>
@@ -61,11 +61,13 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            
             <!-- Current Holdings -->
             <div class="glass-panel rounded-xl p-6">
                 <h2 class="font-display text-xl font-semibold text-yellow-400 mb-4 border-b border-gray-800 pb-2 flex justify-between items-center">
                     <span>💼 Current Holdings</span>
-                    <span class="text-sm font-mono text-green-500 bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800">+1,091.20</span>
+                    <span class="text-sm font-mono text-green-500 bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800">RM +5,825.23</span>
                 </h2>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm">
@@ -76,6 +78,13 @@
                                 <th class="pb-3 font-medium">Avg Cost</th>
                                 <th class="pb-3 font-medium">Price</th>
                                 <th class="pb-3 font-medium text-right">Unrealized P/L</th>
+                                <th class="pb-3 font-medium text-right">Signal</th>
+                                <th class="pb-3 font-medium">Price</th>
+                                <th class="pb-3 font-medium">MA(7)</th>
+                                <th class="pb-3 font-medium">MA(25)</th>
+                                <th class="pb-3 font-medium">MA(99)</th>
+                                <th class="pb-3 font-medium">RSI(14)</th>
+                                <th class="pb-3 font-medium">MACD Hist</th>
                             </tr>
                         </thead>
                         <tbody id="holdingsTable" class="divide-y divide-gray-800/50">
@@ -84,314 +93,201 @@
                                     <div class="font-semibold text-white">NVIDIA</div>
                                     <div class="text-[10px] text-gray-500 font-mono">US.NVDA</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">10.0</td>
-                                <td class="py-3 font-mono text-gray-300">90.8200</td>
-                                <td class="py-3 font-mono text-gray-300">214.1500</td>
+                                <td class="py-3 font-mono text-gray-300">10.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 408.6900</td>
+                                <td class="py-3 font-mono text-gray-300">RM 964.1250</td>
                                 <td class="py-3 text-right font-mono text-green-500 font-medium">
-                                    +1233.30<br>
-                                    <span class="text-xs opacity-80">+135.80%</span>
+                                    +5554.35<br>
+                                    <span class="text-xs opacity-80">+135.91%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                                <td class="py-3 font-mono text-gray-300">RM 964.1250</td>
+                                <td class="py-3 font-mono text-gray-300">RM 977.5479</td>
+                                <td class="py-3 font-mono text-gray-300">RM 962.0154</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">52.6</td>
+                                <td class="py-3 font-mono text-gray-300">-8.7144</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">Cisco</div>
                                     <div class="text-[10px] text-gray-500 font-mono">US.CSCO</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">1.0</td>
-                                <td class="py-3 font-mono text-gray-300">0.00 (Free)</td>
-                                <td class="py-3 font-mono text-gray-300">118.9000</td>
+                                <td class="py-3 font-mono text-gray-300">1.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 533.8800</td>
                                 <td class="py-3 text-right font-mono text-green-500 font-medium">
-                                    +118.90<br>
+                                    +533.88<br>
                                     <span class="text-xs opacity-80">+0.00%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                                <td class="py-3 font-mono text-gray-300">RM 533.8800</td>
+                                <td class="py-3 font-mono text-gray-300">RM 530.3443</td>
+                                <td class="py-3 font-mono text-gray-300">RM 462.6756</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">74.2</td>
+                                <td class="py-3 font-mono text-gray-300">3.1882</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">YTLPOWR-UW</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.6742UW</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">40.0</td>
-                                <td class="py-3 font-mono text-gray-300">0.00 (Free)</td>
-                                <td class="py-3 font-mono text-gray-300">0.0000</td>
+                                <td class="py-3 font-mono text-gray-300">40.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.0000</td>
                                 <td class="py-3 text-right font-mono text-gray-400 font-medium">
                                     0.00<br>
                                     <span class="text-xs opacity-80">0.00%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-gray-400">N/A</span></td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">YTLPOWR</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.6742</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">200.0</td>
-                                <td class="py-3 font-mono text-gray-300">4.7850</td>
-                                <td class="py-3 font-mono text-gray-300">4.0800</td>
+                                <td class="py-3 font-mono text-gray-300">200.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.7850</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.1600</td>
                                 <td class="py-3 text-right font-mono text-red-500 font-medium">
-                                    -141.00<br>
-                                    <span class="text-xs opacity-80">-14.73%</span>
+                                    -125.00<br>
+                                    <span class="text-xs opacity-80">-13.06%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.1600</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.1329</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.0636</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">63.4</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0254</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">GAMUDA</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.5398</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">1000.0</td>
-                                <td class="py-3 font-mono text-gray-300">4.1400</td>
-                                <td class="py-3 font-mono text-gray-300">4.3000</td>
+                                <td class="py-3 font-mono text-gray-300">1000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.1400</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.3000</td>
                                 <td class="py-3 text-right font-mono text-green-500 font-medium">
                                     +160.00<br>
                                     <span class="text-xs opacity-80">+3.86%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.3000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.3271</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.4336</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">46.1</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0406</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">99SMART</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.5326</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">1000.0</td>
-                                <td class="py-3 font-mono text-gray-300">3.3800</td>
-                                <td class="py-3 font-mono text-gray-300">3.2900</td>
+                                <td class="py-3 font-mono text-gray-300">1000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 3.3800</td>
+                                <td class="py-3 font-mono text-gray-300">RM 3.3000</td>
                                 <td class="py-3 text-right font-mono text-red-500 font-medium">
-                                    -90.00<br>
-                                    <span class="text-xs opacity-80">-2.66%</span>
+                                    -80.00<br>
+                                    <span class="text-xs opacity-80">-2.37%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
+                                <td class="py-3 font-mono text-gray-300">RM 3.3000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 3.3586</td>
+                                <td class="py-3 font-mono text-gray-300">RM 3.4020</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">42.3</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0050</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">PBBANK</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.1295</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">200.0</td>
-                                <td class="py-3 font-mono text-gray-300">3.9750</td>
-                                <td class="py-3 font-mono text-gray-300">4.7600</td>
+                                <td class="py-3 font-mono text-gray-300">200.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 3.9750</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.7500</td>
                                 <td class="py-3 text-right font-mono text-green-500 font-medium">
-                                    +157.00<br>
-                                    <span class="text-xs opacity-80">+19.75%</span>
+                                    +155.00<br>
+                                    <span class="text-xs opacity-80">+19.50%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.7500</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.7700</td>
+                                <td class="py-3 font-mono text-gray-300">RM 4.7984</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">46.5</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0103</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">MAYBANK</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.1155</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">200.0</td>
-                                <td class="py-3 font-mono text-gray-300">9.0700</td>
-                                <td class="py-3 font-mono text-gray-300">10.5600</td>
+                                <td class="py-3 font-mono text-gray-300">200.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 9.0700</td>
+                                <td class="py-3 font-mono text-gray-300">RM 10.5800</td>
                                 <td class="py-3 text-right font-mono text-green-500 font-medium">
-                                    +298.00<br>
-                                    <span class="text-xs opacity-80">+16.43%</span>
+                                    +302.00<br>
+                                    <span class="text-xs opacity-80">+16.65%</span>
                                 </td>
+                                <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
+                                <td class="py-3 font-mono text-gray-300">RM 10.5800</td>
+                                <td class="py-3 font-mono text-gray-300">RM 10.8829</td>
+                                <td class="py-3 font-mono text-gray-300">RM 11.0872</td>
+                                <td class="py-3 font-mono text-gray-300">N/A</td>
+                                <td class="py-3 font-mono text-gray-300">29.6</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0538</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">KOPI</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.0338</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-300">3000.0</td>
-                                <td class="py-3 font-mono text-gray-300">1.2000</td>
-                                <td class="py-3 font-mono text-gray-300">0.9850</td>
+                                <td class="py-3 font-mono text-gray-300">3000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 1.2000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.9750</td>
                                 <td class="py-3 text-right font-mono text-red-500 font-medium">
-                                    -645.00<br>
-                                    <span class="text-xs opacity-80">-17.92%</span>
+                                    -675.00<br>
+                                    <span class="text-xs opacity-80">-18.75%</span>
                                 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <!-- Holdings TA -->
-            <div class="glass-panel rounded-xl p-6 mt-8">
-                <h2 class="font-display text-xl font-semibold text-yellow-400 mb-4 border-b border-gray-800 pb-2 flex justify-between items-center">
-                    <span>📊 Technical Analysis for Holdings</span>
-                    <span class="text-sm font-mono text-yellow-300 bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800">Live TA</span>
-                </h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead>
-                            <tr class="text-gray-400 border-b border-gray-800">
-                                <th class="pb-3 font-medium">Asset</th>
-                                <th class="pb-3 font-medium">Price</th>
-                                <th class="pb-3 font-medium">MA(7)</th>
-                                <th class="pb-3 font-medium">MA(25)</th>
-                                <th class="pb-3 font-medium">MA(99)</th>
-                                <th class="pb-3 font-medium">RSI(14)</th>
-                                <th class="pb-3 font-medium">MACD Hist</th>
-                                <th class="pb-3 font-medium text-right">Signal</th>
-                            </tr>
-                        </thead>
-                        <tbody id="holdingsTaTable" class="divide-y divide-gray-800/50">
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">NVIDIA</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA NVDA</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">$214.25</td>
-                                <td class="py-3 font-mono text-gray-300">$217.23</td>
-                                <td class="py-3 font-mono text-gray-300">$213.78</td>
-                                <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">52.6</td>
-                                <td class="py-3 font-mono text-gray-300">-1.9365</td>
-                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">Cisco</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA CSCO</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">$118.64</td>
-                                <td class="py-3 font-mono text-gray-300">$117.85</td>
-                                <td class="py-3 font-mono text-gray-300">$102.82</td>
-                                <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">74.2</td>
-                                <td class="py-3 font-mono text-gray-300">0.7085</td>
-                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">YTLPOWR</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA 6742.KL</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">4.080</td>
-                                <td class="py-3 font-mono text-gray-300">4.121</td>
-                                <td class="py-3 font-mono text-gray-300">4.060</td>
-                                <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">57.0</td>
-                                <td class="py-3 font-mono text-gray-300">-0.0305</td>
-                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">GAMUDA</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA 5398.KL</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">4.300</td>
-                                <td class="py-3 font-mono text-gray-300">4.327</td>
-                                <td class="py-3 font-mono text-gray-300">4.434</td>
-                                <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">46.1</td>
-                                <td class="py-3 font-mono text-gray-300">-0.0406</td>
-                                <td class="py-3 text-right"><span class="text-sm font-mono text-yellow-400">NEUTRAL</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">99SMART</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA 5326.KL</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">3.300</td>
-                                <td class="py-3 font-mono text-gray-300">3.359</td>
-                                <td class="py-3 font-mono text-gray-300">3.402</td>
-                                <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">42.3</td>
-                                <td class="py-3 font-mono text-gray-300">-0.0050</td>
                                 <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">PBBANK</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA 1295.KL</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">4.760</td>
-                                <td class="py-3 font-mono text-gray-300">4.771</td>
-                                <td class="py-3 font-mono text-gray-300">4.799</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.9750</td>
+                                <td class="py-3 font-mono text-gray-300">RM 1.0493</td>
+                                <td class="py-3 font-mono text-gray-300">RM 1.0866</td>
                                 <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">47.4</td>
-                                <td class="py-3 font-mono text-gray-300">-0.0097</td>
-                                <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">MAYBANK</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA 1155.KL</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">10.520</td>
-                                <td class="py-3 font-mono text-gray-300">10.874</td>
-                                <td class="py-3 font-mono text-gray-300">11.085</td>
-                                <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">26.2</td>
-                                <td class="py-3 font-mono text-gray-300">-0.0576</td>
-                                <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="font-semibold text-white">KOPI</div>
-                                    <div class="text-[10px] text-gray-500 font-mono">MY.0338 · TA 0338.KL</div>
-                                </td>
-                                <td class="py-3 font-mono text-gray-300">0.990</td>
-                                <td class="py-3 font-mono text-gray-300">1.051</td>
-                                <td class="py-3 font-mono text-gray-300">1.087</td>
-                                <td class="py-3 font-mono text-gray-300">N/A</td>
-                                <td class="py-3 font-mono text-gray-300">28.4</td>
-                                <td class="py-3 font-mono text-gray-300">-0.0081</td>
-                                <td class="py-3 text-right"><span class="text-sm font-mono text-red-500">BEARISH</span></td>
+                                <td class="py-3 font-mono text-gray-300">26.5</td>
+                                <td class="py-3 font-mono text-gray-300">-0.0091</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
+            
             <!-- Realized P/L -->
             <div class="glass-panel rounded-xl p-6">
                 <h2 class="font-display text-xl font-semibold text-yellow-400 mb-4 border-b border-gray-800 pb-2 flex justify-between items-center">
                     <span>💸 Realized P/L (Sold Stocks)</span>
-                    <span class="text-sm font-mono text-green-500 bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800">+1,016.31</span>
+                    <span class="text-sm font-mono text-green-500 bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800">RM +1,011.31</span>
                 </h2>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm">
                         <thead>
                             <tr class="text-gray-400 border-b border-gray-800">
                                 <th class="pb-3 font-medium">Asset</th>
+                                <th class="pb-3 font-medium">Qty</th>
+                                <th class="pb-3 font-medium">Buy Price</th>
+                                <th class="pb-3 font-medium">Sell Price</th>
                                 <th class="pb-3 font-medium">Moomoo Charges</th>
                                 <th class="pb-3 font-medium text-right">Net Profit</th>
                             </tr>
@@ -402,77 +298,82 @@
                                     <div class="font-semibold text-white">INARI</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.0166</div>
                                 </td>
+                                <td class="py-3 font-mono text-gray-300">1000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 1.3258</td>
+                                <td class="py-3 font-mono text-gray-300">RM 2.3200</td>
                                 <td class="py-3 font-mono text-gray-400">RM 7.40</td>
-                                <td class="py-3 text-right font-mono text-green-500 font-medium">
-                                    +986.80
-                                </td>
+                                <td class="py-3 text-right font-mono text-green-500 font-medium">RM +986.80</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">AQUAWALK</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.0380</div>
                                 </td>
+                                <td class="py-3 font-mono text-gray-300">1000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.2100</td>
                                 <td class="py-3 font-mono text-gray-400">RM 4.13</td>
-                                <td class="py-3 text-right font-mono text-red-500 font-medium">
-                                    -4.13
-                                </td>
+                                <td class="py-3 text-right font-mono text-red-500 font-medium">RM -4.13</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">SMRT</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.0117</div>
                                 </td>
+                                <td class="py-3 font-mono text-gray-300">1000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.9346</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.1600</td>
                                 <td class="py-3 font-mono text-gray-400">RM 4.10</td>
-                                <td class="py-3 text-right font-mono text-red-500 font-medium">
-                                    -778.66
-                                </td>
+                                <td class="py-3 text-right font-mono text-red-500 font-medium">RM -778.66</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">PAVREIT</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.5212</div>
                                 </td>
+                                <td class="py-3 font-mono text-gray-300">1000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 1.2958</td>
+                                <td class="py-3 font-mono text-gray-300">RM 1.8000</td>
                                 <td class="py-3 font-mono text-gray-400">RM 6.41</td>
-                                <td class="py-3 text-right font-mono text-green-500 font-medium">
-                                    +497.81
-                                </td>
+                                <td class="py-3 text-right font-mono text-green-500 font-medium">RM +497.81</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">OMESTI</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.9008</div>
                                 </td>
+                                <td class="py-3 font-mono text-gray-300">20000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.0850</td>
                                 <td class="py-3 font-mono text-gray-400">RM 6.02</td>
-                                <td class="py-3 text-right font-mono text-red-500 font-medium">
-                                    -6.02
-                                </td>
+                                <td class="py-3 text-right font-mono text-red-500 font-medium">RM -6.02</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">KOPI</div>
                                     <div class="text-[10px] text-gray-500 font-mono">MY.0338</div>
                                 </td>
+                                <td class="py-3 font-mono text-gray-300">4000.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.8075</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.8925</td>
                                 <td class="py-3 font-mono text-gray-400">RM 18.12</td>
-                                <td class="py-3 text-right font-mono text-green-500 font-medium">
-                                    +321.94
-                                </td>
+                                <td class="py-3 text-right font-mono text-green-500 font-medium">RM +321.94</td>
                             </tr>
                             <tr>
                                 <td class="py-3">
                                     <div class="font-semibold text-white">Apple</div>
                                     <div class="text-[10px] text-gray-500 font-mono">US.AAPL</div>
                                 </td>
-                                <td class="py-3 font-mono text-gray-400">RM 1.43</td>
-                                <td class="py-3 text-right font-mono text-red-500 font-medium">
-                                    -1.43
-                                </td>
+                                <td class="py-3 font-mono text-gray-300">1.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 0.0000</td>
+                                <td class="py-3 font-mono text-gray-300">RM 1012.5900</td>
+                                <td class="py-3 font-mono text-gray-400">RM 6.43</td>
+                                <td class="py-3 text-right font-mono text-red-500 font-medium">RM -6.43</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 
     <script>
         // Simple auth
