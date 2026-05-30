@@ -1,0 +1,14 @@
+# Ignore generated / local junk
+**/node_modules/
+**/.expo/
+**/dist/
+**/__pycache__/
+**/*.pyc
+**/*.log
+**/*.tmp
+**/.DS_Store
+**/.git/
+**/.gitignore
+
+# Keep the Expo mobile app
+!financial-tracker-mobile/**
