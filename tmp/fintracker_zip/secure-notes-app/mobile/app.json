@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "SecureNotes",
+    "slug": "secure-notes",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#1a1a2e"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.securenotes",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Authenticate with biometrics to access your secure data"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1a1a2e"
+      },
+      "package": "com.yourcompany.securenotes",
+      "permissions": ["USE_BIOMETRIC", "USE_FINGERPRINT"]
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      "expo-local-authentication",
+      "expo-secure-store",
+      "expo-updates"
+    ],
+    "updates": {
+      "url": "https://u.expo.dev/YOUR_PROJECT_ID_HERE",
+      "enabled": true,
+      "fallbackToCacheTimeout": 5000
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
+  }
+}

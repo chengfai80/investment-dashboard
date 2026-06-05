@@ -1,0 +1,58 @@
+[
+  {
+    "Stock": "INARI",
+    "Ticker": "0166.KL",
+    "Price": 2.36,
+    "TP": 2.569,
+    "SL": 2.029
+  },
+  {
+    "Stock": "GAMUDA",
+    "Ticker": "5398.KL",
+    "Price": 4.34,
+    "TP": 4.67,
+    "SL": 4.166
+  },
+  {
+    "Stock": "99SMART",
+    "Ticker": "5326.KL",
+    "Price": 3.3,
+    "TP": 3.74,
+    "SL": 3.177
+  },
+  {
+    "Stock": "MAYBANK",
+    "Ticker": "1155.KL",
+    "Price": 10.42,
+    "TP": 11.94,
+    "SL": 10.212
+  },
+  {
+    "Stock": "PBBANK",
+    "Ticker": "1295.KL",
+    "Price": 4.74,
+    "TP": 4.99,
+    "SL": 4.635
+  },
+  {
+    "Stock": "YTLPOWR",
+    "Ticker": "6742.KL",
+    "Price": 4.14,
+    "TP": 4.351,
+    "SL": 3.981
+  },
+  {
+    "Stock": "AQUAWALK",
+    "Ticker": "0380.KL",
+    "Price": 0.16,
+    "TP": 0.29,
+    "SL": 0.142
+  },
+  {
+    "Stock": "KOPI",
+    "Ticker": "0338.KL",
+    "Price": 0.955,
+    "TP": 1.24,
+    "SL": 0.907
+  }
+]
