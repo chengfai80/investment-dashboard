@@ -1,10 +1,13 @@
 import axios from 'axios';
 
-const API_BASE = process.env.EXPO_PUBLIC_API_BASE_URL || 'https://financial-tracker-backend-1034658393263.asia-southeast1.run.app';
+const DEFAULT_API_BASE = 'https://financial-tracker-backend-1034658393263.asia-southeast1.run.app';
+const API_BASE = process.env.EXPO_PUBLIC_API_BASE_URL || DEFAULT_API_BASE;
 
-if (API_BASE.includes('YOUR-CLOUD-RUN-URL')) {
-  console.warn('EXPO_PUBLIC_API_BASE_URL is not set; the app is still pointed at the placeholder backend URL.');
+if (!process.env.EXPO_PUBLIC_API_BASE_URL) {
+  console.warn(`EXPO_PUBLIC_API_BASE_URL is not set; falling back to ${DEFAULT_API_BASE}.`);
 }
+
+console.log('API base URL:', API_BASE);
 
 export const api = axios.create({
   baseURL: API_BASE,
@@ -20,12 +23,12 @@ export function setAuthToken(token) {
 }
 
 export async function loginRequest(email, password) {
-  const { data } = await api.post('/api/auth/login', { email, password });
+  const { data } = await api.post('/auth/login', { email, password });
   return data;
 }
 
 export async function fetchMe() {
-  const { data } = await api.get('/api/auth/me');
+  const { data } = await api.get('/auth/me');
   return data;
 }
 

@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Staff Management",
+    "slug": "staff-management-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.chengfai.staffmanagement",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.chengfai.staffmanagement"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ],
+    "runtimeVersion": "1.0.0",
+    "owner": "chengfai80"
+  }
+}

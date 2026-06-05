@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "FinancialTracker",
+    "slug": "financial-tracker-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#1a1a2e",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a1a2e"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fintracker.app",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "FinTracker uses biometric authentication to secure your financial data."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1a1a2e"
+      },
+      "package": "com.fintracker.app",
+      "permissions": [
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-local-authentication",
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "88afe3c5-a141-43c3-90c8-9faefac01967"
+      }
+    },
+    "owner": "chengfai80",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": ""
+    }
+  }
+}

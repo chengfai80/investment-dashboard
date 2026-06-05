@@ -33,11 +33,11 @@ def main():
     
     alerts = []
     
-    if gold_rm_g <= 580:
-        alerts.append(f"🟡 **Gold Alert!** Price is at or below RM580/g. Current: RM{gold_rm_g:.2f}/g")
+    if gold_rm_g >= 700:
+        alerts.append(f"🟡 **Gold Take-Profit Alert!** Price is above RM700/g — consider selling off now. Current: RM{gold_rm_g:.2f}/g")
         
-    if btc_rm <= 300000:
-        alerts.append(f"🟠 **Bitcoin Alert!** Price is at or below RM300,000. Current: RM{btc_rm:,.2f}")
+    if btc_rm >= 400000:
+        alerts.append(f"🟠 **Bitcoin Take-Profit Alert!** Price is above RM400,000 — consider selling off now. Current: RM{btc_rm:,.2f}")
         
     if alerts:
         print("ALERT:")

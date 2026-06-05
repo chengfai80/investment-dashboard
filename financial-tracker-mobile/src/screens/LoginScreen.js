@@ -13,7 +13,10 @@ export default function LoginScreen() {
       setBusy(true);
       await login(email.trim(), password);
     } catch (err) {
-      Alert.alert('Login failed', err?.response?.data?.detail || err?.message || 'Unknown error');
+      const backendMessage = err?.response?.data?.detail || err?.response?.data?.error;
+      const statusMessage = err?.response ? `HTTP ${err.response.status}` : null;
+      const urlMessage = err?.config?.url ? `URL ${err.config.baseURL || ''}${err.config.url}` : null;
+      Alert.alert('Login failed', backendMessage || statusMessage || urlMessage || err?.message || 'Unknown error');
     } finally {
       setBusy(false);
     }
