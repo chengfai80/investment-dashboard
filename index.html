@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investment Intelligence Dashboard &mdash; 7 September 2026</title>
+<title>Investment Intelligence Dashboard &mdash; 8 September 2026</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -57,10 +57,10 @@ body{background:#050a14;overflow-x:hidden}
   <div class="hero-mesh"></div>
   <div class="ticker-strip py-2 relative z-10">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 text-xs font-mono tracking-wide">
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE 7 SEP 2026 &middot; 06:03 PM MYT</span>
-      <span>Gold <span class="text-gold-400 font-semibold">$143.93</span>/g <span class="text-gray-500">|</span> <span class="text-gold-300">RM582.11</span>/g</span>
-      <span>Bitcoin <span class="text-btc font-semibold">$79,370</span> <span class="text-gray-500">|</span> <span class="text-orange-300">RM321,013</span></span>
-      <span>USD/MYR <span class="text-green-400 font-semibold">4.0445</span></span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gold-500 pulse-dot"></span>LIVE 8 SEP 2026 &middot; 07:27 AM MYT</span>
+      <span>Gold <span class="text-gold-400 font-semibold">$143.29</span>/g <span class="text-gray-500">|</span> <span class="text-gold-300">RM579.46</span>/g</span>
+      <span>Bitcoin <span class="text-btc font-semibold">$78,989</span> <span class="text-gray-500">|</span> <span class="text-orange-300">RM319,433</span></span>
+      <span>USD/MYR <span class="text-green-400 font-semibold">4.0440</span></span>
       <span>FBM KLCI <span class="text-gold-300 font-semibold">1,680&ndash;1,740</span></span>
     </div>
   </div>
@@ -83,19 +83,19 @@ body{background:#050a14;overflow-x:hidden}
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="statCards">
     <div class="card p-5 glow-gold anim-card">
       <p class="text-xs text-gold-500 font-mono uppercase tracking-wider mb-1">Gold (XAU)</p>
-      <p class="stat-value text-2xl font-bold text-gold-300">$143.94<span class="text-base text-gold-500">/g</span></p>
-      <p class="text-sm text-gold-200/70 font-mono mt-1">RM 582.16/g</p>
-      <p class="text-[10px] text-gray-500 mt-1 font-mono">$4,477/oz &middot; RM 18,107/oz</p>
+      <p class="stat-value text-2xl font-bold text-gold-300">$143.30<span class="text-base text-gold-500">/g</span></p>
+      <p class="text-sm text-gold-200/70 font-mono mt-1">RM 579.49/g</p>
+      <p class="text-[10px] text-gray-500 mt-1 font-mono">$4,457/oz &middot; RM 18,024/oz</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-btc font-mono uppercase tracking-wider mb-1">Bitcoin (BTC/USD)</p>
-      <p class="stat-value text-3xl font-bold text-btc" data-target="79370">$0</p>
-      <p class="text-sm text-orange-300/70 font-mono mt-1">RM 321,012</p>
+      <p class="stat-value text-3xl font-bold text-btc" data-target="78989">$0</p>
+      <p class="text-sm text-orange-300/70 font-mono mt-1">RM 319,432</p>
       <p class="text-xs text-gray-400 mt-1">Live price &middot; Updated today</p>
     </div>
     <div class="card p-5 anim-card">
       <p class="text-xs text-green-400 font-mono uppercase tracking-wider mb-1">USD / MYR</p>
-      <p class="stat-value text-3xl font-bold text-green-300">4.0445</p>
+      <p class="stat-value text-3xl font-bold text-green-300">4.0440</p>
       <p class="text-xs text-gray-400 mt-2">Exchange rate &middot; Updated today</p>
     </div>
     <div class="card p-5 anim-card">
@@ -118,34 +118,34 @@ body{background:#050a14;overflow-x:hidden}
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <div class="card-news anim-card">
+      <span class="badge badge-bear mb-3">Cautious</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Bursa Malaysia to remain cautious, confined within narrow range due to Mideast conflict</h3>
+      <p class="text-xs text-gray-400">Trading expected to be range-bound as geopolitical uncertainty continues to weigh on sentiment.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">The Star &middot; Apr 2026</p>
+    </div>
+    <div class="card-news anim-card">
+      <span class="badge badge-neutral mb-3">Mixed</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Bursa ends week mixed on global energy jitters — FBM KLCI in narrow range</h3>
+      <p class="text-xs text-gray-400">The benchmark index traded in a tight range as oil price volatility affected regional markets.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">Business Today &middot; Apr 2026</p>
+    </div>
+    <div class="card-news anim-card">
+      <span class="badge badge-bear mb-3">Sell-off</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">FTSE Bursa Malaysia drops over 1% amid risk-off sentiment</h3>
+      <p class="text-xs text-gray-400">Malaysian equities came under selling pressure following global risk-off moves.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">LiveMint &middot; Apr 2026</p>
+    </div>
+    <div class="card-news anim-card">
       <span class="badge badge-bull mb-3">Positive</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/highlight/2026/09/07/malaysia-eyes-huawei-chips-for-ai-project-despite-us-warning" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Malaysia considers Huawei chips for sovereign AI project</a></h3>
-      <p class="text-xs text-gray-400">Malaysia is reportedly evaluating Huawei chips for its national sovereign AI infrastructure, a move that could significantly boost the local technology sector. This initiative aims to enhance national digital capabilities despite potential geopolitical implications.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz &middot; 07 Sep 2026</p>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">HKEX &amp; Bursa Malaysia launch co-branded index, sign MOU for connectivity</h3>
+      <p class="text-xs text-gray-400">Strategic partnership to enhance cross-border investment flows between HK and Malaysian markets.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">HKEX &middot; Mar 2026</p>
     </div>
     <div class="card-news anim-card">
       <span class="badge badge-bull mb-3">Rally</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/09/07/palm-oil-prices-rise-as-indonesian-forest-fires-put-supply-at-risk" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Palm oil prices climb on Indonesian forest fire concerns</a></h3>
-      <p class="text-xs text-gray-400">Palm oil prices are on the rise following reports of Indonesian forest fires threatening supply. This development is expected to positively impact Malaysian palm oil producers and related equities on Bursa Malaysia, given the potential for tighter supply.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz &middot; 07 Sep 2026</p>
-    </div>
-    <div class="card-news anim-card">
-      <span class="badge badge-bull mb-3">Positive</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Asia-Pacific markets gain despite renewed Mideast hostilities</a></h3>
-      <p class="text-xs text-gray-400">Asia-Pacific markets, including Malaysia, saw gains today as investors assessed escalating Middle East conflicts. The region&#x27;s resilience indicates a degree of confidence, though global geopolitical tensions remain a watchpoint for sustained sentiment.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC &middot; 07 Sep 2026</p>
-    </div>
-    <div class="card-news anim-card">
-      <span class="badge badge-bear mb-3">Cautious</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/09/07/ubs-forecasts-two-us-fed-rate-hikes-in-2026-after-strong-jobs-report" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">UBS forecasts two US Fed rate hikes in 2026 after strong jobs report</a></h3>
-      <p class="text-xs text-gray-400">UBS projects two US Federal Reserve rate hikes in 2026 following a robust jobs report, which could impact global liquidity. This outlook suggests potential pressure on the Ringgit and capital flows to emerging markets like Malaysia.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz &middot; 07 Sep 2026</p>
-    </div>
-    <div class="card-news anim-card">
-      <span class="badge badge-bear mb-3">Cautious</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/china-state-banks-lenders-insurers-capital-solvency-bankrupt-nim-.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">China injects $54B into banks, insurers; stocks still decline</a></h3>
-      <p class="text-xs text-gray-400">China announced a $54 billion capital injection into its banks and insurers, yet their stocks continued to fall. This signals underlying concerns about the health of China&#x27;s financial sector, a key trading partner for Malaysia, potentially impacting regional stability.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC &middot; 07 Sep 2026</p>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Bursa Malaysia, Asian stocks rise on hopes for speedy Middle East resolution</h3>
+      <p class="text-xs text-gray-400">Asian markets rallied on hopes for swift resolution, providing temporary relief.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">Asia News Network &middot; Apr 2026</p>
     </div>
   </div>
 </section>
@@ -162,40 +162,40 @@ body{background:#050a14;overflow-x:hidden}
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <div class="card-news anim-card">
-      <span class="badge badge-neutral mb-3">Watch</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Wall St Week Ahead: Inflation in focus for markets jostled by Middle East war signals</h3>
-      <p class="text-xs text-gray-400">Fresh inflation data could start showing the Middle East war&#x27;s economic impact.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">Reuters &middot; Apr 2026</p>
+      <span class="badge badge-bear mb-3">Sell-off</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/stock-market-tuesday-live-updates.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Dow Futures Dip 300 Points as Oil Prices Climb, Signaling Weak Start to Week</a></h3>
+      <p class="text-xs text-gray-400">U.S. stock futures, particularly the Dow, are pointing lower at the start of the shortened trading week. This decline is largely attributed to rising oil prices, which often signal inflationary pressures and potential economic headwinds.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC &middot; 07 Sep 2026</p>
     </div>
     <div class="card-news anim-card">
-      <span class="badge badge-bull mb-3">Recovery</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Stocks recover from early losses, close with weekly gain. US oil tops $110/barrel</h3>
-      <p class="text-xs text-gray-400">Wall Street shook off an early stumble to close with slim gains.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">AP News &middot; Apr 2026</p>
+      <span class="badge badge-bear mb-3">Headwinds</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-09-07/stock-market-today-dow-s-p-live-updates" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Asian Stocks Poised to Dip, Yen Under Scrutiny Amid Market Uncertainty</a></h3>
+      <p class="text-xs text-gray-400">Asian equity markets are expected to open lower, reflecting broader market cautiousness. The Japanese Yen is also a key focus for investors, potentially indicating currency volatility or shifts in investor sentiment regarding safe-haven assets.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg &middot; 07 Sep 2026</p>
+    </div>
+    <div class="card-news anim-card">
+      <span class="badge badge-bull mb-3">Rally</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-09-07/em-stocks-jump-to-2-month-high-as-tech-rally-offsets-higher-oil" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Emerging Market Stocks Hit Two-Month High, Tech Sector Drives Gains Despite Oil Surge</a></h3>
+      <p class="text-xs text-gray-400">Emerging market equities have climbed to their highest level since June, demonstrating resilience. The rally is primarily fueled by strong performance in the technology sector, which is currently offsetting the negative impact of rising oil prices on these economies.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg &middot; 07 Sep 2026</p>
+    </div>
+    <div class="card-news anim-card">
+      <span class="badge badge-bull mb-3">Geopolitical</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/oil-prices-hit-near-seven-week-highs-before-edging-lower-as-iran-plans-to-increase-control-of-hormuz-5070167c?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Oil Prices Surge on Reports of Houthi Rebel Attack on Saudi Aramco Refinery</a></h3>
+      <p class="text-xs text-gray-400">Crude oil prices are climbing significantly following news that a Saudi Aramco refinery was reportedly struck by Houthi rebels. This incident raises concerns about potential disruptions to global oil supply, fueling market anxiety and pushing prices higher.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch &middot; 07 Sep 2026</p>
+    </div>
+    <div class="card-news anim-card">
+      <span class="badge badge-neutral mb-3">Geopolitical</span>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/videos/2026-09-07/sapporo-breweries-cso-on-tariffs-iran-war-video" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Sapporo Breweries CSO Discusses Impact of Tariffs and Iran War on Business</a></h3>
+      <p class="text-xs text-gray-400">The Chief Strategy Officer of Sapporo Breweries commented on the potential implications of ongoing tariffs and the conflict in Iran. These geopolitical factors can significantly affect international trade, supply chains, and consumer markets, posing challenges for global businesses.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg &middot; 07 Sep 2026</p>
     </div>
     <div class="card-news anim-card">
       <span class="badge badge-bear mb-3">Risk</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Middle East Conflict circles world markets, stirring fears of stalled growth &amp; inflation</h3>
-      <p class="text-xs text-gray-400">Widening conflict threatening Strait of Hormuz has sparked global stock declines.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">WSJ &middot; Mar 2026</p>
-    </div>
-    <div class="card-news anim-card">
-      <span class="badge badge-neutral mb-3">Headwinds</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">SpaceX, Anthropic &amp; OpenAI mega IPOs alone can&#x27;t fix this stock market</h3>
-      <p class="text-xs text-gray-400">Despite anticipated tech IPOs, the market faces structural headwinds.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC &middot; Apr 2026</p>
-    </div>
-    <div class="card-news anim-card">
-      <span class="badge badge-bear mb-3">Geopolitical</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">Trump gives Iran until Tuesday night to open Strait of Hormuz</h3>
-      <p class="text-xs text-gray-400">Ultimatum intensifies standoff over critical shipping lane.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">Reuters / WSJ &middot; Apr 2026</p>
-    </div>
-    <div class="card-news anim-card">
-      <span class="badge badge-bull mb-3">Supply</span>
-      <h3 class="text-sm font-semibold text-white leading-snug mb-2">OPEC+ agrees to boost oil output when Strait of Hormuz reopens</h3>
-      <p class="text-xs text-gray-400">Oil cartel signals readiness to increase production once shipping route becomes accessible.</p>
-      <p class="text-[10px] text-gold-600 mt-3 font-mono">Reuters &middot; Apr 2026</p>
+      <h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/crashed-amazon-cargo-jet-struck-two-vehicles-ended-up-1300-feet-past-runway-ntsb-says.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Amazon Cargo Jet Crash: NTSB Reports Aircraft Overshot Runway, Struck Vehicles</a></h3>
+      <p class="text-xs text-gray-400">An Amazon cargo jet crashed, overshooting the runway by 1,300 feet and striking two vehicles, according to the NTSB. This incident raises concerns about air cargo safety and could lead to scrutiny of logistics operations, potentially impacting Amazon&#x27;s delivery network and air freight industry confidence.</p>
+      <p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC &middot; 07 Sep 2026</p>
     </div>
   </div>
 </section>
@@ -211,24 +211,24 @@ body{background:#050a14;overflow-x:hidden}
     </div>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/us-treasury-yields-markets-scott-bessent.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Treasury yields face 4.8% test as fiscal risks threaten to spill into other assets</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/us-iran-war-trump-hormuz-israel-hezbollah-fighting-strikes-.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Israel-Hezbollah clashes kill 11 as Mideast conflict escalation gathers pace after U.S.-Iran strikes</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">European stocks mixed and Asia-Pacific markets rise as investors assess renewed Middle East hostilities</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/coldcard-third-wave-attacker-moves-bitcoin-stolen?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Coldcard third-wave attacker moves 45% of stolen Bitcoin</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/fomo-pumpfun-revenue-app-solana?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Fomo overtakes Pump.fun in daily revenue on Solana</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/stock-market-tuesday-live-updates.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Dow futures fall 300 points to start shortened week as oil prices climb: Live updates</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/crashed-amazon-cargo-jet-struck-two-vehicles-ended-up-1300-feet-past-runway-ntsb-says.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Crashed Amazon cargo jet struck two vehicles, ended up 1,300 feet past runway, NTSB says</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CNBC</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.cnbc.com/2026/09/07/trump-bombardier-cant-sell-in-us-unless-canada-aerospace-giant-builds-there.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Trump says Bombardier can&#x27;t sell in U.S. unless Canada aerospace giant builds there</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CNBC</p></div>
     <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Here’s what happened in crypto today</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/markets/2026/09/07/bitcoin-investors-turn-to-selling-as-usd83-000-resistance-holds" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Bitcoin struggles at $83,000 sell wall as whales distribution flip into net selling</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/business/2026/09/07/coldcard-hacker-moves-45-of-bitcoin-stolen-in-third-attack-wave" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Coldcard hacker moves $7.7 million in BTC, 45% of bitcoin stolen in third attack wave</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/markets/2026/09/07/no-friday-s-jobs-report-hasn-t-materially-boost-fed-rate-hike-odds" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">No, Friday&#x27;s jobs report hasn&#x27;t materially boosted Fed rate hike odds</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/newsletters/2026-09-07/investors-are-embracing-risk-even-as-global-bond-yields-climb" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Investors Are Embracing Risk Even as Global Bond Yields Climb</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-09-07/yen-rises-to-strongest-since-february-topping-intervention-rally" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Yen Tops Intervention Rally to Reach Highest Since February</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/videos/2026-09-07/the-pulse-9-7-2026-video" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">US-Iran Tanker Attacks Escalate, Sending Oil Higher | The Pulse 9/7/2026</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/travis-kelce-bought-a-5-35-million-estate-on-lake-erie-months-before-marrying-taylor-swift-4ce6761f?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Travis Kelce bought a $5.35 million estate on Lake Erie months before marrying Taylor Swift</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/oil-prices-hit-near-seven-week-highs-before-edging-lower-as-iran-plans-to-increase-control-of-hormuz-5070167c?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Oil prices hit near seven-week highs, before edging lower, as Iran plans to increase control of Hormuz</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/im-desperately-trying-to-plan-ahead-im-leaving-everything-to-my-grandson-who-has-severe-mental-illness-how-can-i-protect-him-d8df2646?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">‘I currently give him $1,000 a month’: My grandson has severe mental illness. How do I protect him after I’m gone?</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/09/07/uk-business-group-calls-for-smaller-state-pension-increases-ahead-of-budget" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">UK’s business group calls for smaller state pension increases ahead of budget</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/09/07/ubs-forecasts-two-us-fed-rate-hikes-in-2026-after-strong-jobs-report" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">UBS forecasts two US Fed rate hikes in 2026 after strong jobs report</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
-    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/09/07/euro-zone-investor-morale-hits-four-year-plus-high-in-september-sentix-survey-shows" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Euro zone investor morale hits four-year high in September</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/uk-financial-watchdog-prediction-markets-ban?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">UK financial watchdog weighs lifting prediction markets ban: Report</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinTelegraph</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://cointelegraph.com/news/ethereum-foundation-names-2-must-ship-eips-for-hegot-upgrade?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Ethereum Foundation names 2 ‘must ship’ EIPs for Hegotá upgrade</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinTelegraph</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/markets/2026/09/08/metaplanet-ceo-breaks-silence-but-shareholders-say-the-hard-questions-remain-unanswered" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Metaplanet CEO breaks silence but shareholders say the hard questions remain unanswered</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/business/2026/09/07/hunter-biden-is-launching-a-memecoin-named-after-his-laptop" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Hunter Biden debuts &#x27;LAPTOP&#x27; memecoin targeting TRUMP holders</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">CoinDesk</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.coindesk.com/policy/2026/09/07/polish-prosecutors-charge-fifth-suspect-in-a-massive-crypto-probe" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Polish prosecutors charge fifth suspect in a massive crypto probe</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">CoinDesk</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-09-07/latest-oil-market-news-and-analysis-for-sept-8" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Latest Oil Market News and Analysis for Sept. 8</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-09-07/capitaland-targets-500-million-for-third-asian-credit-fund" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">CapitaLand Targets $500 Million for Third Asian Credit Fund</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">Bloomberg</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.bloomberg.com/news/articles/2026-09-07/stock-market-today-dow-s-p-live-updates" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Stocks in Asia Poised to Edge Down, Yen in Focus: Markets Wrap</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">Bloomberg</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/oil-prices-hit-near-seven-week-highs-before-edging-lower-as-iran-plans-to-increase-control-of-hormuz-5070167c?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Oil prices climb after reports of Saudi Aramco refinery being hit by Houthi rebels</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/why-does-almost-nobody-want-to-befriend-older-people-like-me-except-scammers-fda849d1?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Why does almost nobody want to befriend older people like me — except scammers?</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">MarketWatch</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.marketwatch.com/story/im-the-executor-my-two-siblings-and-i-inherited-an-ira-can-we-just-cash-it-out-dafc5b8d?mod=mw_rss_topstories" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">‘I’m the executor’: My two siblings and I inherited an IRA. Can we just cash it out?</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">MarketWatch</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/highlight/2026/09/08/trump-says-bombardier-must-build-in-us-to-sell-there" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Trump says Bombardier must build in US to sell there</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/09/07/panama-canal-finds-water-solution-but-it-s-5-years-away" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Panama Canal faces five-year wait for water solution</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
+    <div class="card-news anim-card"><span class="badge badge-neutral mb-3">FMT_Biz</span><h3 class="text-sm font-semibold text-white leading-snug mb-2"><a href="https://www.freemalaysiatoday.com/category/business/2026/09/07/jaguar-land-rover-to-cut-4-000-jobs-as-european-car-sector-hits-skids" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Jaguar Land Rover to cut 4,000 jobs as European car sector struggles</a></h3><p class="text-[10px] text-gold-600 mt-3 font-mono">FMT_Biz</p></div>
   </div>
 </section>
 <div class="section-divider max-w-7xl mx-auto"></div>
@@ -316,44 +316,44 @@ body{background:#050a14;overflow-x:hidden}
       </thead>
       <tbody>
         <tr>
-          <td class="font-semibold text-white">Shell plc</td>
-          <td class="font-mono text-gold-300">SHEL</td>
-          <td>Energy</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">$65-68</td>
-          <td class="font-mono text-bull font-semibold">$80</td>
-          <td><span class="badge badge-bull">+20%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Escalating US-Iran tanker attacks and broader Middle East conflict are driving oil prices higher, directly boosting Shell&#x27;s upstream profitability. Additionally, ADNOC&#x27;s M&amp;A talks in the refining sector highlight strategic value in Shell&#x27;s integrated downstream assets, signaling robust industry activity.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">Lockheed Martin Corporation</td>
-          <td class="font-mono text-gold-300">LMT</td>
-          <td>Aerospace &amp; Defense</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">$470-490</td>
-          <td class="font-mono text-bull font-semibold">$570</td>
-          <td><span class="badge badge-bull">+19%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">The intensifying Israel-Hezbollah clashes and broader Middle East conflict, coupled with US-Iran strikes, signal a significant escalation in global geopolitical tensions. This environment typically leads to increased defense spending and demand for advanced military equipment, directly benefiting Lockheed Martin.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">Larsen &amp; Toubro Limited</td>
-          <td class="font-mono text-gold-300">LT.NS</td>
-          <td>Industrials</td>
-          <td class="font-mono">N/A</td>
-          <td class="font-mono text-gray-300">$40-42</td>
-          <td class="font-mono text-bull font-semibold">$49</td>
-          <td><span class="badge badge-bull">+19%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Bank of America&#x27;s call for double-digit factory growth in India underscores a strong long-term structural tailwind for the country&#x27;s industrial sector. As a leading player in infrastructure and manufacturing, Larsen &amp; Toubro is uniquely positioned to capitalize on this ambitious national growth agenda.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold text-white">ASML Holding N.V.</td>
+          <td class="font-semibold text-white">ASML Holding</td>
           <td class="font-mono text-gold-300">ASML</td>
-          <td>Technology</td>
+          <td>Semiconductors</td>
           <td class="font-mono">$1,714.88</td>
-          <td class="font-mono text-gray-300">$1600-1670</td>
-          <td class="font-mono text-bull font-semibold">$1950</td>
-          <td><span class="badge badge-bull">+19%</span></td>
-          <td class="text-xs max-w-xs whitespace-normal">Despite global bond yields climbing, investors are &#x27;embracing risk&#x27; in high-quality assets, making ASML attractive due to its critical, near-monopoly position in advanced chip manufacturing. Its strong fundamental demand from leading chipmakers provides resilience against broader market volatility and regional financial stresses.</td>
+          <td class="font-mono text-gray-300">$1,250-1,320</td>
+          <td class="font-mono text-bull font-semibold">$1,600</td>
+          <td><span class="badge badge-bull">+21%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">Monopoly on EUV lithography — irreplaceable for AI chips. Strong backlog through 2028.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">Alibaba</td>
+          <td class="font-mono text-gold-300">BABA</td>
+          <td>E-commerce / Cloud</td>
+          <td class="font-mono">$113.24</td>
+          <td class="font-mono text-gray-300">$115-125</td>
+          <td class="font-mono text-bull font-semibold">$160</td>
+          <td><span class="badge badge-bull">+31%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">China recovery play with expanding cloud AI business. Significant discount to intrinsic value.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">MercadoLibre</td>
+          <td class="font-mono text-gold-300">MELI</td>
+          <td>E-comm / Fintech</td>
+          <td class="font-mono">$1,978.36</td>
+          <td class="font-mono text-gray-300">$1,650-1,720</td>
+          <td class="font-mono text-bull font-semibold">$2,200</td>
+          <td><span class="badge badge-bull">+28%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">LatAm&#x27;s Amazon + PayPal. Massive fintech growth via Mercado Pago. Underpenetrated market.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold text-white">Apple</td>
+          <td class="font-mono text-gold-300">AAPL</td>
+          <td>Technology</td>
+          <td class="font-mono">$319.97</td>
+          <td class="font-mono text-gray-300">$245-258</td>
+          <td class="font-mono text-bull font-semibold">$300</td>
+          <td><span class="badge badge-bull">+17%</span></td>
+          <td class="text-xs max-w-xs whitespace-normal">Record services revenue, AI integration across products. Defensive mega-cap in volatile market.</td>
         </tr>
       </tbody>
     </table>
@@ -375,24 +375,24 @@ body{background:#050a14;overflow-x:hidden}
     <div>
       <h3 class="font-display text-lg font-semibold text-gold-400 mb-4">Gold Headlines</h3>
       <div class="space-y-3">
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.cnbc.com/2026/09/07/us-iran-war-trump-hormuz-israel-hezbollah-fighting-strikes-.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Mideast conflict escalates: Israel-Hezbollah clashes kill 11 after US-Iran strikes.</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CNBC &middot; 07 Sep</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.cnbc.com/2026/09/07/us-treasury-yields-markets-scott-bessent.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">US Treasury yields approach 4.8% test; fiscal risks loom, threatening other assets.</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CNBC &middot; 07 Sep</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.cnbc.com/2026/09/07/china-state-banks-lenders-insurers-capital-solvency-bankrupt-nim-.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">China injects $54B into banks, insurers; stocks still fall amid solvency concerns.</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CNBC &middot; 07 Sep</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.cnbc.com/2026/09/07/japan-foreign-reserves-yen-intervention.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Japan&#x27;s foreign reserves drop $80B in August after yen intervention.</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CNBC &middot; 07 Sep</p></div>
-        <div class="card-news"><p class="text-sm text-white font-medium"><a href="https://www.cnbc.com/2026/09/07/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition">Global stocks mixed as investors weigh renewed Middle East hostilities.</a></p><p class="text-[10px] text-gold-600 font-mono mt-1">CNBC &middot; 07 Sep</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Gold loses 15% from war highs as safe haven trade unwinds</p><p class="text-[10px] text-gold-600 font-mono mt-1">Bitcoin.com &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Gold overtakes U.S. Treasuries as world&#x27;s largest foreign reserve asset</p><p class="text-[10px] text-gold-600 font-mono mt-1">Economics &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Brazil cuts dollar holdings, adds 42 tons of gold as BRICS push grows</p><p class="text-[10px] text-gold-600 font-mono mt-1">WatcherGuru &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Kiyosaki recommends Bitcoin &amp; gold as 1974 shift comes full circle</p><p class="text-[10px] text-gold-600 font-mono mt-1">CoinTelegraph &middot; Apr</p></div>
+        <div class="card-news"><p class="text-sm text-white font-medium">Gold futures on Bursa Malaysia Derivatives expected to trade cautiously</p><p class="text-[10px] text-gold-600 font-mono mt-1">KLSEScreener &middot; Apr</p></div>
       </div>
     </div>
     <div>
       <h3 class="font-display text-lg font-semibold text-gold-400 mb-4">Gold Recommendation</h3>
       <div class="rec-box glow-gold-strong">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">$143.93/g</p><p class="text-xs text-gold-200/60 font-mono">RM 582.11/g</p><p class="text-[10px] text-gray-500 font-mono mt-1">$4,477/oz</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$4,460-4,490</p><p class="text-xs text-gold-200/60 font-mono">RM579.95 - RM583.85/g</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">$4,580-4,630</p><p class="text-xs text-gold-200/60 font-mono">RM595.55 - RM602.06/g</p></div>
-          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$4,420</p><p class="text-xs text-gold-200/60 font-mono">RM574.75/g</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-gold-300">$143.29/g</p><p class="text-xs text-gold-200/60 font-mono">RM 579.46/g</p><p class="text-[10px] text-gray-500 font-mono mt-1">$4,457/oz</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$4,400-4,650</p><p class="text-xs text-gold-200/60 font-mono">RM572.08 - RM604.58/g</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Target Price</p><p class="font-display text-xl font-bold text-bull">$5,000-5,400</p><p class="text-xs text-gold-200/60 font-mono">RM650.09 - RM702.09/g</p></div>
+          <div><p class="text-[10px] text-gold-600 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$4,100</p><p class="text-xs text-gold-200/60 font-mono">RM533.07/g</p></div>
         </div>
         <div class="mb-3"><span class="badge badge-bull">BULLISH Long-Term</span></div>
-        <p class="text-xs text-gray-300 leading-relaxed">Gold maintains a bullish long-term outlook amidst escalating geopolitical tensions and growing economic uncertainties. Renewed Middle East hostilities, specifically the Israel-Hezbollah clashes, are driving significant safe-haven demand, while US Treasury yields facing a 4.8% test due to fiscal risks add to market anxiety. Furthermore, China&#x27;s struggling financial sector, despite a $54 billion injection, and Japan&#x27;s record foreign reserve drop indicate broader global economic fragility and currency volatility, reinforcing gold&#x27;s appeal as a store of value. Investors are advised to accumulate gold on dips as these macro conditions provide strong fundamental support.</p>
+        <p class="text-xs text-gray-300 leading-relaxed">Gold pulled back 15% from January highs near $5,500. J.P. Morgan targets $5,055 by Q4 2026; Goldman Sachs targets $5,400; UBS sees $6,200. Central bank buying remains strong. Current pullback driven by unwinding of Middle East safe-haven trade. Dip-buying opportunity for medium-to-long-term investors.</p>
       </div>
     </div>
   </div>
@@ -441,10 +441,10 @@ body{background:#050a14;overflow-x:hidden}
       <h3 class="font-display text-lg font-semibold text-btc mb-4">Bitcoin Recommendation</h3>
       <div class="rec-box" style="border-color:rgba(247,147,26,.2)">
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">$79,370</p><p class="text-xs text-orange-300/60 font-mono">RM 321,013</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$64,000-67,000</p><p class="text-xs text-orange-300/60 font-mono">RM258,848 - RM270,982</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">$72,000-74,000</p><p class="text-xs text-orange-300/60 font-mono">RM291,204 - RM299,293</p></div>
-          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$60,000</p><p class="text-xs text-orange-300/60 font-mono">RM242,670</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Current Price</p><p class="font-display text-xl font-bold text-btc">$78,989</p><p class="text-xs text-orange-300/60 font-mono">RM 319,433</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Buy Zone</p><p class="font-display text-xl font-bold text-white">$64,000-67,000</p><p class="text-xs text-orange-300/60 font-mono">RM258,816 - RM270,948</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Short-Term Target</p><p class="font-display text-xl font-bold text-bull">$72,000-74,000</p><p class="text-xs text-orange-300/60 font-mono">RM291,168 - RM299,256</p></div>
+          <div><p class="text-[10px] text-gray-500 font-mono uppercase">Stop Loss</p><p class="font-display text-xl font-bold text-bear">$60,000</p><p class="text-xs text-orange-300/60 font-mono">RM242,640</p></div>
         </div>
         <div class="mb-3 flex gap-2 flex-wrap">
           <span class="badge badge-neutral">Neutral-Bearish (Short-Term)</span>
@@ -477,7 +477,7 @@ body{background:#050a14;overflow-x:hidden}
 <footer class="border-t border-gold-500/10 mt-8">
   <div class="max-w-7xl mx-auto px-4 py-8 text-center">
     <p class="text-xs text-gray-600 font-mono">Powered by <span class="text-gold-500">MuleRun Super Agent</span> &middot; AI Analysis by <span class="text-gold-500">Gemini</span></p>
-    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Reuters, CNBC, CoinTelegraph, CoinDesk &middot; Generated 2026-09-07 18:03:11 MYT</p>
+    <p class="text-[10px] text-gray-700 mt-2">Data sourced from Yahoo Finance, Reuters, CNBC, CoinTelegraph, CoinDesk &middot; Generated 2026-09-08 07:27:10 MYT</p>
   </div>
 </footer>
 
@@ -523,24 +523,24 @@ gsap.utils.toArray('.anim-card').forEach(function(el,i){gsap.from(el,{scrollTrig
 gsap.utils.toArray('.anim-section').forEach(function(el){gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},opacity:0,y:30,duration:.8,ease:'power2.out'})});
 document.querySelectorAll('[data-target]').forEach(function(el){var t=parseInt(el.dataset.target);ScrollTrigger.create({trigger:el,start:'top 90%',onEnter:function(){animateValue(el,0,t,1200)}});});
 var goldDates=["Aug 07", "Aug 10", "Aug 11", "Aug 12", "Aug 13", "Aug 14", "Aug 17", "Aug 18", "Aug 19", "Aug 20", "Aug 21", "Aug 24", "Aug 25", "Aug 26", "Aug 27", "Aug 28", "Aug 31", "Sep 01", "Sep 02", "Sep 03", "Sep 04", "Sep 07"];
-var goldPrices=[4340.7, 4361.8, 4383.0, 4408.9, 4363.6, 4380.4, 4417.8, 4366.0, 4489.4, 4516.3, 4624.1, 4640.8, 4638.1, 4598.2, 4609.7, 4478.1, 4431.1, 4348.0, 4366.3, 4491.7, 4429.8, 4476.6];
+var goldPrices=[4340.7, 4361.8, 4383.0, 4408.9, 4363.6, 4380.4, 4417.8, 4366.0, 4489.4, 4516.3, 4624.1, 4640.8, 4638.1, 4598.2, 4609.7, 4478.1, 4431.1, 4348.0, 4366.3, 4491.7, 4429.8, 4456.8];
 var goldChart=echarts.init(document.getElementById('goldChart'),null,{renderer:'svg'});
 goldChart.setOption({
   tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(245,158,11,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fde68a'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#fbbf24;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'/oz</div>'}},
   grid:{top:30,right:20,bottom:40,left:70,containLabel:false},
   xAxis:{type:'category',data:goldDates,axisLine:{lineStyle:{color:'rgba(245,158,11,.15)'}},axisLabel:{color:'rgba(251,191,36,.5)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
   yAxis:{type:'value',min:4123,max:4872,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(245,158,11,.06)'}},axisLabel:{color:'rgba(251,191,36,.4)',fontFamily:'JetBrains Mono',fontSize:10,formatter:'${value}'}},
-  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f59e0b',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,.35)'},{offset:.5,color:'rgba(245,158,11,.08)'},{offset:1,color:'rgba(245,158,11,0)'}])},data:goldPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(245,158,11,.3)',type:'dashed'},data:[{yAxis:4477,label:{formatter:'Current $4,477',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
+  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f59e0b',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,.35)'},{offset:.5,color:'rgba(245,158,11,.08)'},{offset:1,color:'rgba(245,158,11,0)'}])},data:goldPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(245,158,11,.3)',type:'dashed'},data:[{yAxis:4457,label:{formatter:'Current $4,457',color:'#fbbf24',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
 });
 var btcDates=["Aug 07", "Aug 08", "Aug 09", "Aug 10", "Aug 11", "Aug 12", "Aug 13", "Aug 14", "Aug 15", "Aug 16", "Aug 17", "Aug 18", "Aug 19", "Aug 20", "Aug 21", "Aug 22", "Aug 23", "Aug 24", "Aug 25", "Aug 26", "Aug 27", "Aug 28", "Aug 29", "Aug 30", "Aug 31", "Sep 01", "Sep 02", "Sep 03", "Sep 04", "Sep 05", "Sep 06", "Sep 07"];
-var btcPrices=[64880.19, 64904.69, 64844.89, 63910.59, 63551.88, 63402.43, 63402.17, 62975.59, 63024.32, 62818.65, 64506.25, 64680.71, 69266.19, 73032.76, 78335.19, 77083.41, 77755.27, 78964.48, 78564.98, 79027.42, 80257.54, 77830.29, 78245.81, 77667.57, 78548.63, 77403.62, 77300.48, 81271.74, 79671.97, 79823.87, 80350.05, 79370.19];
+var btcPrices=[64880.19, 64904.69, 64844.89, 63910.59, 63551.88, 63402.43, 63402.17, 62975.59, 63024.32, 62818.65, 64506.25, 64680.71, 69266.19, 73032.76, 78335.19, 77083.41, 77755.27, 78964.48, 78564.98, 79027.42, 80257.54, 77830.29, 78245.81, 77667.57, 78548.63, 77403.62, 77300.48, 81271.74, 79671.97, 79823.87, 80350.05, 78997.84];
 var btcChart=echarts.init(document.getElementById('btcChart'),null,{renderer:'svg'});
 btcChart.setOption({
   tooltip:{trigger:'axis',backgroundColor:'rgba(15,23,42,.95)',borderColor:'rgba(247,147,26,.3)',borderWidth:1,textStyle:{fontFamily:'JetBrains Mono',fontSize:12,color:'#fed7aa'},formatter:function(p){return '<div style="font-family:Space Grotesk;font-weight:600;color:#f7931a;margin-bottom:4px">'+p[0].axisValue+'</div><div style="font-family:JetBrains Mono;font-size:14px;color:#fff">$'+p[0].value.toLocaleString()+'</div>'}},
   grid:{top:30,right:20,bottom:40,left:80,containLabel:false},
   xAxis:{type:'category',data:btcDates,axisLine:{lineStyle:{color:'rgba(247,147,26,.15)'}},axisLabel:{color:'rgba(247,147,26,.4)',fontFamily:'JetBrains Mono',fontSize:10,rotate:45},axisTick:{show:false}},
   yAxis:{type:'value',min:56536,max:85335,axisLine:{show:false},splitLine:{lineStyle:{color:'rgba(247,147,26,.06)'}},axisLabel:{color:'rgba(247,147,26,.35)',fontFamily:'JetBrains Mono',fontSize:10,formatter:function(v){return '$'+Math.round(v/1000)+'K'}}},
-  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f7931a',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(247,147,26,.3)'},{offset:.5,color:'rgba(247,147,26,.06)'},{offset:1,color:'rgba(247,147,26,0)'}])},data:btcPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(247,147,26,.3)',type:'dashed'},data:[{yAxis:79370,label:{formatter:'Current $79,370',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
+  series:[{type:'line',smooth:true,symbol:'none',lineStyle:{color:'#f7931a',width:2.5},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(247,147,26,.3)'},{offset:.5,color:'rgba(247,147,26,.06)'},{offset:1,color:'rgba(247,147,26,0)'}])},data:btcPrices,markLine:{silent:true,symbol:'none',lineStyle:{color:'rgba(247,147,26,.3)',type:'dashed'},data:[{yAxis:78989,label:{formatter:'Current $78,989',color:'#f7931a',fontFamily:'JetBrains Mono',fontSize:10}}]}}]
 });
 window.addEventListener('resize',function(){goldChart.resize();btcChart.resize()});
 </script>
